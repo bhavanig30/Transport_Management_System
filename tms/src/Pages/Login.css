@@ -1,0 +1,131 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #00124D;
+    color: yellow; 
+    padding: 10px 20px;
+  }
+  
+  .header-content {
+    text-align: center;
+    flex-grow: 1;
+  }
+  
+  .header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .header p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .logo {
+    width: 80px; 
+    height: auto;
+  }
+  
+  .left-logo {
+    margin-left: 10px;
+  }
+  
+  .right-logo {
+    margin-right: 10px;
+  }
+
+  .login-container {
+    background: url("/public/Images/Nec.jpg") no-repeat center center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .login-box {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px 30px 30px 30px;
+    width: 350px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-box h1 {
+    color: #00124D;
+    margin-bottom: 20px;
+  }
+  
+  .login-box label {
+    display: block;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #00124D;
+  }
+  
+  input {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .login-button {
+    background: #00124D;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    margin-top: 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .login-button:hover {
+    background: #00124dbd;
+  }
+
+  .login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 110px;
+  }
+
+.stay-signed-in {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+  }
+  
+  .stay-signed-in input {
+    width: 18px;
+    height: 18px;
+    margin-top: 14px;
+  } 
+  
+  .stay-signed-in label{
+    margin-top: 7px;
+  }
+
+ .forgot-password {
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  
+  .forgot-password a {
+    color: blue;
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  
