@@ -1,6 +1,5 @@
 import React from "react";
-import Login from "./Pages/Login";
-
+import Login from "./Frontend/Pages/Login";
 function App() {
   return (
     <div>
