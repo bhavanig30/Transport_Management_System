@@ -8,7 +8,7 @@
 
 /* Apply background image to the entire page */
 body {
-    background: url("/public/images/Top_pic.jpg") no-repeat center center/cover;
+    background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -122,22 +122,4 @@ body {
 .ins-submit-button:hover {
     background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
     transform: scale(1.03);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .ins-form {
-        padding: 15px;
-        width: 90%;
-    }
-
-    .ins-header {
-        font-size: 20px;
-        height: 70px;
-    }
-
-    .ins-title {
-        font-size: 18px;
-        padding-bottom: 8px;
-    }
 }

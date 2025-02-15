@@ -6,7 +6,7 @@ const Login = () => {
     <div className="login-container">
       {/* Header Section */}
       <div className="header">
-        <img src="/public/images/NEC_LOGO.png" alt="Left Logo" className="logo left-logo" />
+        <img src="/Images/Logo.png" alt="Left Logo" className="logo left-logo" />
         <div className="header-content">
           <h1>National Engineering College</h1>
           <p>
@@ -17,7 +17,7 @@ const Login = () => {
             Phone: 04632 - 222502, 230227 | Email: principal@nec.edu.in | Web: www.nec.edu.in
           </p>
         </div>
-        <img src="./pu" alt="Right Logo" className="logo right-logo" />
+        <img src="/Images/Founder.jpg" alt="Right Logo" className="logo right-logo" />
       </div>
 
       {/* Login Box */}

@@ -4,18 +4,18 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Arial", sans-serif;
-}
-
-/* Apply background image to the entire page */
-body {
+  }
+  
+  /* Background Image */
+  body {
     background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
     height: 100vh;
     margin: 0;
     padding: 0;
-}
-
-/* Full Page Layout */
-.fc-form-container {
+  }
+  
+  /* Full Page Layout */
+  .traveller-form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,10 +23,10 @@ body {
     height: 100vh;
     padding: 30px 15px;
     position: relative;
-}
-
-/* Header */
-.fc-header {
+  }
+  
+  /* Header */
+  .traveller-header {
     width: 100%;
     height: 80px;
     background: linear-gradient(to right, #0057B8, #00C1D4);
@@ -42,12 +42,10 @@ body {
     position: absolute;
     top: 0;
     text-align: center;
-}
-
-
-
-/* Form Card */
-.fc-form {
+  }
+  
+  /* Form Card */
+  .traveller-form {
     background: #ffffff;
     padding: 25px;
     width: 100%;
@@ -59,10 +57,10 @@ body {
     margin-top: 100px;
     z-index: 2;
     text-align: center;
-}
-
-/* Form Title */
-.fc-title {
+  }
+  
+  /* Form Title */
+  .traveller-title {
     color: #0047AB;
     text-align: center;
     font-size: 22px;
@@ -71,25 +69,24 @@ body {
     text-transform: uppercase;
     padding-bottom: 10px;
     border-bottom: 2px solid #0047AB;
-}
-
-
-/* Form Inputs */
-.fc-form-group {
+  }
+  
+  /* Form Inputs */
+  .traveller-form-group {
     margin-bottom: 12px;
     text-align: left;
-}
-
-.fc-form-group label {
+  }
+  
+  .traveller-form-group label {
     display: block;
     font-weight: bold;
     color: #333;
     margin-bottom: 4px;
     font-size: 14px;
-}
-
-.fc-form-group input,
-.fc-form-group select {
+  }
+  
+  .traveller-form-group input,
+  .traveller-form-group select {
     width: 100%;
     padding: 8px;
     border: 1px solid rgba(0, 0, 0, 0.3);
@@ -98,17 +95,17 @@ body {
     background: rgba(0, 0, 0, 0.05);
     color: #333;
     transition: all 0.3s ease-in-out;
-}
-
-.fc-form-group input:focus,
-.fc-form-group select:focus {
+  }
+  
+  .traveller-form-group input:focus,
+  .traveller-form-group select:focus {
     border-color: #0047AB;
     outline: none;
     box-shadow: 0px 0px 6px rgba(0, 71, 171, 0.8);
-}
-
-/* Submit Button */
-.fc-submit-button {
+  }
+  
+  /* Submit Button */
+  .traveller-submit-button {
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
     border: none;
@@ -119,27 +116,10 @@ body {
     cursor: pointer;
     border-radius: 6px;
     transition: all 0.3s ease-in-out;
-}
-
-.fc-submit-button:hover {
+  }
+  
+  .traveller-submit-button:hover {
     background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
     transform: scale(1.03);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .fc-form {
-        padding: 15px;
-        width: 90%;
-    }
-
-    .fc-header {
-        font-size: 20px;
-        height: 70px;
-    }
-
-    .fc-title {
-        font-size: 18px;
-        padding-bottom: 8px;
-    }
-}
+  }
+  

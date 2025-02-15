@@ -8,7 +8,7 @@
 
 /* Apply background image to the entire page */
 body {
-  background: url("/public/images/Top_pic.jpg") no-repeat center center/cover;
+  background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
   height: 100vh;
   margin: 0;
   padding: 0;

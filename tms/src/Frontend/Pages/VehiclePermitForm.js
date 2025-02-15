@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./VehiclePermitForm.css"; // Ensure the correct CSS file is used
+import "./VehiclePermitForm.css";
 
 const VehiclePermitForm = () => {
   const [formData, setFormData] = useState({

@@ -6,7 +6,7 @@
     font-family: "Arial", sans-serif;
 }
 
-/* Apply background image to the entire page */
+/* Background Image */
 body {
     background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
     height: 100vh;
@@ -15,7 +15,7 @@ body {
 }
 
 /* Full Page Layout */
-.fc-form-container {
+.stage-form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,7 +26,7 @@ body {
 }
 
 /* Header */
-.fc-header {
+.stage-header {
     width: 100%;
     height: 80px;
     background: linear-gradient(to right, #0057B8, #00C1D4);
@@ -44,14 +44,12 @@ body {
     text-align: center;
 }
 
-
-
 /* Form Card */
-.fc-form {
+.stage-form {
     background: #ffffff;
     padding: 25px;
-    width: 100%;
-    max-width: 400px;
+    width: 90%;
+    max-width: 800px;
     border-radius: 12px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -62,7 +60,7 @@ body {
 }
 
 /* Form Title */
-.fc-title {
+.stage-title {
     color: #0047AB;
     text-align: center;
     font-size: 22px;
@@ -73,14 +71,21 @@ body {
     border-bottom: 2px solid #0047AB;
 }
 
+/* Row Layout */
+.stage-form-row {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
 
 /* Form Inputs */
-.fc-form-group {
-    margin-bottom: 12px;
+.stage-form-group {
+    flex: 1;
     text-align: left;
 }
 
-.fc-form-group label {
+.stage-form-group label {
     display: block;
     font-weight: bold;
     color: #333;
@@ -88,8 +93,7 @@ body {
     font-size: 14px;
 }
 
-.fc-form-group input,
-.fc-form-group select {
+.stage-form-group input {
     width: 100%;
     padding: 8px;
     border: 1px solid rgba(0, 0, 0, 0.3);
@@ -100,15 +104,14 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-.fc-form-group input:focus,
-.fc-form-group select:focus {
+.stage-form-group input:focus {
     border-color: #0047AB;
     outline: none;
     box-shadow: 0px 0px 6px rgba(0, 71, 171, 0.8);
 }
 
 /* Submit Button */
-.fc-submit-button {
+.stage-submit-button {
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
     border: none;
@@ -119,27 +122,10 @@ body {
     cursor: pointer;
     border-radius: 6px;
     transition: all 0.3s ease-in-out;
+    margin-top: 10px;
 }
 
-.fc-submit-button:hover {
+.stage-submit-button:hover {
     background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
     transform: scale(1.03);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .fc-form {
-        padding: 15px;
-        width: 90%;
-    }
-
-    .fc-header {
-        font-size: 20px;
-        height: 70px;
-    }
-
-    .fc-title {
-        font-size: 18px;
-        padding-bottom: 8px;
-    }
 }
