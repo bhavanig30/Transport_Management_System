@@ -11,7 +11,7 @@ import InsuranceForm from "./Frontend/Pages/InsuranceDetails";
 function App() {
   return (
     <div>
-      <DriverAllotmentForm />
+      <Login />
     </div>
   );
 }
