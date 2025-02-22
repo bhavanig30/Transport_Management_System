@@ -19,7 +19,7 @@ const Login = () => {
 
       if (data.success) {
         alert("Login Successful!");
-        window.location.href = "/home"; // Redirect to home page
+        window.location.href = "/Home"; // Redirect to home page
       } else {
         alert("Invalid Username or Password!");
       }

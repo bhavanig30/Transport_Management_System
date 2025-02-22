@@ -1,60 +1,28 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './home.css';
-import { FaBars, FaUserCircle, FaHome, FaListUl } from 'react-icons/fa'; // Importing icons
+import React from 'react';
+import './Home.css';
 
 const Home = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const navigate = useNavigate();
+    const handleClick = (page) => {
+        alert(`Navigating to ${page}`);
+    };
 
-  const handleLogout = () => {
-    setIsSidebarOpen(false);
-    navigate('/login');
-  };
-
-  return (
-    <div className="home-container">
-      {/* Header */}
-      <nav className="navbar">
-        <div className="navbar-left">
-          <h2>National Engineering College</h2>
-          <p>Transport Management System</p>
-        </div>
-
-        <div className="navbar-right">
-          <FaHome className="icon" title="Home" />
-          <FaListUl className="icon" title="Count" />
-          <div className="profile-icon" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-            A
-          </div>
-        </div>
-      </nav>
-
-      {/* Cards Section */}
-      <div className="cards-container">
-        {[
-          'Vehicle Details', 'Route Information', 'Driver Records',
-          'Cost Analysis', 'Driver Allotment', 'Vehicle Scheduling',
-          'Tracking System', 'Maintenance Logs', 'Fuel Consumption Report',
-          'Vehicle Status Overview', 'Driver Performance', 'Student Transport Details'
-        ].map((title, index) => (
-          <div key={index} className={`card ${index % 2 === 0 ? 'odd-card' : 'even-card'}`}>
-            <h3>{title}</h3>
-          </div>
-        ))}
-      </div>
-
-      {/* Sidebar */}
-      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
-        <button onClick={() => setIsSidebarOpen(false)} className="close-btn">✖</button>
-        <h3>Account</h3>
-        <button onClick={handleLogout} className="logout-btn">Logout</button>
-      </div>
-
-     
-      {isSidebarOpen && <div className="overlay" onClick={() => setIsSidebarOpen(false)}></div>}
-    </div>
-  );
+    return (
+        <>
+            <div className="home-header">
+                <h1>National Engineering College</h1>
+            </div>
+            <div className="home-container">
+                <div className="home-grid">
+                    <div className="home-box" onClick={() => handleClick('Vehicle Master')}>Vehicle Master</div>
+                    <div className="home-box" onClick={() => handleClick('Stage Master')}>Stage Master</div>
+                    <div className="home-box" onClick={() => handleClick('Route Master')}>Route Master</div>
+                    <div className="home-box" onClick={() => handleClick('Cost Master')}>Cost Master</div>
+                    <div className="home-box" onClick={() => handleClick('Driver Allotment')}>Driver Allotment</div>
+                    <div className="home-box" onClick={() => handleClick('Traveller Allotment')}>Traveller Allotment</div>
+                </div>
+            </div>
+        </>
+    );
 };
 
 export default Home;
