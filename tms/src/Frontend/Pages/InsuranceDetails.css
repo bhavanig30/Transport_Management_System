@@ -38,8 +38,23 @@ body {
     font-weight: bold;
     padding: 20px 15px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+.ins-header {
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px 15px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     border-radius: 0 0 12px 12px;
     position: absolute;
+    top: 0;
+    text-align: center;
+}    position: absolute;
     top: 0;
     text-align: center;
 }
