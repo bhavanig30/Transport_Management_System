@@ -1,5 +1,7 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Frontend/Pages/Login";
+<<<<<<< HEAD
 import FCForm from "./Frontend/Pages/FC";
 import TransactionDetails from "./Frontend/Pages/Transaction Details";
 import VehiclePermitForm from "./Frontend/Pages/VehiclePermitForm";
@@ -18,5 +20,21 @@ function App() {
     </div>
   );
 }
+=======
+import Home from "./Frontend/Pages/home";
+
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/Home" element={<Home />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;
+>>>>>>> 7d9ee86935f00b6995ffc024a3c8575e10672fdc
+
