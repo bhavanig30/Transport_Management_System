@@ -1,19 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Frontend/Pages/Login";
-import Home from "./Frontend/Pages/home";
+import Home from "./Frontend/Pages/Home";
+import VehicleMaster from "./Frontend/Pages/Vehicle Master/VehicleMaster";
+import VehiclePermitForm from "./Frontend/Pages/VehiclePermitForm";
+import VehicleMasterView from "./Frontend/Pages/Vehicle Master/VehicleMasterView";
+import VehicleMasterAdd from "./Frontend/Pages/Vehicle Master/VehicleMasterAdd";
 
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/Home" element={<Home />} />
-      </Routes>
-    </Router>
+    <VehicleMasterView />
   );
 };
 
 export default App;
-

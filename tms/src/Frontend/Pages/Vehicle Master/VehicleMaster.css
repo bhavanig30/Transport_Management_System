@@ -1,0 +1,143 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+}
+
+/* Background Image */
+body {
+    background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Full Page Layout */
+.vehicle-master-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 30px 15px;
+    position: relative;
+}
+
+/* Header */
+.vehicle-header {
+    
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 12px 12px;
+    position: absolute;
+    top: 0;
+    text-align: center;
+}
+
+/* Vehicle Master White Container */
+.vehicle-box-wrapper {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px; /* No change */
+    text-align: center;
+    margin-top: 120px;
+    position: relative;
+}
+
+/* Vehicle Title */
+.vehicle-title {
+    color: #0047AB;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #0047AB;
+}
+
+/* Buttons Container */
+.vehicle-options-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    width: 500px; /* No change */
+    height: auto;
+    margin-top: 30px;
+}
+
+/* Vehicle Selection Buttons - Increased Width */
+.vehicle-box {
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    color: white;
+    font-size: 26px;
+    padding: 24px;
+    margin: 12px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+    max-width: 700px; /* Increased width */
+    height: 80px;
+}
+
+/* Hover Effect */
+.vehicle-box:hover {
+    background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
+    transform: scale(1.05);
+}
+
+/* Submit Button - Increased Width */
+.vehicle-submit-button {
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    color: white;
+    border: none;
+    padding: 24px;
+    width: 100%;
+    max-width: 700px; /* Increased width */
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    margin-top: 20px;
+    height: 80px;
+}
+
+.vehicle-submit-button:hover {
+    background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .vehicle-options-container {
+        width: 90%;
+    }
+
+    .vehicle-box,
+    .vehicle-submit-button {
+        font-size: 24px;
+        padding: 40px;
+        height: 70px !important;
+        max-width: 500% !important; /* Ensures buttons scale properly */
+    }
+}
