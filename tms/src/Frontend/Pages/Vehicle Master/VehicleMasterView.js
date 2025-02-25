@@ -7,7 +7,7 @@ const VehicleMasterView = () => {
   const [regNo, setRegNo] = useState("");
 
   const vehicleTypes = ["A/C", "Non A/C"];
-  const vehicleIds = Array.from({ length: 10 }, (_, i) => `R00${i + 1}`);
+  const vehicleIds = Array.from({ length: 10 }, (_, i) => `V00${i + 1}`);
 
   return (
     <div className="vehicle-master-container">

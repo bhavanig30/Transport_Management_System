@@ -10,7 +10,7 @@ import VehicleMasterAdd from "./Frontend/Pages/Vehicle Master/VehicleMasterAdd";
 
 const App = () => {
   return (
-    <VehicleMasterView />
+    <VehicleMasterAdd />
   );
 };
 
