@@ -1,0 +1,238 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+}
+
+/* Background */
+.vehicle-page {
+    background: url("/public/Images/Nec.jpg") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding-top: 140px; 
+}
+
+/* Header */
+.vehicle-header {
+    width: 100%; /* Full width */
+    height: 80px !important; /* Adjusted height */
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 30px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 12px 12px;
+    position: relative;  
+    top: 20px; /* Moves the header down */
+    left: -20px !important; /* Move header slightly to the left */
+    z-index: 1000; /* Ensures it's above all content */
+    text-align: center;
+}
+
+.vehicle-page {
+    padding-top: 140px; /* Adjust according to the header height */
+}
+.vehicle-header {
+    margin-top: 2px; /* Moves it down */
+}
+/* White container */
+.vehicle-form-container {
+    background: white;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Title */
+.vehicle-main-title {
+    color: #0047AB;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* Title */
+.vehicle-title {
+    color: #0047AB;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    padding-bottom: 15px;
+    border-bottom: 4px solid #0047AB;
+}
+/* Two-column grid layout */
+.vehicle-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* Form fields */
+.vehicle-form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.vehicle-form-group label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.vehicle-form-group input,
+.vehicle-form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Submit Button */
+.vehicle-submit-button {
+    background: linear-gradient(to right,#0057B8, #00c6ff);
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    height: 50px;
+}
+
+.vehicle-submit-button:hover {
+    background: linear-gradient(to right, #0057B8, #009edc);
+}
+
+/* Responsive: Stack inputs on smaller screens */
+@media (max-width: 768px) {
+    .vehicle-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+/* Header */
+.vehicle-header {
+    width: 100%; /* Full width */
+    height: 80px; /* Reduced height for better visibility */
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 10px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 12px 12px;
+    position: fixed;  /* Fixes header at the top */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures it's above all content */
+    text-align: center;
+}
+
+/* White container */
+.vehicle-form-container {
+    background: white;
+    max-width: 900px;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Title */
+.vehicle-title {
+    color: #0047AB;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #0047AB;
+}
+
+/* Two-column grid layout */
+.vehicle-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* Form fields */
+.vehicle-form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.vehicle-form-group label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.vehicle-form-group input,
+.vehicle-form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Submit Button */
+.vehicle-submit-button {
+    background: linear-gradient(to right,#0057B8, #00c6ff);
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    height: 50px;
+}
+
+.vehicle-submit-button:hover {
+    background: linear-gradient(to right, #0057B8, #009edc);
+}
+
+/* Responsive: Stack inputs on smaller screens */
+@media (max-width: 768px) {
+    .vehicle-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
