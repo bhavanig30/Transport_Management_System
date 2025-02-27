@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import "./RouteMaster.css"; // Ensure the correct CSS file is used
+import axios from "axios"; // Import Axios
+import "./RouteMasterAdd.css"; // Ensure the correct CSS file is used
 
 const RouteMasterForm = () => {
   const [formData, setFormData] = useState({
     vehicleId: "",
-    routeNumber: "",
+    routeId: "",
     totalStages: "",
     startingStage: "",
     endingStage: "",
@@ -15,9 +16,25 @@ const RouteMasterForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Route Form Submitted", formData);
+    
+    try {
+      const response = await axios.post("http://localhost:5000/addRoute", formData);
+      alert(response.data.message);
+
+      // Reset form fields after successful submission
+      setFormData({
+        vehicleId: "",
+        routeId: "",
+        totalStages: "",
+        startingStage: "",
+        endingStage: "",
+      });
+    } catch (error) {
+      console.error("Error adding route:", error);
+      alert("Failed to add route. Please try again.");
+    }
   };
 
   return (
@@ -36,23 +53,25 @@ const RouteMasterForm = () => {
             placeholder="Enter Vehicle ID"
             value={formData.vehicleId}
             onChange={handleChange}
+            required
           />
         </div>
 
         <div className="route-form-group">
-          <label htmlFor="routeNumber">Route Number</label>
+          <label htmlFor="routeId">RouteId</label>
           <input
             type="text"
-            id="routeNumber"
-            name="routeNumber"
+            id="routeId"
+            name="routeId"
             placeholder="Enter Route Number"
-            value={formData.routeNumber}
+            value={formData.routeId}
             onChange={handleChange}
+            required
           />
         </div>
 
         <div className="route-form-group">
-          <label htmlFor="totalStages">Total No. of Stages</label>
+          <label htmlFor="totalStages">TotalStages</label>
           <input
             type="number"
             id="totalStages"
@@ -60,6 +79,7 @@ const RouteMasterForm = () => {
             placeholder="Enter Total Stages"
             value={formData.totalStages}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -72,6 +92,7 @@ const RouteMasterForm = () => {
             placeholder="Enter Starting Stage"
             value={formData.startingStage}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -84,6 +105,7 @@ const RouteMasterForm = () => {
             placeholder="Enter Ending Stage"
             value={formData.endingStage}
             onChange={handleChange}
+            required
           />
         </div>
 
