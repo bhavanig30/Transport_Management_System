@@ -113,7 +113,7 @@ app.get('/routes', (req, res) => {
 });
 
 // Function to generate the next vehicleId 
-/*async function generateVehicleId() {
+async function generateVehicleId() {
     return new Promise((resolve, reject) => {
         connection.query(
             "SELECT MAX(CAST(SUBSTRING(vehicleId, 2) AS UNSIGNED)) AS maxId FROM vehicle",
@@ -125,39 +125,6 @@ app.get('/routes', (req, res) => {
         );
     });
 }
-async function generateRouteId() {
-    return new Promise((resolve, reject) => {
-        connection.query(
-            "SELECT MAX(CAST(SUBSTRING(routeId, 2) AS UNSIGNED)) AS maxId FROM route",
-            (err, result) => {
-                if (err) reject(err);
-                const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
-                resolve(`r${nextId}`); // 'r' prefix for routeId
-            }
-        );
-    });
-}*/
-/*app.post('/addRoute', async (req, res) => {
-    console.log("Received Route Data:", req.body); // Debug log
-    
-    try {
-        const { vehicleId, routeId, totalStages, startingStage, endingStage } = req.body;
-
-        //const routeId = await generateRouteId();
-        const sql = "INSERT INTO route (vehicleId,routeId,totalStages, startingStage, endingStage) VALUES (?, ?, ?, ?, ?)";
-        
-        connection.query(sql, [vehicleId,routeId,totalStages, startingStage, endingStage], (err, result) => {
-            if (err) {
-                console.error("Database error:", err);
-                return res.status(500).json({ message: "Database error", error: err });
-            }
-            res.status(200).json({ message: "Route added successfully", routeId });
-        });
-    } catch (error) {
-        console.error("Server error:", error);
-        res.status(500).json({ message: "Server error", error });
-    }
-});
 */
 async function generateRouteId() {
     return new Promise((resolve, reject) => {
@@ -166,21 +133,23 @@ async function generateRouteId() {
             (err, result) => {
                 if (err) return reject(err);
                 const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
-                resolve(`R${nextId}`); // 'r' prefix for routeId
+                resolve(`R${nextId}`); // 'R' prefix for routeId
             }
         );
     });
 }
-app.post('/addRoute', async (req, res) => {
-    console.log("Received Route Data:", req.body); // Debug log
-    
+
+// API Endpoint to Add a New Route
+app.post("/addRoute", async (req, res) => {
+    console.log("Received Route Data:", req.body);
+
     try {
-        const { vehicleId, totalStages, startingStage, endingStage } = req.body;
-        const routeId = await generateRouteId(); // Auto-generate routeId
-        
-        const sql = "INSERT INTO route (routeId, vehicleId, totalStages, startingStage, endingStage) VALUES (?, ?, ?, ?, ?)";
-        
-        connection.query(sql, [routeId, vehicleId, totalStages, startingStage, endingStage], (err, result) => {
+        const { routeName, totalStages, startingStage, endingStage } = req.body;
+        const routeId = await generateRouteId();
+
+        const sql = "INSERT INTO route (routeId, routeName, totalStages, startingStage, endingStage) VALUES (?, ?, ?, ?, ?)";
+
+        connection.query(sql, [routeId, routeName, totalStages, startingStage, endingStage], (err, result) => {
             if (err) {
                 console.error("Database error:", err);
                 return res.status(500).json({ message: "Database error", error: err });
@@ -193,6 +162,22 @@ app.post('/addRoute', async (req, res) => {
         res.status(500).json({ message: "Server error", error });
     }
 });
+
+// API Endpoint to Get Existing Route Names for Dropdown
+app.get("/getRoutes", (req, res) => {
+    const sql = "SELECT routeName FROM route";
+    
+    connection.query(sql, (err, results) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ message: "Database error", error: err });
+        }
+        const routeNames = results.map((row) => row.routeName);
+        res.status(200).json(routeNames);
+    });
+});
+
+
 
 // Add a New Vehicle
 app.post('/addVehicle', async (req, res) => {
@@ -224,6 +209,41 @@ app.get('/vehicles', (req, res) => {
         res.json(results);
     });
 });
+
+
+app.post("/addPermit", (req, res) => {
+    const { permitId, vehicleId, permitNo, issueDate, expiryDate, permitType, status } = req.body;
+  
+    const insertPermitQuery = 
+      "INSERT INTO permit (permitId, vehicleId, permitNo, issueDate, expiryDate, permitType, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  
+      connection.query(insertPermitQuery, [permitId, vehicleId, permitNo, issueDate, expiryDate, permitType, status], (err, result) => {
+      if (err) {
+        console.error("Error inserting permit:", err);
+        return res.status(500).json({ message: "Failed to add permit. Please check your input." });
+      }
+      res.status(200).json({ message: "Permit added successfully!" });
+    });
+  });
+  
+  app.post("/addFC", (req, res) => {
+    const { fcId, vehicleId, fcNo, issueDate, expiryDate, status } = req.body;
+  
+    const insertFCQuery =
+      "INSERT INTO FC (fcId, vehicleId, fcNo, issueDate, expiryDate, status) VALUES (?, ?, ?, ?, ?, ?)";
+  
+    connection.query(
+      insertFCQuery,
+      [fcId, vehicleId, fcNo, issueDate, expiryDate, status],
+      (err, result) => {
+        if (err) {
+          console.error("Error inserting FC details:", err);
+          return res.status(500).json({ message: "Failed to add FC. Please check your input." });
+        }
+        res.status(200).json({ message: "FC details added successfully!" });
+      }
+    );
+  });
 
 // Start the Server
 const PORT = 5000;

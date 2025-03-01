@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"; // Import Axios
 import "./FC.css";
 
 const FCForm = () => {
@@ -16,98 +17,68 @@ const FCForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
+    
+    try {
+      const response = await axios.post("http://localhost:5000/addFC", formData);
+      alert(response.data.message);
+      setFormData({
+        fcId: "",
+        vehicleId: "",
+        fcNo: "",
+        issueDate: "",
+        expiryDate: "",
+        status: "",
+      });
+    } catch (error) {
+      console.error("Error adding FC details:", error);
+      alert("Failed to add FC details. Please try again.");
+    }
   };
 
   return (
     <div className="fc-form-container">
-      {/* VSS Header */}
-      <div className="vss-header">Vehicle Service System</div>
-
-      {/* FC Form Header */}
-      <div className="fc-header">National Engineering College</div>
-
       <header className="fc-header">National Engineering College</header>
+
       <form className="fc-form" onSubmit={handleSubmit}>
-      <h2 className="fc-title">FC Details</h2>
+        <h2 className="fc-title">FC Details</h2>
 
         <div className="fc-form-group">
-          <label htmlFor="fcId">FC ID</label>
-          <input
-            type="text"
-            id="fcId"
-            name="fcId"
-            placeholder="Enter FC ID"
-            value={formData.fcId}
-            onChange={handleChange}
-          />
+          <label>FC ID</label>
+          <input type="text" name="fcId" value={formData.fcId} onChange={handleChange} required />
         </div>
 
         <div className="fc-form-group">
-          <label htmlFor="vehicleId">Vehicle ID</label>
-          <input
-            type="text"
-            id="vehicleId"
-            name="vehicleId"
-            placeholder="Enter Vehicle ID"
-            value={formData.vehicleId}
-            onChange={handleChange}
-          />
+          <label>Vehicle ID</label>
+          <input type="text" name="vehicleId" value={formData.vehicleId} onChange={handleChange} required />
         </div>
 
         <div className="fc-form-group">
-          <label htmlFor="fcNo">FC Number</label>
-          <input
-            type="text"
-            id="fcNo"
-            name="fcNo"
-            placeholder="Enter FC Number"
-            value={formData.fcNo}
-            onChange={handleChange}
-          />
+          <label>FC Number</label>
+          <input type="text" name="fcNo" value={formData.fcNo} onChange={handleChange} required />
         </div>
 
         <div className="fc-form-group">
-          <label htmlFor="issueDate">Issue Date</label>
-          <input
-            type="date"
-            id="issueDate"
-            name="issueDate"
-            value={formData.issueDate}
-            onChange={handleChange}
-          />
+          <label>Issue Date</label>
+          <input type="date" name="issueDate" value={formData.issueDate} onChange={handleChange} required />
         </div>
 
         <div className="fc-form-group">
-          <label htmlFor="expiryDate">Expiry Date</label>
-          <input
-            type="date"
-            id="expiryDate"
-            name="expiryDate"
-            value={formData.expiryDate}
-            onChange={handleChange}
-          />
+          <label>Expiry Date</label>
+          <input type="date" name="expiryDate" value={formData.expiryDate} onChange={handleChange} required />
         </div>
 
         <div className="fc-form-group">
-          <label htmlFor="status">Status</label>
-          <select
-            id="status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-          >
+          <label>Status</label>
+          <select name="status" value={formData.status} onChange={handleChange} required>
             <option value="">Select Status</option>
             <option value="Active">Active</option>
             <option value="Expired">Expired</option>
           </select>
         </div>
 
-        <button type="submit" className="fc-submit-button">
-          Add
-        </button>
+        <button type="submit" className="fc-submit-button">Add FC</button>
       </form>
     </div>
   );

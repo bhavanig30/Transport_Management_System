@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios"; // Import Axios
 import "./VehiclePermitForm.css";
 
 const VehiclePermitForm = () => {
   const [formData, setFormData] = useState({
     permitId: "",
-    vehicleId: "",
+    vehicleId: "", // Foreign Key
     permitNo: "",
     issueDate: "",
     expiryDate: "",
@@ -17,107 +18,74 @@ const VehiclePermitForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Vehicle Permit Form Submitted", formData);
+    
+    try {
+      const response = await axios.post("http://localhost:5000/addPermit", formData);
+      alert(response.data.message);
+      setFormData({
+        permitId: "",
+        vehicleId: "",
+        permitNo: "",
+        issueDate: "",
+        expiryDate: "",
+        permitType: "",
+        status: "",
+      });
+    } catch (error) {
+      console.error("Error adding permit:", error);
+      alert("Failed to add permit. Please try again.");
+    }
   };
 
   return (
     <div className="vp-form-container">
-      {/* Header with College Name */}
-      <div className="vp-header">National Engineering College</div>
+      <header className="vp-header">National Engineering College</header>
 
-      {/* Form Card */}
       <form className="vp-form" onSubmit={handleSubmit}>
-        <div className="vp-title">Vehicle Permit Details</div>
+        <h2 className="vp-title">Vehicle Permit Details</h2>
 
         <div className="vp-form-group">
-          <label htmlFor="permitId">Permit ID</label>
-          <input
-            type="text"
-            id="permitId"
-            name="permitId"
-            placeholder="Enter Permit ID"
-            value={formData.permitId}
-            onChange={handleChange}
-          />
+          <label>Permit ID</label>
+          <input type="text" name="permitId" value={formData.permitId} onChange={handleChange} required />
         </div>
 
         <div className="vp-form-group">
-          <label htmlFor="vehicleId">Vehicle ID</label>
-          <input
-            type="text"
-            id="vehicleId"
-            name="vehicleId"
-            placeholder="Enter Vehicle ID"
-            value={formData.vehicleId}
-            onChange={handleChange}
-          />
+          <label>Vehicle ID</label>
+          <input type="text" name="vehicleId" value={formData.vehicleId} onChange={handleChange} required />
         </div>
 
         <div className="vp-form-group">
-          <label htmlFor="permitNo">Permit Number</label>
-          <input
-            type="text"
-            id="permitNo"
-            name="permitNo"
-            placeholder="Enter Permit Number"
-            value={formData.permitNo}
-            onChange={handleChange}
-          />
+          <label>Permit Number</label>
+          <input type="text" name="permitNo" value={formData.permitNo} onChange={handleChange} required />
         </div>
 
         <div className="vp-form-group">
-          <label htmlFor="issueDate">Issue Date</label>
-          <input
-            type="date"
-            id="issueDate"
-            name="issueDate"
-            value={formData.issueDate}
-            onChange={handleChange}
-          />
+          <label>Issue Date</label>
+          <input type="date" name="issueDate" value={formData.issueDate} onChange={handleChange} required />
         </div>
 
         <div className="vp-form-group">
-          <label htmlFor="expiryDate">Expiry Date</label>
-          <input
-            type="date"
-            id="expiryDate"
-            name="expiryDate"
-            value={formData.expiryDate}
-            onChange={handleChange}
-          />
+          <label>Expiry Date</label>
+          <input type="date" name="expiryDate" value={formData.expiryDate} onChange={handleChange} required />
         </div>
 
         <div className="vp-form-group">
-          <label htmlFor="permitType">Permit Type</label>
-          <input
-            type="text"
-            id="permitType"
-            name="permitType"
-            placeholder="Enter Permit Type"
-            value={formData.permitType}
-            onChange={handleChange}
-          />
+          <label>Permit Type</label>
+          <input type="text" name="permitType" value={formData.permitType} onChange={handleChange} required />
         </div>
 
         <div className="vp-form-group">
-          <label htmlFor="status">Status</label>
-          <select
-            id="status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-          >
+          <label>Status</label>
+          <select name="status" value={formData.status} onChange={handleChange} required>
             <option value="">Select Status</option>
             <option value="Active">Active</option>
             <option value="Expired">Expired</option>
           </select>
         </div>
 
-        <button type="submit" className="vp-submit-button">
-          Add Permit
-        </button>
+        <button type="submit" className="vp-submit-button">Add Permit</button>
       </form>
     </div>
   );

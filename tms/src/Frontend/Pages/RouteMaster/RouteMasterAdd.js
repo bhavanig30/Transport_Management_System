@@ -1,15 +1,30 @@
-import React, { useState } from "react";
-import axios from "axios"; // Import Axios
-import "./RouteMasterAdd.css"; // Ensure the correct CSS file is used
+import React, { useState, useEffect } from "react";
+import axios from "axios"; 
+import "./RouteMasterAdd.css"; 
 
 const RouteMasterForm = () => {
   const [formData, setFormData] = useState({
-    vehicleId: "",
     routeId: "",
+    routeName: "",
     totalStages: "",
     startingStage: "",
     endingStage: "",
   });
+
+  const [routeNames, setRouteNames] = useState([]); // Store fetched route names
+
+  // Fetch route names on component mount
+  useEffect(() => {
+    const fetchRoutes = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/getRoutes");
+        setRouteNames(response.data); // Store route names in state
+      } catch (error) {
+        console.error("Error fetching routes:", error);
+      }
+    };
+    fetchRoutes();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,10 +38,10 @@ const RouteMasterForm = () => {
       const response = await axios.post("http://localhost:5000/addRoute", formData);
       alert(response.data.message);
 
-      // Reset form fields after successful submission
+      // Reset form fields
       setFormData({
-        vehicleId: "",
         routeId: "",
+        routeName: "",
         totalStages: "",
         startingStage: "",
         endingStage: "",
@@ -45,25 +60,12 @@ const RouteMasterForm = () => {
         <div className="route-title">Route Master Form</div>
 
         <div className="route-form-group">
-          <label htmlFor="vehicleId">Vehicle ID</label>
-          <input
-            type="text"
-            id="vehicleId"
-            name="vehicleId"
-            placeholder="Enter Vehicle ID"
-            value={formData.vehicleId}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="route-form-group">
-          <label htmlFor="routeId">RouteId</label>
+          <label htmlFor="routeId">Route ID</label>
           <input
             type="text"
             id="routeId"
             name="routeId"
-            placeholder="Enter Route Number"
+            placeholder="Enter Route ID"
             value={formData.routeId}
             onChange={handleChange}
             required
@@ -71,7 +73,25 @@ const RouteMasterForm = () => {
         </div>
 
         <div className="route-form-group">
-          <label htmlFor="totalStages">TotalStages</label>
+          <label htmlFor="routeName">Route Name</label>
+          <select
+            id="routeName"
+            name="routeName"
+            value={formData.routeName}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Route Name</option>
+            {routeNames.map((route, index) => (
+              <option key={index} value={route.routeName}>
+                {route.routeName}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="route-form-group">
+          <label htmlFor="totalStages">Total No. of Stages</label>
           <input
             type="number"
             id="totalStages"
