@@ -1,26 +1,27 @@
 import React from "react";
-import "./VehicleMaster.css"; // Importing the CSS file
+import { useNavigate } from "react-router-dom";
+import "./VehicleMaster.css"; // Importing CSS
 
 const VehicleMaster = () => {
-  const handleNavigation = (formName) => {
-    alert(`Open ${formName} form`); // Replace this with actual form navigation logic
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path); // Directly navigate to the path
   };
 
   return (
     <div className="vehicle-master-container">
-      {/* Updated Header */}
       <div className="vehicle-header">National Engineering College</div>
 
-      {/* White Container with Buttons */}
       <div className="vehicle-options-container">
         <h2 className="vehicle-title">Vehicle Master</h2>
 
         <div className="vehicle-options">
-          <div className="vehicle-box" onClick={() => handleNavigation("View")}>View</div>
-          <div className="vehicle-box" onClick={() => handleNavigation("Add")}>Add</div>
-          <div className="vehicle-box" onClick={() => handleNavigation("Vehicle Permit Form")}>Vehicle Permit Form</div>
-          <div className="vehicle-box" onClick={() => handleNavigation("Insurance Details")}>Insurance Details</div>
-          <div className="vehicle-box" onClick={() => handleNavigation("FC Details")}>FC Details</div>
+          <div className="vehicle-box" onClick={() => handleNavigation("/vehicle-master/view")}>View</div>
+          <div className="vehicle-box" onClick={() => handleNavigation("/vehicle-master/add")}>Add</div>
+          <div className="vehicle-box" onClick={() => handleNavigation("/vehicle-master/permit")}>Vehicle Permit Form</div>
+          <div className="vehicle-box" onClick={() => handleNavigation("/vehicle-master/insurance")}>Insurance Details</div>
+          <div className="vehicle-box" onClick={() => handleNavigation("/vehicle-master/fc")}>FC Details</div>
         </div>
       </div>
     </div>

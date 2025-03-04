@@ -1,28 +1,34 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
-    const handleClick = (page) => {
-        alert(`Navigating to ${page}`);
-    };
+  const navigate = useNavigate();
 
-    return (
-        <>
-            <div className="home-header">
-                <h1>National Engineering College</h1>
-            </div>
-            <div className="home-container">
-                <div className="home-grid">
-                    <div className="home-box" onClick={() => handleClick('Vehicle Master')}>Vehicle Master</div>
-                    <div className="home-box" onClick={() => handleClick('Stage Master')}>Stage Master</div>
-                    <div className="home-box" onClick={() => handleClick('Route Master')}>Route Master</div>
-                    <div className="home-box" onClick={() => handleClick('Cost Master')}>Cost Master</div>
-                    <div className="home-box" onClick={() => handleClick('Driver Allotment')}>Driver Allotment</div>
-                    <div className="home-box" onClick={() => handleClick('Traveller Allotment')}>Traveller Allotment</div>
-                </div>
-            </div>
-        </>
-    );
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
+  const handleLogout = () => {
+    navigate('/'); 
+  };
+
+  return (
+    <>
+      <div className="home-header">
+        <h1 className="home-title">National Engineering College</h1>
+        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+      </div>
+      <div className="home-grid">
+        <div className="home-box" onClick={() => handleNavigation("/vehicle-master")}>Vehicle Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/stage-master")}>Stage Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/route-master")}>Route Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/cost-master")}>Cost Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/driver-allotment")}>Driver Allotment</div>
+        <div className="home-box" onClick={() => handleNavigation("/traveller-allotment")}>Traveller Allotment</div>
+      </div>
+    </>
+  );
 };
 
 export default Home;
