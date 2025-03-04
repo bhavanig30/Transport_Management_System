@@ -28,14 +28,14 @@ async function generateStageId() {
             (err, result) => {
                 if (err) reject(err);
                 const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
-                resolve(`s${nextId}`);
+                resolve(`S${nextId}`);
             }
         );
     });
 }
 
 // Add a New Stage
-app.post('/stages', async (req, res) => {
+app.post('/addStage', async (req, res) => {
     try {
         const { stageName, arrivalTime, departureTime, fees } = req.body;
         if (!stageName || !arrivalTime || !departureTime || !fees) {
@@ -56,7 +56,7 @@ app.post('/stages', async (req, res) => {
 });
 
 // Get All Stages
-app.get('/stages', (req, res) => {
+app.get('/getStage', (req, res) => {
     connection.query("SELECT * FROM stage", (err, results) => {
         if (err) {
             console.error("Error fetching stages:", err);
@@ -74,14 +74,14 @@ async function generateRouteId() {
             (err, result) => {
                 if (err) reject(err);
                 const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
-                resolve(`r${nextId}`);
+                resolve(`R${nextId}`);
             }
         );
     });
 }
 
 // Add a New Route
-/*app.post('/routes', async (req, res) => {
+app.post('/addRoute', async (req, res) => {
     try {
         const { routeName, totalStages, startingStage, endingStage } = req.body;
         if (!routeName || !totalStages || !startingStage || !endingStage) {
@@ -102,7 +102,7 @@ async function generateRouteId() {
 });
 
 // Get All Routes
-app.get('/routes', (req, res) => {
+app.get('/getRoute', (req, res) => {
     connection.query("SELECT * FROM route", (err, results) => {
         if (err) {
             console.error("Error fetching routes:", err);
@@ -125,43 +125,6 @@ async function generateVehicleId() {
         );
     });
 }
-*/
-async function generateRouteId() {
-    return new Promise((resolve, reject) => {
-        connection.query(
-            "SELECT MAX(CAST(SUBSTRING(routeId, 2) AS UNSIGNED)) AS maxId FROM route",
-            (err, result) => {
-                if (err) return reject(err);
-                const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
-                resolve(`R${nextId}`); // 'R' prefix for routeId
-            }
-        );
-    });
-}
-
-// API Endpoint to Add a New Route
-app.post("/addRoute", async (req, res) => {
-    console.log("Received Route Data:", req.body);
-
-    try {
-        const { routeName, totalStages, startingStage, endingStage } = req.body;
-        const routeId = await generateRouteId();
-
-        const sql = "INSERT INTO route (routeId, routeName, totalStages, startingStage, endingStage) VALUES (?, ?, ?, ?, ?)";
-
-        connection.query(sql, [routeId, routeName, totalStages, startingStage, endingStage], (err, result) => {
-            if (err) {
-                console.error("Database error:", err);
-                return res.status(500).json({ message: "Database error", error: err });
-            }
-            res.status(200).json({ message: "Route added successfully", routeId });
-        });
-
-    } catch (error) {
-        console.error("Server error:", error);
-        res.status(500).json({ message: "Server error", error });
-    }
-});
 
 // API Endpoint to Get Existing Route Names for Dropdown
 app.get("/getRoutes", (req, res) => {
@@ -200,7 +163,7 @@ app.post('/addVehicle', async (req, res) => {
 });
 
 // Get All Vehicles
-app.get('/vehicles', (req, res) => {
+app.get('/getVehicle', (req, res) => {
     connection.query("SELECT * FROM vehicle", (err, results) => {
         if (err) {
             console.error("Error fetching vehicles:", err);
@@ -210,40 +173,99 @@ app.get('/vehicles', (req, res) => {
     });
 });
 
-
-app.post("/addPermit", (req, res) => {
-    const { permitId, vehicleId, permitNo, issueDate, expiryDate, permitType, status } = req.body;
-  
-    const insertPermitQuery = 
-      "INSERT INTO permit (permitId, vehicleId, permitNo, issueDate, expiryDate, permitType, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
-  
-      connection.query(insertPermitQuery, [permitId, vehicleId, permitNo, issueDate, expiryDate, permitType, status], (err, result) => {
-      if (err) {
-        console.error("Error inserting permit:", err);
-        return res.status(500).json({ message: "Failed to add permit. Please check your input." });
-      }
-      res.status(200).json({ message: "Permit added successfully!" });
+async function generateVehicleId() {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            "SELECT MAX(CAST(SUBSTRING(vehicleId, 2) AS UNSIGNED)) AS maxId FROM vehicle",
+            (err, result) => {
+                if (err) reject(err);
+                const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
+                resolve(`v${nextId}`);
+            }
+        );
     });
-  });
-  
-  app.post("/addFC", (req, res) => {
-    const { fcId, vehicleId, fcNo, issueDate, expiryDate, status } = req.body;
-  
-    const insertFCQuery =
-      "INSERT INTO FC (fcId, vehicleId, fcNo, issueDate, expiryDate, status) VALUES (?, ?, ?, ?, ?, ?)";
-  
-    connection.query(
-      insertFCQuery,
-      [fcId, vehicleId, fcNo, issueDate, expiryDate, status],
-      (err, result) => {
+}
+
+app.get("/getVehicleIds", (req, res) => {
+    const sql = "SELECT vehicleId FROM vehicle";
+    
+    connection.query(sql, (err, results) => {
         if (err) {
-          console.error("Error inserting FC details:", err);
-          return res.status(500).json({ message: "Failed to add FC. Please check your input." });
+            console.error("Error fetching vehicle IDs:", err);
+            return res.status(500).json({ message: "Database error" });
         }
-        res.status(200).json({ message: "FC details added successfully!" });
-      }
-    );
-  });
+        res.status(200).json(results.map(row => row.vehicleId)); // Send only IDs
+    });
+});
+
+/*async function generateFcId() {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            "SELECT MAX(CAST(SUBSTRING(fcId, 2) AS UNSIGNED)) AS maxId FROM fc",
+            (err, result) => {
+                if (err) return reject(err);
+                const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
+                const newFcId = `F${String(nextId).padStart(3, "0")}`; // Ensure format like F003
+                console.log("Generated FC ID:", newFcId);
+                resolve(newFcId);
+            }
+        );
+    });
+}*/
+async function generateFcId() {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            "SELECT MAX(CAST(SUBSTRING(fcId, 3) AS UNSIGNED)) AS maxId FROM fc",
+            (err, result) => {
+                if (err) return reject(err);
+                
+                const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
+                const newFcId = `FC${String(nextId).padStart(3, "0")}`; // Ensures format FC001, FC002, FC003
+                console.log("Generated FC ID:", newFcId);
+                resolve(newFcId);
+            }
+        );
+    });
+}
+// Add a new FC record
+app.post("/addFC", async (req, res) => {
+    try {
+        const { vehicleId, fcNo, issueDate, expiryDate, status } = req.body;
+
+        // Validate required fields
+        if (!vehicleId || !fcNo || !issueDate || !expiryDate || !status) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const fcId = await generateFcId();
+        
+        connection.query(
+            "INSERT INTO fc (fcId, vehicleId, fcNo, issueDate, expiryDate, status) VALUES (?, ?, ?, ?, ?, ?)",
+            [fcId, vehicleId, fcNo, issueDate, expiryDate, status],
+            (err, result) => {
+                if (err) {
+                    console.error("Database error:", err);
+                    return res.status(500).json({ message: "Database error", error: err });
+                }
+                res.status(200).json({ message: "FC added successfully", fcId });
+            }
+        );
+    } catch (error) {
+        console.error("Server error:", error);
+        res.status(500).json({ message: "Server error", error });
+    }
+});
+
+// Get all FC records
+app.get("/getFC", (req, res) => {
+    connection.query("SELECT * FROM fc", (err, results) => {
+        if (err) {
+            console.error("Error fetching FC records:", err);
+            return res.status(500).json({ message: "Failed to fetch FC records" });
+        }
+        res.json(results);
+    });
+});
 
 // Start the Server
 const PORT = 5000;

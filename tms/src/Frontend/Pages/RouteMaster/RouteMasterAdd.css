@@ -121,3 +121,35 @@ body {
     background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
     transform: scale(1.03);
 }
+
+/* Dropdown Styling */
+.route-form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+/* Focus Effect */
+.route-form-group select:focus {
+    border-color: #0047AB;
+    outline: none;
+    box-shadow: 0px 0px 6px rgba(0, 71, 171, 0.8);
+}
+
+/* Option Styling */
+.route-form-group select option {
+    background: white;
+    color: #333;
+    font-size: 12px;
+}
+
+/* Disabled Option */
+.route-form-group select option:disabled {
+    color: gray;
+}
