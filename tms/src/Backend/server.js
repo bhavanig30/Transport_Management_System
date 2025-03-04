@@ -198,20 +198,6 @@ app.get("/getVehicleIds", (req, res) => {
     });
 });
 
-/*async function generateFcId() {
-    return new Promise((resolve, reject) => {
-        connection.query(
-            "SELECT MAX(CAST(SUBSTRING(fcId, 2) AS UNSIGNED)) AS maxId FROM fc",
-            (err, result) => {
-                if (err) return reject(err);
-                const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
-                const newFcId = `F${String(nextId).padStart(3, "0")}`; // Ensure format like F003
-                console.log("Generated FC ID:", newFcId);
-                resolve(newFcId);
-            }
-        );
-    });
-}*/
 async function generateFcId() {
     return new Promise((resolve, reject) => {
         connection.query(
@@ -227,6 +213,7 @@ async function generateFcId() {
         );
     });
 }
+
 // Add a new FC record
 app.post("/addFC", async (req, res) => {
     try {

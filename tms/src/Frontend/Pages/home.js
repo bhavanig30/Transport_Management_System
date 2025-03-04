@@ -5,57 +5,27 @@ import './Home.css';
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleClick = (page) => {
-    switch (page) {
-      case 'Vehicle Master':
-        navigate('/vehicle-master');
-        break;
-      case 'Stage Master':
-        navigate('/stage-master');
-        break;
-      case 'Route Master':
-        navigate('/route-master');
-        break;
-      case 'Cost Master':
-        navigate('/cost-master');
-        break;
-      case 'Driver Allotment':
-        navigate('/driver-allotment');
-        break;
-      case 'Traveller Allotment':
-        navigate('/traveller-allotment');
-        break;
-      default:
-        break;
-    }
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
+  const handleLogout = () => {
+    navigate('/'); 
   };
 
   return (
     <>
       <div className="home-header">
-        <h1>National Engineering College</h1>
+        <h1 className="home-title">National Engineering College</h1>
+        <button className="logout-btn" onClick={handleLogout}>Logout</button>
       </div>
-      <div className="home-container">
-        <div className="home-grid">
-          <div className="home-box" onClick={() => handleClick('Vehicle Master')}>
-            Vehicle Master
-          </div>
-          <div className="home-box" onClick={() => handleClick('Stage Master')}>
-            Stage Master
-          </div>
-          <div className="home-box" onClick={() => handleClick('Route Master')}>
-            Route Master
-          </div>
-          <div className="home-box" onClick={() => handleClick('Cost Master')}>
-            Cost Master
-          </div>
-          <div className="home-box" onClick={() => handleClick('Driver Allotment')}>
-            Driver Allotment
-          </div>
-          <div className="home-box" onClick={() => handleClick('Traveller Allotment')}>
-            Traveller Allotment
-          </div>
-        </div>
+      <div className="home-grid">
+        <div className="home-box" onClick={() => handleNavigation("/vehicle-master")}>Vehicle Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/stage-master")}>Stage Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/route-master")}>Route Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/cost-master")}>Cost Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/driver-allotment")}>Driver Allotment</div>
+        <div className="home-box" onClick={() => handleNavigation("/traveller-allotment")}>Traveller Allotment</div>
       </div>
     </>
   );
