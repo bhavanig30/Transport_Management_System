@@ -12,6 +12,9 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Full Page Layout */
@@ -21,13 +24,13 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    padding: 30px 15px;
+    padding: 30px;
     position: relative;
+    width: 100%;
 }
 
 /* Header */
 .vehicle-header {
-    
     background: linear-gradient(to right, #0057B8, #00C1D4);
     display: flex;
     align-items: center;
@@ -40,26 +43,31 @@ body {
     position: absolute;
     top: 0;
     text-align: center;
+    width: 100%;
+    height: 60px;
 }
 
 /* Vehicle Master White Container */
-.vehicle-box-wrapper {
+.vehicle-options-container {
     background: white;
-    padding: 30px;
+    padding: 25px; /* Slightly reduced padding */
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 500px; /* No change */
+    width: 450px; 
     text-align: center;
-    margin-top: 120px;
+    margin-top: 100px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 
 /* Vehicle Title */
 .vehicle-title {
     color: #0047AB;
     text-align: center;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
     margin-bottom: 20px;
     text-transform: uppercase;
@@ -67,36 +75,31 @@ body {
     border-bottom: 3px solid #0047AB;
 }
 
-/* Buttons Container */
-.vehicle-options-container {
+/* Vehicle Selection Buttons */
+.vehicle-options {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    width: 500px; /* No change */
-    height: auto;
-    margin-top: 30px;
 }
 
-/* Vehicle Selection Buttons - Increased Width */
 .vehicle-box {
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
-    font-size: 26px;
-    padding: 24px;
-    margin: 12px 0;
+    font-size: 24px;
+    padding: 18px;
+    margin: 10px 0;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     text-align: center;
     font-weight: bold;
     width: 100%;
-    max-width: 700px; /* Increased width */
-    height: 80px;
+    max-width: 380px; /* Ensures equal spacing on both sides */
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Hover Effect */
@@ -105,21 +108,24 @@ body {
     transform: scale(1.05);
 }
 
-/* Submit Button - Increased Width */
+/* Submit Button */
 .vehicle-submit-button {
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
     border: none;
-    padding: 24px;
+    padding: 18px;
     width: 100%;
-    max-width: 700px; /* Increased width */
-    font-size: 26px;
+    max-width: 380px; /* Ensures equal spacing on both sides */
+    height: 65px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
     border-radius: 10px;
     transition: all 0.3s ease-in-out;
     margin-top: 20px;
-    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .vehicle-submit-button:hover {
@@ -135,9 +141,10 @@ body {
 
     .vehicle-box,
     .vehicle-submit-button {
-        font-size: 24px;
-        padding: 40px;
-        height: 70px !important;
-        max-width: 500% !important; /* Ensures buttons scale properly */
+        font-size: 22px;
+        padding: 18px;
+        height: 65px;
+        width: 100%;
+        max-width: 360px;
     }
 }
