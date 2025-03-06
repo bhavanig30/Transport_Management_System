@@ -21,8 +21,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    padding: 30px 15px;
+    height: 100vh; /* Kept the same */
+    width: 100vw;
+    padding: 40px 15px; /* Slightly more padding */
     position: relative;
   }
   
@@ -30,7 +31,7 @@
   .traveller-header {
     width: 110%; /* Increase width */
     min-width: 100vw; /* Ensure it spans the full viewport */
-    height: 90px; /* Increase height */
+    height: 100px; /* Increase height */
     background: linear-gradient(to right, #0057B8, #00C1D4);
     display: flex;
     align-items: center;

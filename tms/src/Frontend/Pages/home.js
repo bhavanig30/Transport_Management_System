@@ -20,12 +20,12 @@ const Home = () => {
         <button className="logout-btn" onClick={handleLogout}>Logout</button>
       </div>
       <div className="home-grid">
-        <div className="home-box" onClick={() => handleNavigation("/vehicle-master")}>Vehicle Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/home/vehicle-master")}>Vehicle Master</div>
         <div className="home-box" onClick={() => handleNavigation("/stage-master")}>Stage Master</div>
         <div className="home-box" onClick={() => handleNavigation("/route-master")}>Route Master</div>
         <div className="home-box" onClick={() => handleNavigation("/cost-master")}>Cost Master</div>
-        <div className="home-box" onClick={() => handleNavigation("/driver-allotment")}>Driver Allotment</div>
-        <div className="home-box" onClick={() => handleNavigation("/traveller-allotment")}>Traveller Allotment</div>
+        <div className="home-box" onClick={() => handleNavigation("/home/driver-allotment")}>Driver Allotment</div>
+        <div className="home-box" onClick={() => handleNavigation("/home/traveller-allotment")}>Traveller Allotment</div>
       </div>
     </>
   );
