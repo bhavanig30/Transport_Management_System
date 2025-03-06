@@ -9,10 +9,12 @@ import StageMasterForm from "./Frontend/Pages/StageMaster";
 import Home from "./Frontend/Pages/Home";
 import FCForm from "./Frontend/Pages/Vehicle Master/FC";
 import PermitForm from "./Frontend/Pages/Vehicle Master/VehiclePermitForm";
-
+import TransactionDetails from "./Frontend/Pages/Transaction Details";
+import TravellerAllotment from "./Frontend/Pages/TravellerAllotment";
+import InsuranceForm from "./Frontend/Pages/InsuranceDetails";
 const App = () => {
   return (
-    <Router>
+    /*<Router>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
@@ -24,7 +26,8 @@ const App = () => {
         <Route path="/route-master" element={<RouteMasterForm />} />
         <Route path="/stage-master" element={<StageMasterForm />} />
       </Routes>
-    </Router>
+    </Router>*/
+    <InsuranceForm />
   );
 };
 
