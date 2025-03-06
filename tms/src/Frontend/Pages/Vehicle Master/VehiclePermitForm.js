@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./VehiclePermitForm.css"
 
 const PermitForm = () => {
   const [vehicleIds, setVehicleIds] = useState([]);
