@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./VehiclePermitForm.css"
+import "../../../styles/AddPermit.css"
 
-const PermitForm = () => {
+const AddPermit = () => {
   const [vehicleIds, setVehicleIds] = useState([]);
   const [formData, setFormData] = useState({
     permitId: "",
@@ -76,4 +76,4 @@ const PermitForm = () => {
   );
 };
 
-export default PermitForm;
+export default AddPermit;

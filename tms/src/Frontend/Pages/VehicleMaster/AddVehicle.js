@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";  // Import Axios
-import "./VehicleMasterAdd.css";
+import "../../styles/AddVehicle.css";
 
-const VehicleMasterAdd = () => {
+const AddVehicle = () => {
     const [vehicleData, setVehicleData] = useState({
         vehicleType: "",
         seatCapacity: "",
@@ -122,4 +122,4 @@ const VehicleMasterAdd = () => {
     );
 };
 
-export default VehicleMasterAdd;
+export default AddVehicle;

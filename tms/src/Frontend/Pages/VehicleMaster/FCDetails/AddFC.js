@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./FC.css"; // Ensure correct CSS file is used
+import "../../../styles/AddFC.css"; // Ensure correct CSS file is used
 
-const FCForm = () => {
+const AddFC = () => {
   const [formData, setFormData] = useState({
     fcId: "",
     vehicleId: "",
@@ -117,4 +117,4 @@ const FCForm = () => {
   );
 };
 
-export default FCForm;
+export default AddFC;

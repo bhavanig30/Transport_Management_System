@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./StageMaster.css"; // Ensure the correct CSS file is used
+import "../../styles/AddStage.css"; // Ensure the correct CSS file is used
 
-const StageMasterForm = () => {
+const AddStage = () => {
   const [formData, setFormData] = useState({
     stageName: "",
     arrivalTime: "",
@@ -95,11 +95,11 @@ const StageMasterForm = () => {
         </div>
 
         <button type="submit" className="stage-submit-button">
-          Add 
+          Add Stage
         </button>
       </form>
     </div>
   );
 };
 
-export default StageMasterForm;
+export default AddStage;

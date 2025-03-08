@@ -4,48 +4,51 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Arial", sans-serif;
-}
-
-/* Background */
-body {
+  }
+  
+  /* Background Image */
+  body {
     background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
     height: 100vh;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-}
-
-/* Full Page Layout */
-.stage-form-container {
+  }
+  
+  /* Full Page Layout */
+  .traveller-form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Full viewport height */
-    width: 100vw; /* Full viewport width */
-    padding: 40px 15px;
+    height: 100vh; /* Kept the same */
+    width: 100vw;
+    padding: 40px 15px; /* Slightly more padding */
     position: relative;
-}
-
-/* Header */
-.stage-header {
+  }
+  
+  /* Header */
+  .traveller-header {
+    width: 110%; /* Increase width */
+    min-width: 100vw; /* Ensure it spans the full viewport */
+    height: 100px; /* Increase height */
+    background: linear-gradient(to right, #0057B8, #00C1D4);
     display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  height: 80px;
-  background: linear-gradient(to right, #0057B8, #00C1D4);
-  color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  border-radius: 0 0 15px 15px;
-}
-
-/* Form Card */
-.stage-form {
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 26px; /* Slightly larger text */
+    font-weight: bold;
+    padding: 25px 20px; /* Increase padding */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 15px 15px;
+    position: absolute;
+    top: 0;
+    text-align: center;
+  }
+  
+  /* Form Card */
+  .traveller-form {
     background: #ffffff;
     padding: 25px;
     width: 100%;
@@ -57,10 +60,10 @@ body {
     margin-top: 100px;
     z-index: 2;
     text-align: center;
-}
-
-/* Form Title */
-.stage-title {
+  }
+  
+  /* Form Title */
+  .traveller-title {
     color: #0047AB;
     text-align: center;
     font-size: 22px;
@@ -69,23 +72,24 @@ body {
     text-transform: uppercase;
     padding-bottom: 10px;
     border-bottom: 2px solid #0047AB;
-}
-
-/* Form Inputs */
-.stage-form-group {
-    text-align: left;
+  }
+  
+  /* Form Inputs */
+  .traveller-form-group {
     margin-bottom: 12px;
-}
-
-.stage-form-group label {
+    text-align: left;
+  }
+  
+  .traveller-form-group label {
     display: block;
     font-weight: bold;
     color: #333;
     margin-bottom: 4px;
-  font-size: 14px;
-}
-
-.stage-form-group input {
+    font-size: 14px;
+  }
+  
+  .traveller-form-group input,
+  .traveller-form-group select {
     width: 100%;
     padding: 8px;
     border: 1px solid rgba(0, 0, 0, 0.3);
@@ -94,16 +98,17 @@ body {
     background: rgba(0, 0, 0, 0.05);
     color: #333;
     transition: all 0.3s ease-in-out;
-}
-
-.stage-form-group input:focus {
+  }
+  
+  .traveller-form-group input:focus,
+  .traveller-form-group select:focus {
     border-color: #0047AB;
     outline: none;
     box-shadow: 0px 0px 6px rgba(0, 71, 171, 0.8);
-}
-
-/* Submit Button */
-.stage-submit-button {
+  }
+  
+  /* Submit Button */
+  .traveller-submit-button {
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
     border: none;
@@ -114,42 +119,10 @@ body {
     cursor: pointer;
     border-radius: 6px;
     transition: all 0.3s ease-in-out;
-    margin-top: 10px;
-}
-
-.stage-submit-button:hover {
+  }
+  
+  .traveller-submit-button:hover {
     background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
     transform: scale(1.03);
-}
-
-/* Dropdown Styling */
-.stage-form-group select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 6px;
-    font-size: 12px;
-    background: rgba(0, 0, 0, 0.05);
-    color: #333;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-/* Focus Effect */
-.stage-form-group select:focus {
-    border-color: #0047AB;
-    outline: none;
-    box-shadow: 0px 0px 6px rgba(0, 71, 171, 0.8);
-}
-
-/* Option Styling */
-.stage-form-group select option {
-    background: white;
-    color: #333;
-    font-size: 12px;
-}
-
-/* Disabled Option */
-.stage-form-group select option:disabled {
-    color: gray;
-}
+  }
+  

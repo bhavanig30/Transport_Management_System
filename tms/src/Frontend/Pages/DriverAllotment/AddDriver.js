@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./DriverAllotment.css";
+import "../../styles/AddDriver.css";
 
-const DriverAllotmentForm = () => {
+const AddDriver = () => {
   const [formData, setFormData] = useState({
     staffcode: "",
     staffname: "",
@@ -33,7 +33,7 @@ const DriverAllotmentForm = () => {
       <div className="driver-header">National Engineering College</div>
 
       <form className="driver-form" onSubmit={handleSubmit}>
-        <div className="driver-title">Driver Allotment </div>
+        <div className="driver-title">Driver Allotment Form</div>
 
         <div className="driver-form-row">
           <div className="driver-form-group">
@@ -84,10 +84,10 @@ const DriverAllotmentForm = () => {
           <input type="file" id="photo" name="photo" accept="image/*" onChange={handleFileChange} />
         </div>
 
-        <button type="submit" className="driver-submit-button">Add </button>
+        <button type="submit" className="driver-submit-button">Add Driver</button>
       </form>
     </div>
   );
 };
 
-export default DriverAllotmentForm;
+export default AddDriver;

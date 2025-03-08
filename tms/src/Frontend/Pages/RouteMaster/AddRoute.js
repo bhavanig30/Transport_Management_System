@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./RouteMasterAdd.css"; // Ensure correct CSS file is used
+import "../../styles/AddRoute.css"; // Ensure correct CSS file is used
 
-const RouteMasterForm = () => {
+const AddRoute = () => {
   const [formData, setFormData] = useState({
     routeId: "",
     routeName: "",
@@ -144,4 +144,4 @@ const RouteMasterForm = () => {
   );
 };
 
-export default RouteMasterForm;
+export default AddRoute;

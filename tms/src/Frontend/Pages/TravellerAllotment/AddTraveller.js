@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./TravellerAllotment.css";
+import "../../styles/AddTraveller.css";
 
-const TravellerAllotment = () => {
+const AddTraveller = () => {
     const [travellerData, setTravellerData] = useState({
         name: "",
         rollno: "",
@@ -103,4 +103,4 @@ const TravellerAllotment = () => {
     );
 };
 
-export default TravellerAllotment;
+export default AddTraveller;

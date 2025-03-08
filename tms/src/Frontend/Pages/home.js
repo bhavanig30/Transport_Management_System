@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Home.css';
+import '../styles/Home.css';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,23 +9,19 @@ const Home = () => {
     navigate(path);
   };
 
-  const handleLogout = () => {
-    navigate('/'); 
-  };
-
   return (
     <>
       <div className="home-header">
         <h1 className="home-title">National Engineering College</h1>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
       </div>
       <div className="home-grid">
-        <div className="home-box" onClick={() => handleNavigation("/home/vehicle-master")}>Vehicle Master</div>
-        <div className="home-box" onClick={() => handleNavigation("/stage-master")}>Stage Master</div>
-        <div className="home-box" onClick={() => handleNavigation("/route-master")}>Route Master</div>
-        <div className="home-box" onClick={() => handleNavigation("/cost-master")}>Cost Master</div>
-        <div className="home-box" onClick={() => handleNavigation("/home/driver-allotment")}>Driver Allotment</div>
-        <div className="home-box" onClick={() => handleNavigation("/home/traveller-allotment")}>Traveller Allotment</div>
+        <div className="home-box" onClick={() => handleNavigation("/home/vehiclemaster")}>Vehicle Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/home/stagemaster/addstage")}>Stage Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/home/routemaster/addroute")}>Route Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/home/costmaster/addcost")}>Cost Master</div>
+        <div className="home-box" onClick={() => handleNavigation("/home/driverallotment/adddriver")}>Driver Allotment</div>
+        <div className="home-box" onClick={() => handleNavigation("/home/travellerallotment/addtraveller")}>Traveller Allotment</div>
       </div>
     </>
   );

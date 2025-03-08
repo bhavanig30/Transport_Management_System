@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./VehicleMasterView.css";
+import "../../styles/ViewVehicle.css";
 
-const VehicleMasterView = () => {
+const ViewVehicle = () => {
   const [vehicleType, setVehicleType] = useState("");
   const [vehicleId, setVehicleId] = useState("");
   const [regNo, setRegNo] = useState("");
@@ -11,7 +11,7 @@ const VehicleMasterView = () => {
 
   return (
     <div className="vehicle-master-container">
-      <div className="vehicle-header">National Engineering College</div>
+      <div className="vehicle-header">NATIONAL ENGINEERING COLLEGE</div>
 
       <div className="vehicle-box-wrapper">
         {/* New Heading for Vehicle Master */}
@@ -85,4 +85,4 @@ const VehicleMasterView = () => {
   );
 };
 
-export default VehicleMasterView;
+export default ViewVehicle;
