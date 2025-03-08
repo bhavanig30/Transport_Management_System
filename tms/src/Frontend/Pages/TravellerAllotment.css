@@ -29,22 +29,19 @@
   
   /* Header */
   .traveller-header {
-    width: 110%; /* Increase width */
-    min-width: 100vw; /* Ensure it spans the full viewport */
-    height: 100px; /* Increase height */
-    background: linear-gradient(to right, #0057B8, #00C1D4);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 80px;
+    background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
-    font-size: 26px; /* Slightly larger text */
-    font-weight: bold;
-    padding: 25px 20px; /* Increase padding */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    border-radius: 0 0 15px 15px;
-    position: absolute;
+    position: fixed;
     top: 0;
-    text-align: center;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    border-radius: 0 0 15px 15px;
   }
   
   /* Form Card */
@@ -125,4 +122,21 @@
     background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
     transform: scale(1.03);
   }
+  /* Responsive Design */
+@media (max-width: 768px) {
+  .trans-form {
+      padding: 15px;
+      width: 90%;
+  }
+
+  .trans-header {
+      font-size: 20px;
+      height: 70px;
+  }
+
+  .trans-title {
+      font-size: 18px;
+      padding-bottom: 8px;
+  }
+}
   

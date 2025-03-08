@@ -18,6 +18,8 @@
   left: 0;
   width: 100%;
   z-index: 1000;
+  border-radius: 0 0 15px 15px;
+
 }
 
 .home-title {

@@ -31,88 +31,96 @@ const InsuranceForm = () => {
       <form className="ins-form" onSubmit={handleSubmit}>
         <div className="ins-title">Insurance Details</div>
 
-        <div className="ins-form-group">
-          <label htmlFor="policyId">Policy ID</label>
-          <input
-            type="text"
-            id="policyId"
-            name="policyId"
-            placeholder="Enter Policy ID"
-            value={formData.policyId}
-            onChange={handleChange}
-          />
-        </div>
+        <div className="ins-form-grid">
+          {/* Left Column (First 4 inputs) */}
+          <div className="ins-column">
+            <div className="ins-form-group">
+              <label htmlFor="policyId">Policy ID</label>
+              <input
+                type="text"
+                id="policyId"
+                name="policyId"
+                placeholder="Enter Policy ID"
+                value={formData.policyId}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="vehicleId">Vehicle ID</label>
-          <input
-            type="text"
-            id="vehicleId"
-            name="vehicleId"
-            placeholder="Enter Vehicle ID"
-            value={formData.vehicleId}
-            onChange={handleChange}
-          />
-        </div>
+            <div className="ins-form-group">
+              <label htmlFor="vehicleId">Vehicle ID</label>
+              <input
+                type="text"
+                id="vehicleId"
+                name="vehicleId"
+                placeholder="Enter Vehicle ID"
+                value={formData.vehicleId}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="policyNo">Policy Number</label>
-          <input
-            type="text"
-            id="policyNo"
-            name="policyNo"
-            placeholder="Enter Policy Number"
-            value={formData.policyNo}
-            onChange={handleChange}
-          />
-        </div>
+            <div className="ins-form-group">
+              <label htmlFor="policyNo">Policy Number</label>
+              <input
+                type="text"
+                id="policyNo"
+                name="policyNo"
+                placeholder="Enter Policy Number"
+                value={formData.policyNo}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="issueDate">Issue Date</label>
-          <input
-            type="date"
-            id="issueDate"
-            name="issueDate"
-            value={formData.issueDate}
-            onChange={handleChange}
-          />
-        </div>
+            <div className="ins-form-group">
+              <label htmlFor="issueDate">Issue Date</label>
+              <input
+                type="date"
+                id="issueDate"
+                name="issueDate"
+                value={formData.issueDate}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="expiryDate">Expiry Date</label>
-          <input
-            type="date"
-            id="expiryDate"
-            name="expiryDate"
-            value={formData.expiryDate}
-            onChange={handleChange}
-          />
-        </div>
+          {/* Right Column (Last 3 inputs) */}
+          <div className="ins-column">
+            <div className="ins-form-group">
+              <label htmlFor="expiryDate">Expiry Date</label>
+              <input
+                type="date"
+                id="expiryDate"
+                name="expiryDate"
+                value={formData.expiryDate}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="provider">Insurance Provider</label>
-          <input
-            type="text"
-            id="provider"
-            name="provider"
-            placeholder="Enter Insurance Provider"
-            value={formData.provider}
-            onChange={handleChange}
-          />
-        </div>
+            <div className="ins-form-group">
+              <label htmlFor="provider">Insurance Provider</label>
+              <input
+                type="text"
+                id="provider"
+                name="provider"
+                placeholder="Enter Insurance Provider"
+                value={formData.provider}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="status">Status</label>
-          <select
-            id="status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-          >
-            <option value="">Select Status</option>
-            <option value="Active">Active</option>
-            <option value="Expired">Expired</option>
-          </select>
+            <div className="ins-form-group">
+              <label htmlFor="status">Status</label>
+              <select
+                id="status"
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+              >
+                <option value="">Select Status</option>
+                <option value="Active">Active</option>
+                <option value="Expired">Expired</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <button type="submit" className="ins-submit-button">

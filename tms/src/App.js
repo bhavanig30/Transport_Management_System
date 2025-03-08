@@ -11,7 +11,8 @@ import PermitForm from "./Frontend/Pages/Vehicle Master/VehiclePermitForm";
 import Home from "./Frontend/Pages/Home";
 import TravellerAllotment from "./Frontend/Pages/TravellerAllotment";
 import DriverAllotmentForm from "./Frontend/Pages/DriverAllotment";
-
+import TransactionDetails from "./Frontend/Pages/Transaction Details";
+import InsuranceForm from "./Frontend/Pages/InsuranceDetails"
 const App = () => {
   return (
     <Router>
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/home/driver-allotment" element={<DriverAllotmentForm />} />
       </Routes>
     </Router>
+  
   );
 };
 

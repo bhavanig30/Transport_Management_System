@@ -21,44 +21,42 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  padding: 30px 15px;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  padding: 40px 15px;
   position: relative;
 }
 
 /* Header */
 .trans-header {
-  width: 110%; /* Increase width */
-  min-width: 100vw; /* Ensure it spans the full viewport */
-  height: 90px; /* Increase height */
-  background: linear-gradient(to right, #0057B8, #00C1D4);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 80px;
+  background: linear-gradient(to right, #0057B8, #00C1D4);
   color: white;
-  font-size: 26px; /* Slightly larger text */
-  font-weight: bold;
-  padding: 25px 20px; /* Increase padding */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  border-radius: 0 0 15px 15px;
-  position: absolute;
+  position: fixed;
   top: 0;
-  text-align: center;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  border-radius: 0 0 15px 15px;
 }
 
 /* Form Card */
 .trans-form {
   background: #ffffff;
-  padding: 25px;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  position: relative;
-  margin-top: 100px;
-  z-index: 2;
-  text-align: center;
+    padding: 25px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    position: relative;
+    margin-top: 100px;
+    z-index: 2;
+    text-align: center;
 }
 
 /* Form Title */

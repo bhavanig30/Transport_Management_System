@@ -20,23 +20,19 @@
 
 /* Header */
 .vehicle-header {
-    width: 100%; /* Full width */
-    height: 80px !important; /* Adjusted height */
-    background: linear-gradient(to right, #0057B8, #00C1D4);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    padding: 30px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 0 0 12px 12px;
-    position: relative;  
-    top: 20px; /* Moves the header down */
-    left: -20px !important; /* Move header slightly to the left */
-    z-index: 1000; /* Ensures it's above all content */
-    text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 80px;
+  background: linear-gradient(to right, #0057B8, #00C1D4);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  border-radius: 0 0 15px 15px;
 }
 
 .vehicle-page {

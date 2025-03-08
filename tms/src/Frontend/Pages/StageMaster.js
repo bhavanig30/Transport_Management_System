@@ -95,7 +95,7 @@ const StageMasterForm = () => {
         </div>
 
         <button type="submit" className="stage-submit-button">
-          Add Stage
+          Add 
         </button>
       </form>
     </div>
