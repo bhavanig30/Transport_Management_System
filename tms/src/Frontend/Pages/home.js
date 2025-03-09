@@ -15,6 +15,7 @@ const Home = () => {
         <h1 className="home-title">National Engineering College</h1>
         <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
       </div>
+      
       <div className="home-grid">
         <div className="home-box" onClick={() => handleNavigation("/home/vehiclemaster")}>Vehicle Master</div>
         <div className="home-box" onClick={() => handleNavigation("/home/stagemaster/addstage")}>Stage Master</div>

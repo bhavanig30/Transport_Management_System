@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../../../styles/AddPermit.css";
 
 const AddPermit = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   const [vehicleIds, setVehicleIds] = useState([]);
   const [formData, setFormData] = useState({
     permitId: "",
@@ -54,78 +61,83 @@ const AddPermit = () => {
   };
 
   return (
-    <div className="vp-form-container">
-      <div className="vp-header">National Engineering College</div>
-      <div className="vp-form">
-        <h2 className="vp-title">Permit Details Form</h2>
-        <form className="vp-form-grid" onSubmit={handleSubmit}>
-          <div className="vp-form-group">
-            <label>Vehicle ID</label>
-            <select
-              name="vehicleId"
-              value={formData.vehicleId}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Vehicle</option>
-              {vehicleIds.map((id) => (
-                <option key={id} value={id}>
-                  {id}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="vp-form-group">
-            <label>Permit No</label>
-            <input
-              type="text"
-              name="permitNo"
-              value={formData.permitNo}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="vp-form-group">
-            <label>Issue Date</label>
-            <input
-              type="date"
-              name="issueDate"
-              value={formData.issueDate}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="vp-form-group">
-            <label>Expiry Date</label>
-            <input
-              type="date"
-              name="expiryDate"
-              value={formData.expiryDate}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="vp-form-group">
-            <label>Status</label>
-            <input
-              type="text"
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button className="vp-submit-button" type="submit">
-            Add Permit
-          </button>
-        </form>
+    <>
+      <div className="vp-header">
+        <h1 className="vp-header-title">National Engineering College</h1>
+        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
       </div>
-    </div>
+      <div className="vp-form-container">
+        <div className="vp-form">
+          <h2 className="vp-title">Permit Details Form</h2>
+          <form className="vp-form-grid" onSubmit={handleSubmit}>
+            <div className="vp-form-group">
+              <label>Vehicle ID</label>
+              <select
+                name="vehicleId"
+                value={formData.vehicleId}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Vehicle</option>
+                {vehicleIds.map((id) => (
+                  <option key={id} value={id}>
+                    {id}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="vp-form-group">
+              <label>Permit No</label>
+              <input
+                type="text"
+                name="permitNo"
+                value={formData.permitNo}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="vp-form-group">
+              <label>Issue Date</label>
+              <input
+                type="date"
+                name="issueDate"
+                value={formData.issueDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="vp-form-group">
+              <label>Expiry Date</label>
+              <input
+                type="date"
+                name="expiryDate"
+                value={formData.expiryDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="vp-form-group">
+              <label>Status</label>
+              <input
+                type="text"
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <button className="vp-submit-button" type="submit">
+              Add Permit
+            </button>
+          </form>
+        </div>
+      </div>
+    </>
   );
 };
 

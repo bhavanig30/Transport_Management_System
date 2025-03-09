@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import "../../../styles/AddInsurance.css";
 
 const AddInsurance = () => {
+  const navigate = useNavigate();
+  
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   const initialFormData = {
     policyId: "",
     vehicleId: "",
@@ -57,100 +64,104 @@ const AddInsurance = () => {
   };
 
   return (
-    <div className="ins-form-container">
-      <div className="ins-header">National Engineering College</div>
+    <>
+      <div className="ins-header">
+        <h1 className="ins-header-title">National Engineering College</h1>
+        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
+      </div>
+      <div className="ins-form-container">
+        <form className="ins-form" onSubmit={handleSubmit}>
+          <div className="ins-title">Insurance Details Form</div>
 
-      <form className="ins-form" onSubmit={handleSubmit}>
-        <div className="ins-title">Insurance Details Form</div>
+          {error && <p className="error-message">{error}</p>}
 
-        {error && <p className="error-message">{error}</p>}
+          <div className="ins-form-group">
+            <label htmlFor="vehicleId">Vehicle ID</label>
+            <select
+              id="vehicleId"
+              name="vehicleId"
+              value={formData.vehicleId}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Vehicle</option>
+              {loading ? (
+                <option disabled>Loading vehicle IDs...</option>
+              ) : (
+                vehicleIds.map((id) => (
+                  <option key={id} value={id}>{id}</option>
+                ))
+              )}
+            </select>
+          </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="vehicleId">Vehicle ID</label>
-          <select
-            id="vehicleId"
-            name="vehicleId"
-            value={formData.vehicleId}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Vehicle</option>
-            {loading ? (
-              <option disabled>Loading vehicle IDs...</option>
-            ) : (
-              vehicleIds.map((id) => (
-                <option key={id} value={id}>{id}</option>
-              ))
-            )}
-          </select>
-        </div>
+          <div className="ins-form-group">
+            <label htmlFor="policyNo">Policy No</label>
+            <input
+              type="text"
+              id="policyNo"
+              name="policyNo"
+              value={formData.policyNo}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="policyNo">Policy No</label>
-          <input
-            type="text"
-            id="policyNo"
-            name="policyNo"
-            value={formData.policyNo}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="ins-form-group">
+            <label htmlFor="issueDate">Issue Date</label>
+            <input
+              type="date"
+              id="issueDate"
+              name="issueDate"
+              value={formData.issueDate}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="issueDate">Issue Date</label>
-          <input
-            type="date"
-            id="issueDate"
-            name="issueDate"
-            value={formData.issueDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="ins-form-group">
+            <label htmlFor="expiryDate">Expiry Date</label>
+            <input
+              type="date"
+              id="expiryDate"
+              name="expiryDate"
+              value={formData.expiryDate}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="expiryDate">Expiry Date</label>
-          <input
-            type="date"
-            id="expiryDate"
-            name="expiryDate"
-            value={formData.expiryDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="ins-form-group">
+            <label htmlFor="provider">Insurance Provider</label>
+            <input
+              type="text"
+              id="provider"
+              name="provider"
+              value={formData.provider}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="provider">Insurance Provider</label>
-          <input
-            type="text"
-            id="provider"
-            name="provider"
-            value={formData.provider}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="ins-form-group">
+            <label htmlFor="status">Status</label>
+            <select
+              id="status"
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Status</option>
+              <option value="Active">Active</option>
+              <option value="Expired">Expired</option>
+            </select>
+          </div>
 
-        <div className="ins-form-group">
-          <label htmlFor="status">Status</label>
-          <select
-            id="status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Status</option>
-            <option value="Active">Active</option>
-            <option value="Expired">Expired</option>
-          </select>
-        </div>
-
-        <button type="submit" className="ins-submit-button">Add Insurance</button>
-      </form>
-    </div>
+          <button type="submit" className="ins-submit-button">Add Insurance</button>
+        </form>
+      </div>
+    </>
   );
 };
 

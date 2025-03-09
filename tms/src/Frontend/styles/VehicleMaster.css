@@ -30,23 +30,48 @@ body {
     gap:20px;
 }
 
-/* Header */
 .vehicle-header {
-    background: linear-gradient(to right, #0057B8, #00C1D4);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 80px;
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    border-radius: 0 0 15px 15px;
     color: white;
-    font-size: 30px;
-    font-weight: bold;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 0 0 12px 12px;
-    position: absolute;
+    position: fixed;
     top: 0;
-    text-align: center;
+    left: 0;
     width: 100%;
-    height: 60px;
-}
+    z-index: 1000;
+  }
+  
+  .vehicle-header-title {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  
+  .logout-btn {
+    background-color: #0057B8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+    font-weight: bold;
+  }
+  
+  .logout-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
 
 /* Vehicle Master White Container */
 .vehicle-options-container {

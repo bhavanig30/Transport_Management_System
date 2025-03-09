@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import "../../../styles/AddFC.css";
 
 const AddFC = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   const [formData, setFormData] = useState({
     fcId: "",
     vehicleId: "",
@@ -64,81 +71,85 @@ const AddFC = () => {
   };
 
   return (
-    <div className="fc-form-container">
-      <div className="fc-header">National Engineering College</div>
+    <>
+      <div className="fc-header">
+        <h1 className="fc-header-title">National Engineering College</h1>
+        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
+      </div>
+      <div className="fc-form-container">
+        <form className="fc-form" onSubmit={handleSubmit}>
+          <div className="fc-title">FC Details Form</div>
 
-      <form className="fc-form" onSubmit={handleSubmit}>
-        <div className="fc-title">FC Details Form</div>
+          {error && <div className="error-message">{error}</div>}
 
-        {error && <div className="error-message">{error}</div>}
+          <div className="fc-form-group">
+            <label htmlFor="vehicleId">Vehicle ID</label>
+            <select
+              id="vehicleId"
+              name="vehicleId"
+              value={formData.vehicleId}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            >
+              <option value="">Select Vehicle</option>
+              {loading ? (
+                <option disabled>Loading vehicle IDs...</option>
+              ) : (
+                vehicleIds.map((id) => (
+                  <option key={id} value={id}>{id}</option>
+                ))
+              )}
+            </select>
+          </div>
 
-        <div className="fc-form-group">
-          <label htmlFor="vehicleId">Vehicle ID</label>
-          <select
-            id="vehicleId"
-            name="vehicleId"
-            value={formData.vehicleId}
-            onChange={handleChange}
-            required
+          <div className="fc-form-group">
+            <label htmlFor="fcNo">FC No</label>
+            <input type="text" id="fcNo" name="fcNo" value={formData.fcNo} onChange={handleChange} required />
+          </div>
+
+          <div className="fc-form-group">
+            <label htmlFor="issueDate">Issue Date</label>
+            <input type="date" id="issueDate" name="issueDate" value={formData.issueDate} onChange={handleChange} required />
+          </div>
+
+          <div className="fc-form-group">
+            <label htmlFor="expiryDate">Expiry Date</label>
+            <input
+              type="date"
+              id="expiryDate"
+              name="expiryDate"
+              value={formData.expiryDate}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="fc-form-group">
+            <label htmlFor="status">Status</label>
+            <select
+              id="status"
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Status</option>
+              <option value="Active">Active</option>
+              <option value="Expired">Expired</option>
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            className="fc-submit-button"
             disabled={loading}
           >
-            <option value="">Select Vehicle</option>
-            {loading ? (
-              <option disabled>Loading vehicle IDs...</option>
-            ) : (
-              vehicleIds.map((id) => (
-                <option key={id} value={id}>{id}</option>
-              ))
-            )}
-          </select>
-        </div>
-
-        <div className="fc-form-group">
-          <label htmlFor="fcNo">FC No</label>
-          <input type="text" id="fcNo" name="fcNo" value={formData.fcNo} onChange={handleChange} required />
-        </div>
-
-        <div className="fc-form-group">
-          <label htmlFor="issueDate">Issue Date</label>
-          <input type="date" id="issueDate" name="issueDate" value={formData.issueDate} onChange={handleChange} required />
-        </div>
-
-        <div className="fc-form-group">
-          <label htmlFor="expiryDate">Expiry Date</label>
-          <input
-            type="date"
-            id="expiryDate"
-            name="expiryDate"
-            value={formData.expiryDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="fc-form-group">
-          <label htmlFor="status">Status</label>
-          <select
-            id="status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Status</option>
-            <option value="Active">Active</option>
-            <option value="Expired">Expired</option>
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          className="fc-submit-button"
-          disabled={loading}
-        >
-          {loading ? "Loading..." : "Add FC"}
-        </button>
-      </form>
-    </div>
+            {loading ? "Loading..." : "Add FC"}
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
