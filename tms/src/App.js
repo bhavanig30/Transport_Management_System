@@ -11,6 +11,7 @@ import AddRoute from "./Frontend/pages/RouteMaster/AddRoute"
 import AddStage from "./Frontend/pages/StageMaster/AddStage"
 import AddTraveller from "./Frontend/pages/TravellerAllotment/AddTraveller"
 import AddDriver from "./Frontend/pages/DriverAllotment/AddDriver"
+import AddInsurance from "./Frontend/pages/VehicleMaster/InsuranceDetails/AddInsurance";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/home/stagemaster/addstage" element={<AddStage />} />
         <Route path="/home/travellerallotment/addtraveller" element={<AddTraveller />} />
         <Route path="/home/driverallotment/adddriver" element={<AddDriver />} />
+        <Route path="/home/vehiclemaster/addinsurance" element={<AddInsurance />} />
       </Routes>
     </Router>
   );

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../../../styles/AddInsurance.css"; // Ensure correct CSS file is used
+import "../../../styles/AddInsurance.css";
 
 const AddInsurance = () => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     policyId: "",
     vehicleId: "",
     policyNo: "",
@@ -11,19 +11,22 @@ const AddInsurance = () => {
     expiryDate: "",
     provider: "",
     status: "",
-  });
+  };
 
+  const [formData, setFormData] = useState(initialFormData);
   const [vehicleIds, setVehicleIds] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchVehicleIds = async () => {
       try {
         const response = await axios.get("http://localhost:5000/getVehicleIds");
         setVehicleIds(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching vehicle IDs:", error);
+      } catch (err) {
+        console.error("Error fetching vehicle IDs:", err);
+        setError("Failed to load vehicle IDs. Please try again.");
+      } finally {
         setLoading(false);
       }
     };
@@ -37,20 +40,18 @@ const AddInsurance = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (new Date(formData.issueDate) >= new Date(formData.expiryDate)) {
+      alert("Expiry date must be later than the issue date.");
+      return;
+    }
+
     try {
       const response = await axios.post("http://localhost:5000/addInsurance", formData);
       alert(response.data.message);
-      setFormData({
-        policyId: "",
-        vehicleId: "",
-        policyNo: "",
-        issueDate: "",
-        expiryDate: "",
-        provider: "",
-        status: "",
-      });
-    } catch (error) {
-      console.error("Error submitting insurance details:", error);
+      setFormData(initialFormData);
+    } catch (err) {
+      console.error("Error submitting insurance details:", err);
       alert("Failed to add insurance details. Please try again.");
     }
   };
@@ -61,6 +62,8 @@ const AddInsurance = () => {
 
       <form className="ins-form" onSubmit={handleSubmit}>
         <div className="ins-title">Insurance Details Form</div>
+
+        {error && <p className="error-message">{error}</p>}
 
         <div className="ins-form-group">
           <label htmlFor="vehicleId">Vehicle ID</label>
@@ -84,22 +87,50 @@ const AddInsurance = () => {
 
         <div className="ins-form-group">
           <label htmlFor="policyNo">Policy No</label>
-          <input type="text" id="policyNo" name="policyNo" value={formData.policyNo} onChange={handleChange} required />
+          <input
+            type="text"
+            id="policyNo"
+            name="policyNo"
+            value={formData.policyNo}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="ins-form-group">
           <label htmlFor="issueDate">Issue Date</label>
-          <input type="date" id="issueDate" name="issueDate" value={formData.issueDate} onChange={handleChange} required />
+          <input
+            type="date"
+            id="issueDate"
+            name="issueDate"
+            value={formData.issueDate}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="ins-form-group">
           <label htmlFor="expiryDate">Expiry Date</label>
-          <input type="date" id="expiryDate" name="expiryDate" value={formData.expiryDate} onChange={handleChange} required />
+          <input
+            type="date"
+            id="expiryDate"
+            name="expiryDate"
+            value={formData.expiryDate}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="ins-form-group">
           <label htmlFor="provider">Insurance Provider</label>
-          <input type="text" id="provider" name="provider" value={formData.provider} onChange={handleChange} required />
+          <input
+            type="text"
+            id="provider"
+            name="provider"
+            value={formData.provider}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="ins-form-group">

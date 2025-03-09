@@ -27,6 +27,7 @@ body {
     padding: 30px;
     position: relative;
     width: 100%;
+    gap:20px;
 }
 
 /* Header */

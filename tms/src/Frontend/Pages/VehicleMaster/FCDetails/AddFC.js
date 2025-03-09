@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../../../styles/AddFC.css"; // Ensure correct CSS file is used
+import "../../../styles/AddFC.css";
 
 const AddFC = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +14,7 @@ const AddFC = () => {
 
   const [vehicleIds, setVehicleIds] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchVehicleIds = async () => {
@@ -23,6 +24,7 @@ const AddFC = () => {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching vehicle IDs:", error);
+        setError("Failed to fetch vehicle IDs. Please try again.");
         setLoading(false);
       }
     };
@@ -36,6 +38,13 @@ const AddFC = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Date Validation
+    if (new Date(formData.issueDate) >= new Date(formData.expiryDate)) {
+      setError("Expiry date must be after the issue date.");
+      return;
+    }
+
     try {
       const response = await axios.post("http://localhost:5000/addFC", formData);
       alert(response.data.message);
@@ -47,9 +56,10 @@ const AddFC = () => {
         expiryDate: "",
         status: "",
       });
+      setError("");
     } catch (error) {
       console.error("Error submitting FC details:", error);
-      alert("Failed to add FC details. Please try again.");
+      setError("Failed to add FC details. Please try again.");
     }
   };
 
@@ -60,6 +70,8 @@ const AddFC = () => {
       <form className="fc-form" onSubmit={handleSubmit}>
         <div className="fc-title">FC Details Form</div>
 
+        {error && <div className="error-message">{error}</div>}
+
         <div className="fc-form-group">
           <label htmlFor="vehicleId">Vehicle ID</label>
           <select
@@ -68,6 +80,7 @@ const AddFC = () => {
             value={formData.vehicleId}
             onChange={handleChange}
             required
+            disabled={loading}
           >
             <option value="">Select Vehicle</option>
             {loading ? (
@@ -92,10 +105,16 @@ const AddFC = () => {
 
         <div className="fc-form-group">
           <label htmlFor="expiryDate">Expiry Date</label>
-          <input type="date" id="expiryDate" name="expiryDate" value={formData.expiryDate} onChange={handleChange} required />
+          <input
+            type="date"
+            id="expiryDate"
+            name="expiryDate"
+            value={formData.expiryDate}
+            onChange={handleChange}
+            required
+          />
         </div>
 
-        {/* Status Dropdown */}
         <div className="fc-form-group">
           <label htmlFor="status">Status</label>
           <select
@@ -111,7 +130,13 @@ const AddFC = () => {
           </select>
         </div>
 
-        <button type="submit" className="fc-submit-button">Add FC</button>
+        <button
+          type="submit"
+          className="fc-submit-button"
+          disabled={loading}
+        >
+          {loading ? "Loading..." : "Add FC"}
+        </button>
       </form>
     </div>
   );

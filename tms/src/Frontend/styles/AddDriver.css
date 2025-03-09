@@ -44,12 +44,12 @@ body {
     text-align: center;
 }
 
-/* Form Card */
+/* Form Card - Wider Design */
 .driver-form {
     background: #ffffff;
-    padding: 25px;
-    width: 90%;
-    max-width: 800px;
+    padding: 35px;           /* Increased padding for better spacing */
+    width: 100%;             /* Full width for better coverage */
+    max-width: 1000px;       /* Increased max-width */
     border-radius: 12px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -94,11 +94,12 @@ body {
 }
 
 .driver-form-group input {
-    width: 100%;
-    padding: 8px;
+    width: 100%;            /* Original width */
+    max-width: 500px;       /* Increased width for text boxes */
+    padding: 14px;          /* Keep padding the same */
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 14px;
     background: rgba(0, 0, 0, 0.05);
     color: #333;
     transition: all 0.3s ease-in-out;
@@ -121,7 +122,7 @@ body {
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
     border: none;
-    padding: 10px;
+    padding: 12px;         /* Slightly bigger for better usability */
     width: 100%;
     font-size: 14px;
     font-weight: bold;
@@ -139,7 +140,7 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .driver-form {
-        padding: 15px;
+        padding: 20px;     /* More comfortable padding for mobile */
         width: 95%;
     }
 
