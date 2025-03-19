@@ -1,89 +1,23 @@
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Arial", sans-serif;
-}
-
-/* Background Image */
-body {
-    background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-}
-
-/* Full Page Layout */
 .driver-form-container {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
-    padding: 30px 15px;
-    position: relative;
+    align-items: center;    
 }
 
-.driver-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    height: 80px;
-    background: linear-gradient(to right, #0057B8, #00C1D4);
-    border-radius: 0 0 15px 15px;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-  }
-  
-  .driver-header-title {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-weight: bold;
-    white-space: nowrap;
-  }
-  
-  .logout-btn {
-    background-color: #0057B8;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s;
-    font-weight: bold;
-  }
-  
-  .logout-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-  }
-
-
-/* Form Card - Wider Design */
 .driver-form {
     background: #ffffff;
-    padding: 35px;           /* Increased padding for better spacing */
-    width: 100%;             /* Full width for better coverage */
-    max-width: 1000px;       /* Increased max-width */
+    padding: 35px;
+    width: 700px;
+    max-width: 1000px;
     border-radius: 12px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.2);
     position: relative;
-    margin-top: 100px;
     z-index: 2;
     text-align: center;
 }
 
-/* Form Title */
 .driver-title {
     color: #0047AB;
     text-align: center;
@@ -95,7 +29,6 @@ body {
     border-bottom: 2px solid #0047AB;
 }
 
-/* Row Layout */
 .driver-form-row {
     display: flex;
     gap: 20px;
@@ -103,7 +36,6 @@ body {
     margin-bottom: 12px;
 }
 
-/* Form Inputs */
 .driver-form-group {
     flex: 1;
     text-align: left;
@@ -118,9 +50,9 @@ body {
 }
 
 .driver-form-group input {
-    width: 100%;            /* Original width */
-    max-width: 500px;       /* Increased width for text boxes */
-    padding: 14px;          /* Keep padding the same */
+    width: 100%;
+    max-width: 500px;
+    padding: 14px; 
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 6px;
     font-size: 14px;
@@ -135,18 +67,16 @@ body {
     box-shadow: 0px 0px 6px rgba(0, 71, 171, 0.8);
 }
 
-/* File Upload */
 .driver-form-group input[type="file"] {
     padding: 5px;
-    border: none;
+    width: 100%;
 }
 
-/* Submit Button */
 .driver-submit-button {
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
     border: none;
-    padding: 12px;         /* Slightly bigger for better usability */
+    padding: 12px;
     width: 100%;
     font-size: 14px;
     font-weight: bold;
@@ -159,27 +89,4 @@ body {
 .driver-submit-button:hover {
     background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
     transform: scale(1.03);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .driver-form {
-        padding: 20px;     /* More comfortable padding for mobile */
-        width: 95%;
-    }
-
-    .driver-header {
-        font-size: 20px;
-        height: 70px;
-    }
-
-    .driver-title {
-        font-size: 18px;
-        padding-bottom: 8px;
-    }
-
-    .driver-form-row {
-        flex-direction: column;
-        gap: 10px;
-    }
 }

@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/AddTraveller.css";
-import { useNavigate } from 'react-router-dom';
 
 const AddTraveller = () => {
-  const navigate = useNavigate();
-
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
-
     const [travellerData, setTravellerData] = useState({
         name: "",
         rollno: "",
@@ -35,11 +28,6 @@ const AddTraveller = () => {
 
     return (
         <>
-            <div className="traveller-header">
-                <h1 className="traveller-header-title">National Engineering College</h1>
-                <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-            </div>
-
             <div className="traveller-form-container">
                 <form className="traveller-form" onSubmit={handleSubmit}>
                     <h2 className="traveller-title">Traveller Allotment</h2>

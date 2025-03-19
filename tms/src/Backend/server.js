@@ -152,7 +152,6 @@ app.post('/addVehicle', async (req, res) => {
         const sql = "INSERT INTO vehicle (vehicleId, vehicleType, seatCapacity, registrationNo, routeId, registrationDate, purchaseDate, vendorId, rcNo, registrationPlace) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         connection.query(sql, [vehicleId, vehicleType, seatCapacity, registrationNo, routeId, registrationDate, purchaseDate, vendorId, rcNo, registrationPlace], (err, result) => {
             if (err) {
-                console.log("sds");
                 return res.status(500).json({ message: "Database error", error: err });
             }
             res.status(200).json({ message: "Vehicle added successfully", vehicleId });

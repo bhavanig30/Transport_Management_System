@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/AddDriver.css";
-import { useNavigate } from 'react-router-dom';
 
 const AddDriver = () => {
-  const navigate = useNavigate();
-
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
 
   const [formData, setFormData] = useState({
     staffcode: "",
@@ -37,13 +31,7 @@ const AddDriver = () => {
 
   return (
     <>
-      <div className="driver-header">
-        <h1 className="driver-header-title">National Engineering College</h1>
-        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-      </div>
-
       <div className="driver-form-container">
-
         <form className="driver-form" onSubmit={handleSubmit}>
           <div className="driver-title">Driver Allotment Form</div>
 
@@ -99,6 +87,7 @@ const AddDriver = () => {
           <button type="submit" className="driver-submit-button">Add Driver</button>
         </form>
       </div>
+      
     </>
   );
 };
