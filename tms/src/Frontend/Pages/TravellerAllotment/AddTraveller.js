@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import "../../styles/AddTraveller.css";
+import { useNavigate } from 'react-router-dom';
 
 const AddTraveller = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
     const [travellerData, setTravellerData] = useState({
         name: "",
         rollno: "",
@@ -27,79 +34,85 @@ const AddTraveller = () => {
     };
 
     return (
-        <div className="traveller-form-container">
-            <header className="traveller-header">National Engineering College</header>
-            <form className="traveller-form" onSubmit={handleSubmit}>
-                <h2 className="traveller-title">Traveller Allotment</h2>
+        <>
+            <div className="traveller-header">
+                <h1 className="traveller-header-title">National Engineering College</h1>
+                <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
+            </div>
 
-                <div className="traveller-form-group">
-                    <label>Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={travellerData.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+            <div className="traveller-form-container">
+                <form className="traveller-form" onSubmit={handleSubmit}>
+                    <h2 className="traveller-title">Traveller Allotment</h2>
 
-                <div className="traveller-form-group">
-                    <label>Roll Number</label>
-                    <input
-                        type="text"
-                        name="rollno"
-                        value={travellerData.rollno}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                    <div className="traveller-form-group">
+                        <label>Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={travellerData.name}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <div className="traveller-form-group">
-                    <label>Designation</label>
-                    <input
-                        type="text"
-                        name="designation"
-                        value={travellerData.designation}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                    <div className="traveller-form-group">
+                        <label>Roll Number</label>
+                        <input
+                            type="text"
+                            name="rollno"
+                            value={travellerData.rollno}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <div className="traveller-form-group">
-                    <label>Pickup Point</label>
-                    <select
-                        name="pickupPoint"
-                        value={travellerData.pickupPoint}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Select Pickup Stage</option>
-                        {stageOptions.map((stage, index) => (
-                            <option key={index} value={stage}>{stage}</option>
-                        ))}
-                    </select>
-                </div>
+                    <div className="traveller-form-group">
+                        <label>Designation</label>
+                        <input
+                            type="text"
+                            name="designation"
+                            value={travellerData.designation}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <div className="traveller-form-group">
-                <label>Drop Point</label>
-                    <select
-                        name="dropPoint"
-                        value={travellerData.dropPoint}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Select Drop Stage</option>
-                        {stageOptions.map((stage, index) => (
-                            <option key={index} value={stage}>{stage}</option>
-                        ))}
-                    </select>
-                </div>
+                    <div className="traveller-form-group">
+                        <label>Pickup Point</label>
+                        <select
+                            name="pickupPoint"
+                            value={travellerData.pickupPoint}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select Pickup Stage</option>
+                            {stageOptions.map((stage, index) => (
+                                <option key={index} value={stage}>{stage}</option>
+                            ))}
+                        </select>
+                    </div>
 
-                <button type="submit" className="traveller-submit-button">
-                    Submit
-                </button>
-            </form>
-        </div>
+                    <div className="traveller-form-group">
+                    <label>Drop Point</label>
+                        <select
+                            name="dropPoint"
+                            value={travellerData.dropPoint}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select Drop Stage</option>
+                            {stageOptions.map((stage, index) => (
+                                <option key={index} value={stage}>{stage}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <button type="submit" className="traveller-submit-button">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </>
     );
 };
 

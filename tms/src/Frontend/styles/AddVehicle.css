@@ -7,7 +7,7 @@
 }
 
 /* Background */
-.vehicle-page {
+.add-vehicle-page {
     background: url("/public/Images/Nec.jpg") no-repeat center center fixed;
     background-size: cover;
     display: flex;
@@ -18,36 +18,54 @@
     padding-top: 90px;  /* Slightly reduced height */
 }
 
-/* Header */
-.vehicle-header {
-    width: 100%; /* Full width */
-    height: 55px !important; /* Slightly reduced height */
-    background: linear-gradient(to right, #0057B8, #00C1D4);
+.add-vehicle-header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 80px;
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    border-radius: 0 0 15px 15px;
     color: white;
-    font-size: 24px; /* Slightly smaller font size */
-    font-weight: bold;
-    padding: 20px; /* Reduced padding */
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 0 0 12px 12px;
-    position: relative;  
-    top: 10px; /* Adjusted position */
-    left: -20px !important; /* Move header slightly to the left */
-    z-index: 1000; /* Ensures it's above all content */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  .add-vehicle-header-title {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-}
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  
+  .add-logout-btn {
+    background-color: #0057B8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+    font-weight: bold;
+  }
+  
+  .add-logout-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  }
 
-.vehicle-page {
+.add-vehicle-page {
     padding-top: 90px; /* Adjust according to the header height */
-}
-.vehicle-header {
-    margin-top: 2px; /* Moves it down */
 }
 
 /* White container */
-.vehicle-form-container {
+.add-vehicle-form-container {
     background: white;
     max-width: 1200px; /* Increased width */
     padding: 18px; /* Slightly reduced padding */
@@ -57,7 +75,7 @@
 }
 
 /* Title */
-.vehicle-main-title {
+.add-vehicle-main-title {
     color: #0047AB;
     font-size: 25px;
     font-weight: bold;
@@ -66,7 +84,7 @@
 }
 
 /* Title */
-.vehicle-title {
+.add-vehicle-title {
     color: #0047AB;
     font-size: 20px;
     font-weight: bold;
@@ -77,20 +95,20 @@
 }
 
 /* Two-column grid layout */
-.vehicle-form-grid {
+.add-vehicle-form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px; /* Reduced gap */
 }
 
 /* Form fields */
-.vehicle-form-group {
+.add-vehicle-form-group {
     display: flex;
     flex-direction: column;
     text-align: left;
 }
 
-.vehicle-form-group label {
+.add-vehicle-form-group label {
     display: block;
     font-weight: bold;
     color: #333;
@@ -98,8 +116,8 @@
     font-size: 14px;
 }
 
-.vehicle-form-group input,
-.vehicle-form-group select {
+.add-vehicle-form-group input,
+.add-vehicle-form-group select {
     width: 100%;
     padding: 10px; /* Increased padding for larger text boxes */
     border: 1px solid rgba(0, 0, 0, 0.3);
@@ -111,7 +129,7 @@
 }
 
 /* Submit Button */
-.vehicle-submit-button {
+.add-vehicle-submit-button {
     background: linear-gradient(to right,#0057B8, #00c6ff);
     color: white;
     font-size: 16px; /* Reduced size */
@@ -124,13 +142,13 @@
     height: 38px; /* Slightly reduced height */
 }
 
-.vehicle-submit-button:hover {
+.add-vehicle-submit-button:hover {
     background: linear-gradient(to right, #0057B8, #009edc);
 }
 
 /* Responsive: Stack inputs on smaller screens */
 @media (max-width: 768px) {
-    .vehicle-form-grid {
+    .add-vehicle-form-grid {
         grid-template-columns: 1fr;
     }
 }

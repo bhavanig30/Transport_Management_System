@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import "../../styles/AddRoute.css"; // Ensure correct CSS file is used
 
 const AddRoute = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   const [formData, setFormData] = useState({
     routeId: "",
     routeName: "",
@@ -58,89 +65,94 @@ const AddRoute = () => {
   };
 
   return (
-    <div className="route-form-container">
-      <div className="route-header">National Engineering College</div>
+    <>
+      <div className="route-header">
+        <h1 className="route-header-title">National Engineering College</h1>
+        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
+      </div>
 
-      <form className="route-form" onSubmit={handleSubmit}>
-        <div className="route-title">Route Master Form</div>
+      <div className="route-form-container">
+        <form className="route-form" onSubmit={handleSubmit}>
+          <div className="route-title">Route Master Form</div>
 
-        <div className="route-form-group">
-          <label htmlFor="routeName">Route Name</label>
-          <input
-            type="text"
-            id="routeName"
-            name="routeName"
-            placeholder="Enter Route Name"
-            value={formData.routeName}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="route-form-group">
+            <label htmlFor="routeName">Route Name</label>
+            <input
+              type="text"
+              id="routeName"
+              name="routeName"
+              placeholder="Enter Route Name"
+              value={formData.routeName}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="route-form-group">
-          <label htmlFor="totalStages">Total Stages</label>
-          <input
-            type="number"
-            id="totalStages"
-            name="totalStages"
-            placeholder="Enter Total Stages"
-            value={formData.totalStages}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="route-form-group">
+            <label htmlFor="totalStages">Total Stages</label>
+            <input
+              type="number"
+              id="totalStages"
+              name="totalStages"
+              placeholder="Enter Total Stages"
+              value={formData.totalStages}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        {/* Starting Stage Dropdown */}
-        <div className="route-form-group">
-          <label htmlFor="startingStage">Starting Stage</label>
-          <select
-            id="startingStage"
-            name="startingStage"
-            value={formData.startingStage}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Starting Stage</option>
-            {loading ? (
-              <option disabled>Loading stages...</option>
-            ) : (
-              stages.map((stage) => (
-                <option key={stage.stageId} value={stage.stageId}>
-                  {stage.stageName}
-                </option>
-              ))
-            )}
-          </select>
-        </div>
+          {/* Starting Stage Dropdown */}
+          <div className="route-form-group">
+            <label htmlFor="startingStage">Starting Stage</label>
+            <select
+              id="startingStage"
+              name="startingStage"
+              value={formData.startingStage}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Starting Stage</option>
+              {loading ? (
+                <option disabled>Loading stages...</option>
+              ) : (
+                stages.map((stage) => (
+                  <option key={stage.stageId} value={stage.stageId}>
+                    {stage.stageName}
+                  </option>
+                ))
+              )}
+            </select>
+          </div>
 
-        {/* Ending Stage Dropdown */}
-        <div className="route-form-group">
-          <label htmlFor="endingStage">Ending Stage</label>
-          <select
-            id="endingStage"
-            name="endingStage"
-            value={formData.endingStage}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Ending Stage</option>
-            {loading ? (
-              <option disabled>Loading stages...</option>
-            ) : (
-              stages.map((stage) => (
-                <option key={stage.stageId} value={stage.stageId}>
-                  {stage.stageName}
-                </option>
-              ))
-            )}
-          </select>
-        </div>
+          {/* Ending Stage Dropdown */}
+          <div className="route-form-group">
+            <label htmlFor="endingStage">Ending Stage</label>
+            <select
+              id="endingStage"
+              name="endingStage"
+              value={formData.endingStage}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Ending Stage</option>
+              {loading ? (
+                <option disabled>Loading stages...</option>
+              ) : (
+                stages.map((stage) => (
+                  <option key={stage.stageId} value={stage.stageId}>
+                    {stage.stageName}
+                  </option>
+                ))
+              )}
+            </select>
+          </div>
 
-        <button type="submit" className="route-submit-button">
-          Add Route
-        </button>
-      </form>
-    </div>
+          <button type="submit" className="route-submit-button">
+            Add Route
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
