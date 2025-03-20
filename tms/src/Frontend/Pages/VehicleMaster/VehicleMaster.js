@@ -11,10 +11,6 @@ const VehicleMaster = () => {
 
   return (
     <>
-      <div className="vehicle-header">
-        <h1 className="vehicle-header-title">National Engineering College</h1>
-        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-      </div>
 
       <div className="vehicle-master-container">
         <div className="vehicle-options-container">

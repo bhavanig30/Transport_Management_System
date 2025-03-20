@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
-import "../../styles/AddRoute.css"; // Ensure correct CSS file is used
+import "../../styles/AddRoute.css";
 
 const AddRoute = () => {
-  const navigate = useNavigate();
-
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
 
   const [formData, setFormData] = useState({
     routeId: "",
@@ -66,11 +60,6 @@ const AddRoute = () => {
 
   return (
     <>
-      <div className="route-header">
-        <h1 className="route-header-title">National Engineering College</h1>
-        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-      </div>
-
       <div className="route-form-container">
         <form className="route-form" onSubmit={handleSubmit}>
           <div className="route-title">Route Master Form</div>
@@ -101,7 +90,6 @@ const AddRoute = () => {
             />
           </div>
 
-          {/* Starting Stage Dropdown */}
           <div className="route-form-group">
             <label htmlFor="startingStage">Starting Stage</label>
             <select
@@ -124,7 +112,6 @@ const AddRoute = () => {
             </select>
           </div>
 
-          {/* Ending Stage Dropdown */}
           <div className="route-form-group">
             <label htmlFor="endingStage">Ending Stage</label>
             <select

@@ -1,13 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import "../../styles/AddStage.css"; // Ensure the correct CSS file is used
+import "../../styles/AddStage.css";
 
 const AddStage = () => {
-  const navigate = useNavigate();
-
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
 
   const [formData, setFormData] = useState({
     stageName: "",
@@ -25,7 +19,7 @@ const AddStage = () => {
     e.preventDefault();
 
     try {
-        const response = await fetch("http://localhost:5000/addStage", {  // Make sure the URL is correct
+        const response = await fetch("http://localhost:5000/addStage", { 
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -37,7 +31,7 @@ const AddStage = () => {
 
         if (response.ok) {
             alert("Stage added successfully! Stage ID: " + data.stageId);
-            setFormData({ stageName: "", arrivalTime: "", departureTime: "", fees: "" }); // Reset form
+            setFormData({ stageName: "", arrivalTime: "", departureTime: "", fees: "" }); 
         } else {
             alert("Error: " + data.message);
         }
@@ -47,14 +41,8 @@ const AddStage = () => {
     }
   };
 
-
   return (
     <>
-      <div className="stage-header">
-        <h1 className="stage-header-title">National Engineering College</h1>
-        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-      </div>
-
       <div className="stage-form-container">
 
         <form className="stage-form" onSubmit={handleSubmit}>
