@@ -1,5 +1,5 @@
 .stage-form-container {
-    margin-top: 50px; 
+    margin-top: 50px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -7,56 +7,57 @@
 }
 
 .stage-form {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to bottom, #E0F7FA, #FFFFFF); /* Soft cyan to white */
+    backdrop-filter: blur(8px);
+    padding: 24px; /* Slightly increased padding */
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 85%;  /* Reduced width for a more compact look */
+    max-width: 360px; /* More compact form */
 }
 
 .stage-title {
-    color: #0047AB;
-    font-size: 22px;
+    color: #004D80; /* Deep teal */
+    font-size: 22px; /* Increased font size for better visibility */
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     text-transform: uppercase;
     padding-bottom: 6px;
-    border-bottom: 2px solid #0047AB;
+    border-bottom: 2px solid #00A5C4;
 }
 
 .stage-form-group {
     margin-bottom: 12px;
     text-align: left;
+    width: 100%;
 }
 
-.stage-form-group input,
-.stage-form-group select,
-.stage-form-group textarea {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-    font-size: 16px;
-    background: rgba(0, 0, 0, 0.05);
+
+
+.stage-form-group input::placeholder,
+.stage-form-group textarea::placeholder {
+    color: rgba(0, 77, 128, 0.6);
 }
 
 .stage-submit-button {
     background: linear-gradient(to right, #0057B8, #00C1D4);
-    color: white;
+    color: #ffffff;
     border: none;
-    padding: 14px;
+    padding: 14px; /* Increased button size */
     width: 100%;
-    font-size: 16px;
+    font-size: 16px; /* Bigger button text */
     font-weight: bold;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
 }
 
 .stage-submit-button:hover {
-    background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
+    background: linear-gradient(to right, #004a9f, #009fb0);
     transform: scale(1.02);
 }
