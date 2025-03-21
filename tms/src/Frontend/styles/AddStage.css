@@ -7,7 +7,7 @@
 }
 
 .stage-form {
-    background: linear-gradient(to bottom, #E0F7FA, #FFFFFF); /* Soft cyan to white */
+    background: white; /* Soft cyan to white */
     backdrop-filter: blur(8px);
     padding: 24px; /* Slightly increased padding */
     border-radius: 14px;
@@ -17,7 +17,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 85%;  /* Reduced width for a more compact look */
+    width: 450px;  /* Reduced width for a more compact look */
     max-width: 360px; /* More compact form */
 }
 
