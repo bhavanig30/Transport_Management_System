@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Frontend/pages/Home";
 import VehicleMaster from "./Frontend/pages/VehicleMaster/VehicleMaster";
 import Login from "./Frontend/pages/Login";
 import AddStage from "./Frontend/pages/StageMaster/AddStage";
@@ -12,7 +11,7 @@ import AddVehicle from "./Frontend/pages/VehicleMaster/AddVehicle";
 import AddPermit from "./Frontend/pages/VehicleMaster/PermitDetails/AddPermit";
 import AddInsurance from "./Frontend/pages/VehicleMaster/InsuranceDetails/AddInsurance";
 import AddFC from "./Frontend/pages/VehicleMaster/FCDetails/AddFC";
-
+import Home from "./Frontend/pages/Home";
 
 const App = () => {
   return (
@@ -25,15 +24,6 @@ const App = () => {
           <Route path="addroute" element={<AddRoute />} />
           <Route path="adddriver" element={<AddDriver />} />
           <Route path="addtraveller" element={<AddTraveller />} />
-
-          <Route path="/home/vehiclemaster" element={<VehicleMaster />}>
-            <Route path="viewvehicle" element={<ViewVehicle />} />
-            <Route path="addvehicle" element={<AddVehicle />} />
-            <Route path="addpermit" element={<AddPermit />} />
-            <Route path="addinsurance" element={<AddInsurance />} />
-            <Route path="addfc" element={<AddFC />} />
-          </Route>
-
         </Route>
         
         <Route path="/home/vehiclemaster/viewvehicle" element={<ViewVehicle />} />
