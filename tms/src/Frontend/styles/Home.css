@@ -63,13 +63,14 @@ body {
   color: white;
 }
 
-/* Home Container */
-.home-container {
+/* Home Layout */
+.home-layout {
   display: flex;
+  flex-direction: column;
   width: 100vw;
   min-height: 100vh;
-  overflow: hidden;
   margin-top: 60px;
+  background: none !important;
 }
 
 /* Sidebar */
@@ -110,9 +111,6 @@ body {
 .content-area {
   flex: 1;
   padding: 20px;
-  text-align: center;
-  border-radius: 10px;
-  margin: 20px;
   min-height: 85vh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -122,15 +120,40 @@ body {
   flex-direction: column;
   margin-left: 250px;
   width: calc(100% - 250px);
+  background: transparent !important;
 }
 
-
-
-
-/* Removed the Blog Card Behind the Form */
+/* Blog Cards (Displayed Only on Home Page) */
 .blog-container {
-  display: none; /* This removes the blog cards */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
 }
+
+.blog-card {
+  background: white;
+  padding: 20px;
+  width: 180px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.blog-card:hover {
+  transform: scale(1.05);
+}
+
+.blog-icon {
+  font-size: 40px;
+  color: #0057B8;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
