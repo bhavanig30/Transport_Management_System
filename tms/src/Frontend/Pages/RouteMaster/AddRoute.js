@@ -7,6 +7,7 @@ const AddRoute = () => {
     routeId: "",
     routeName: "",
     city: "",
+    totalStages: "",
     totalDistance: "",
   });
 
@@ -26,6 +27,7 @@ const AddRoute = () => {
         routeId: "",
         routeName: "",
         city: "",
+        totalStages: "",
         totalDistance: "",
       });
     } catch (error) {
@@ -89,6 +91,19 @@ const AddRoute = () => {
         </div>
 
         <div className="route-form-group">
+            <label htmlFor="totalStages">Total Stages</label>
+            <input
+            type="number"
+            id="totalStages"
+            name="totalStages"
+            placeholder="Enter Total No of Stages"
+            value={formData.totalStages}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="route-form-group">
           <label htmlFor="totalDistance">Total Distance (km)</label>
           <input
             type="number"
@@ -96,6 +111,8 @@ const AddRoute = () => {
             name="totalDistance"
             placeholder="Enter Total Distance"
             value={formData.totalDistance}
+            step={0.1}
+            min={0}
             onChange={handleChange}
             required
           />

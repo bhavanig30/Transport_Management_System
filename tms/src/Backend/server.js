@@ -37,14 +37,16 @@ async function generateStageId() {
 // Add a New Stage
 app.post('/addStage', async (req, res) => {
     try {
-        const { stageName, arrivalTime, departureTime, fees } = req.body;
-        if (!stageName || !arrivalTime || !departureTime || !fees) {
+        const { stageName, city, routeId, arrivalTime, departureTime, fee } = req.body;
+        console.log(stageName + city + routeId + arrivalTime + departureTime + fee);
+
+        if (!stageName || !city || !routeId || !arrivalTime || !departureTime || !fee) {
             return res.status(400).json({ message: "Missing required fields" });
         }
         
         const stageId = await generateStageId();
-        const sql = "INSERT INTO stage (stageId, stageName, arrivalTime, departureTime, fees) VALUES (?, ?, ?, ?, ?)";
-        connection.query(sql, [stageId, stageName, arrivalTime, departureTime, fees], (err, result) => {
+        const sql = "INSERT INTO stage (stageid, stagename, city, routeid, arrivaltime, departureTime, fee) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        connection.query(sql, [stageId, stageName, city, routeId, arrivalTime, departureTime, fee], (err, result) => {
             if (err) {
                 return res.status(500).json({ message: "Database error", error: err });
             }
@@ -66,37 +68,26 @@ app.get('/getStage', (req, res) => {
     });
 });
 
-// Function to generate the next routeId 
-async function generateRouteId() {
-    return new Promise((resolve, reject) => {
-        connection.query(
-            "SELECT MAX(CAST(SUBSTRING(routeId, 2) AS UNSIGNED)) AS maxId FROM route",
-            (err, result) => {
-                if (err) reject(err);
-                const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
-                resolve(`R${nextId}`);
-            }
-        );
-    });
-}
 
 // Add a New Route
 app.post('/addRoute', async (req, res) => {
     try {
-        const { routeName, totalStages, startingStage, endingStage } = req.body;
-        if (!routeName || !totalStages || !startingStage || !endingStage) {
+        const { routeId, routeName, city, totalStages, totalDistance } = req.body;
+        if (!routeId || !routeName || !city || !totalStages || !totalDistance) {
             return res.status(400).json({ message: "Missing required fields" });
         }
         
-        const routeId = await generateRouteId();
-        connection.query("INSERT INTO route (routeId, routeName, totalStages, startingStage, endingStage) VALUES (?, ?, ?, ?, ?)", 
-            [routeId, routeName, totalStages, startingStage, endingStage], (err, result) => {
+        connection.query("INSERT INTO Route (routeid, routename, city, totalstages, totaldistance) VALUES (?, ?, ?, ?, ?)", 
+            [routeId, routeName, city, totalStages, totalDistance], (err, result) => {
             if (err) {
+                console.log("DB");
                 return res.status(500).json({ message: "Database error", error: err });
             }
             res.status(200).json({ message: "Route added successfully", routeId });
+            console.log("D");
         });
     } catch (error) {
+        console.log("server");
         res.status(500).json({ message: "Server error", error });
     }
 });
@@ -112,7 +103,26 @@ app.get('/getRoute', (req, res) => {
     });
 });
 
-// Function to generate the next vehicleId 
+app.get('/getRouteByCity', (req, res) => {
+    const { city } = req.query;
+
+    if (!city) {
+        return res.status(400).json({ message: "City is required" });
+    }
+
+    const query = "SELECT routeid FROM route WHERE city = ?";
+    
+    connection.query(query, [city], (err, results) => {
+        if (err) {
+            console.error("Error fetching routes:", err);
+            return res.status(500).json({ message: "Failed to fetch routes" });
+        }
+
+        const routeIds = results.map(route => route.routeid);
+        res.json({ routes: routeIds });
+    });
+});
+
 async function generateVehicleId() {
     return new Promise((resolve, reject) => {
         connection.query(
@@ -125,22 +135,6 @@ async function generateVehicleId() {
         );
     });
 }
-
-// API Endpoint to Get Existing Route Names for Dropdown
-app.get("/getRoutes", (req, res) => {
-    const sql = "SELECT routeName FROM route";
-    
-    connection.query(sql, (err, results) => {
-        if (err) {
-            console.error("Database error:", err);
-            return res.status(500).json({ message: "Database error", error: err });
-        }
-        const routeNames = results.map((row) => row.routeName);
-        res.status(200).json(routeNames);
-    });
-});
-
-
 
 // Add a New Vehicle
 app.post('/addVehicle', async (req, res) => {

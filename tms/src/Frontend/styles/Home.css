@@ -18,15 +18,16 @@ body {
 
 .home-header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  position: fixed;
-  top: 0;
-  width: 100%;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 11%;
   background: linear-gradient(to right, #0057B8, #00C1D4);
   color: white;
-  padding: 15px 30px;
-  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
 }
 
@@ -43,9 +44,12 @@ body {
 
 /* Header Title */
 .home-header-title {
-  font-size: 24px;
-  flex: 1;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
 /* Logout Button */
@@ -83,7 +87,7 @@ body {
   height: 100vh;
   position: fixed;
   left: 0;
-  top: 60px;
+  top: 80px;
   overflow-y: auto;
 }
 
