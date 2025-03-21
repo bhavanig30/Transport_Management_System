@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
 import "../../../styles/AddPermit.css";
 
 const AddPermit = () => {
-  const navigate = useNavigate();
 
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
 
   const [vehicleIds, setVehicleIds] = useState([]);
   const [formData, setFormData] = useState({
@@ -19,7 +14,6 @@ const AddPermit = () => {
     status: "",
   });
 
-  // Fetch vehicle IDs from the backend
   useEffect(() => {
     fetch("http://localhost:5000/getVehicleIds")
       .then((res) => res.json())
@@ -62,10 +56,6 @@ const AddPermit = () => {
 
   return (
     <>
-      <div className="vp-header">
-        <h1 className="vp-header-title">National Engineering College</h1>
-        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-      </div>
       <div className="vp-form-container">
         <div className="vp-form">
           <h2 className="vp-title">Permit Details Form</h2>

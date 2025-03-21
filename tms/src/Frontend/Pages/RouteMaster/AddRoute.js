@@ -12,15 +12,14 @@ const AddRoute = () => {
     endingStage: "",
   });
 
-  const [stages, setStages] = useState([]); // Store stage data
-  const [loading, setLoading] = useState(true); // Track loading state
+  const [stages, setStages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch stage data when component mounts
   useEffect(() => {
     const fetchStages = async () => {
       try {
         const response = await axios.get("http://localhost:5000/getStage");
-        setStages(response.data); // Assuming response.data is an array of stage objects
+        setStages(response.data);
         console.log(response.data);
         setLoading(false);
       } catch (error) {

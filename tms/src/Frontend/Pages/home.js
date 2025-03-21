@@ -16,12 +16,11 @@ const Home = () => {
 
   return (
     <>
-      {/* Header */}
       <div className="home-header">
         <h1 className="home-header-title">National Engineering College</h1>
         <div className="live-clock">{time.toLocaleTimeString()}</div>
         <button className="logout-btn" onClick={() => navigate("/")}>
-          <FaSignOutAlt className="logout-icon" />
+          <FaSignOutAlt className="logout-icon"/>
         </button>
       </div>
 
