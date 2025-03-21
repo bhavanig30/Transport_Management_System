@@ -1,36 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "../../styles/AddRoute.css";
 
 const AddRoute = () => {
-
   const [formData, setFormData] = useState({
     routeId: "",
     routeName: "",
-    totalStages: "",
-    startingStage: "",
-    endingStage: "",
+    city: "",
+    totalDistance: "",
   });
-
-  const [stages, setStages] = useState([]); // Store stage data
-  const [loading, setLoading] = useState(true); // Track loading state
-
-  // Fetch stage data when component mounts
-  useEffect(() => {
-    const fetchStages = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/getStage");
-        setStages(response.data); // Assuming response.data is an array of stage objects
-        console.log(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching stages:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchStages();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,13 +22,11 @@ const AddRoute = () => {
       const response = await axios.post("http://localhost:5000/addRoute", formData);
       alert(response.data.message);
 
-      // Reset form fields
       setFormData({
         routeId: "",
         routeName: "",
-        totalStages: "",
-        startingStage: "",
-        endingStage: "",
+        city: "",
+        totalDistance: "",
       });
     } catch (error) {
       console.error("Error adding route:", error);
@@ -59,87 +35,77 @@ const AddRoute = () => {
   };
 
   return (
-    <>
-      <div className="route-form-container">
-        <form className="route-form" onSubmit={handleSubmit}>
-          <div className="route-title">Route Master Form</div>
+    <div className="route-form-container">
+      <form className="route-form" onSubmit={handleSubmit}>
+        <div className="route-title">Route Master Form</div>
 
-          <div className="route-form-group">
-            <label htmlFor="routeName">Route Name</label>
-            <input
-              type="text"
-              id="routeName"
-              name="routeName"
-              placeholder="Enter Route Name"
-              value={formData.routeName}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <div className="route-form-group">
+          <label htmlFor="routeId">Route ID</label>
+          <input
+            type="text"
+            id="routeId"
+            name="routeId"
+            placeholder="Enter Route ID"
+            value={formData.routeId}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <div className="route-form-group">
-            <label htmlFor="totalStages">Total Stages</label>
-            <input
-              type="number"
-              id="totalStages"
-              name="totalStages"
-              placeholder="Enter Total Stages"
-              value={formData.totalStages}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <div className="route-form-group">
+          <label htmlFor="routeName">Route Name</label>
+          <input
+            type="text"
+            id="routeName"
+            name="routeName"
+            placeholder="Enter Route Name"
+            value={formData.routeName}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <div className="route-form-group">
-            <label htmlFor="startingStage">Starting Stage</label>
-            <select
-              id="startingStage"
-              name="startingStage"
-              value={formData.startingStage}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Starting Stage</option>
-              {loading ? (
-                <option disabled>Loading stages...</option>
-              ) : (
-                stages.map((stage) => (
-                  <option key={stage.stageId} value={stage.stageId}>
-                    {stage.stageName}
-                  </option>
-                ))
-              )}
-            </select>
-          </div>
+        <div className="route-form-group">
+          <label htmlFor="city">City</label>
+          <select
+            id="city"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select City</option>
+            <option value="Kovilpatti">Kovilpatti</option>
+            <option value="Thoothukudi">Thoothukudi</option>
+            <option value="Tirunelveli">Tirunelveli</option>
+            <option value="Sattur">Sattur</option>
+            <option value="Virudhunagar">Virudhunagar</option>
+            <option value="Vilathikulam">Vilathikulam</option>
+            <option value="Sivakasi">Sivakasi</option>
+            <option value="Kayathar">Kayathar</option>
+            <option value="Sankarakovil">Sankarakovil</option>
+            <option value="Kalugumali">Kalugumali</option>
+          </select>
+        </div>
 
-          <div className="route-form-group">
-            <label htmlFor="endingStage">Ending Stage</label>
-            <select
-              id="endingStage"
-              name="endingStage"
-              value={formData.endingStage}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Ending Stage</option>
-              {loading ? (
-                <option disabled>Loading stages...</option>
-              ) : (
-                stages.map((stage) => (
-                  <option key={stage.stageId} value={stage.stageId}>
-                    {stage.stageName}
-                  </option>
-                ))
-              )}
-            </select>
-          </div>
+        <div className="route-form-group">
+          <label htmlFor="totalDistance">Total Distance (km)</label>
+          <input
+            type="number"
+            id="totalDistance"
+            name="totalDistance"
+            placeholder="Enter Total Distance"
+            value={formData.totalDistance}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <button type="submit" className="route-submit-button">
-            Add Route
-          </button>
-        </form>
-      </div>
-    </>
+        <button type="submit" className="route-submit-button">
+          Add Route
+        </button>
+      </form>
+    </div>
   );
 };
 
