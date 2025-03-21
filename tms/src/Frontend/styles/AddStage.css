@@ -1,5 +1,5 @@
 .stage-form-container {
-    margin-top: 50px; 
+    margin-top: 5%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -8,39 +8,47 @@
 
 .stage-form {
     background: #ffffff;
-    padding: 20px;
+    padding: 5%;
     border-radius: 10px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.2);
     text-align: center;
     display: flex;
+    width: 50%;
+    max-width: 400px;
+    min-width: 300px;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .stage-title {
     color: #0047AB;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     text-transform: uppercase;
-    padding-bottom: 6px;
+    padding-bottom: 8px;
     border-bottom: 2px solid #0047AB;
 }
 
 .stage-form-group {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     text-align: left;
 }
 
+.stage-form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
 .stage-form-group input,
-.stage-form-group select,
-.stage-form-group textarea {
+.stage-form-group select {
     width: 100%;
-    padding: 14px;
+    padding: 10px;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
     background: rgba(0, 0, 0, 0.05);
 }
 
@@ -48,12 +56,13 @@
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
     border: none;
-    padding: 14px;
+    padding: 10px;
     width: 100%;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 .stage-submit-button:hover {

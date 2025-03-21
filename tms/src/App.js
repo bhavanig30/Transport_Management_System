@@ -35,6 +35,13 @@ const App = () => {
           </Route>
 
         </Route>
+        
+        <Route path="/home/vehiclemaster/viewvehicle" element={<ViewVehicle />} />
+        <Route path="/home/vehiclemaster/addvehicle" element={<AddVehicle />}/>
+        <Route path="/home/vehiclemaster/addpermit" element={<AddPermit />} />
+        <Route path="/home/vehiclemaster/addinsurance" element={<AddInsurance/>} />
+        <Route path="/home/vehiclemaster/addfc" element={<AddFC  />} />
+
       </Routes>
     </Router>
   );

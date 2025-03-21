@@ -64,11 +64,10 @@
     padding-top: 90px; /* Adjust according to the header height */
 }
 
-/* White container */
 .add-vehicle-form-container {
     background: white;
-    max-width: 1200px; /* Increased width */
-    padding: 18px; /* Slightly reduced padding */
+    max-width: 1200px; 
+    padding: 18px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;

@@ -1,5 +1,6 @@
 body {
   background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
+  background-size: cover;
   display: flex;
   flex-direction: column;
 }
@@ -58,7 +59,7 @@ body {
 
 .sidebar {
   width: 250px;
-  background: white;
+  background: rgb(213, 212, 212);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -98,27 +99,68 @@ body {
   overflow-x: hidden; /* Prevents horizontal scrolling */
 }
 
-/* Ensuring headings remain centered */
-.container h2 {
-  text-align: center;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-/* Blog Cards */
+/* Blog Card Container */
 .blog-container {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
-  min-height: 80vh; /* Increased height */
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 50px;
 }
 
+/* Blog Card */
 .blog-card {
-  background: white;
-  padding: 15px;
+  background: linear-gradient(to right, #0057B8, #00C1D4);
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  width: 300px;
-  text-align: left;
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.blog-card:hover {
+  transform: scale(1.05);
+}
+
+/* Blog Icon */
+.blog-icon {
+  font-size: 40px;
+  color: #fbfdfe;
+  margin-bottom: 10px;
+}
+
+/* Blog Card Title */
+.blog-card h3 {
+  font-size: 20px;
+  color: #f6efef;
+  margin-bottom: 5px;
+}
+
+/* Blog Card Number */
+.blog-card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fbfcfc;
+}
+
+/* Scroll Fix for Smaller Screens */
+@media (max-width: 768px) {
+  .container {
+    width: 80%;
+  }
+
+  .sidebar {
+    width: 200px;
+  }
+
+  .content-area {
+    padding: 10px;
+    min-height: 80vh;
+  }
+
+  .blog-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
