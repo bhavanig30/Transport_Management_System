@@ -11,7 +11,6 @@ const AddFC = () => {
   };
 
   const [formData, setFormData] = useState({
-    fcId: "",
     vehicleId: "",
     fcNo: "",
     issueDate: "",
@@ -25,18 +24,20 @@ const AddFC = () => {
 
   useEffect(() => {
     const fetchVehicleIds = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/getVehicleIds");
-        setVehicleIds(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching vehicle IDs:", error);
-        setError("Failed to fetch vehicle IDs. Please try again.");
-        setLoading(false);
-      }
+        try {
+            const response = await axios.get("http://localhost:5000/getVehicle");
+            const vehicleIds = response.data.map(vehicle => vehicle.vehicleid); // Extract only vehicleId
+            setVehicleIds(vehicleIds);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching vehicle IDs:", error);
+            setError("Failed to fetch vehicle IDs. Please try again.");
+            setLoading(false);
+        }
     };
     fetchVehicleIds();
-  }, []);
+}, []);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +57,6 @@ const AddFC = () => {
       const response = await axios.post("http://localhost:5000/addFC", formData);
       alert(response.data.message);
       setFormData({
-        fcId: "",
         vehicleId: "",
         fcNo: "",
         issueDate: "",
@@ -79,28 +79,14 @@ const AddFC = () => {
       <div className="fc-form-container">
         <form className="fc-form" onSubmit={handleSubmit}>
           <div className="fc-title">FC Details Form</div>
-
-          {error && <div className="error-message">{error}</div>}
-
           <div className="fc-form-group">
-            <label htmlFor="vehicleId">Vehicle ID</label>
-            <select
-              id="vehicleId"
-              name="vehicleId"
-              value={formData.vehicleId}
-              onChange={handleChange}
-              required
-              disabled={loading}
-            >
-              <option value="">Select Vehicle</option>
-              {loading ? (
-                <option disabled>Loading vehicle IDs...</option>
-              ) : (
-                vehicleIds.map((id) => (
-                  <option key={id} value={id}>{id}</option>
-                ))
-              )}
-            </select>
+              <label>Vehicle Id</label>
+                  <select name="vehicleId" value={formData.vehicleId} onChange={handleChange} required>
+                      <option value="">Select vehicleId</option>
+                          {vehicleIds.map((route, index) => (
+                             <option key={index} value={route}>{route}</option>
+                            ))}
+                    </select>
           </div>
 
           <div className="fc-form-group">

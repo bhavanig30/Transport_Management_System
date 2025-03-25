@@ -13,7 +13,6 @@
     border-radius: 12px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.2);
-    position: relative;
     z-index: 2;
     text-align: center;
 }
@@ -49,7 +48,7 @@
     font-size: 14px;
 }
 
-.driver-form-group input {
+.driver-form-group input, select {
     width: 90%;
     max-width: 500px;
     padding: 14px; 

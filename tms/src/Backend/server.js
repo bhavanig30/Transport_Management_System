@@ -1,6 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const connection = require('./db');
+const express = require("express");
+const cors = require("cors");
+const multer = require("multer");
+const bodyParser = require("body-parser");
+const connection = require("./db");
 
 const app = express();
 app.use(cors());
@@ -123,27 +125,13 @@ app.get('/getRouteByCity', (req, res) => {
     });
 });
 
-async function generateVehicleId() {
-    return new Promise((resolve, reject) => {
-        connection.query(
-            "SELECT MAX(CAST(SUBSTRING(vehicleId, 2) AS UNSIGNED)) AS maxId FROM vehicle",
-            (err, result) => {
-                if (err) reject(err);
-                const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
-                resolve(`v${nextId}`);
-            }
-        );
-    });
-}
-
 // Add a New Vehicle
 app.post('/addVehicle', async (req, res) => {
     console.log("Received Vehicle Data:", req.body); // Debug log
     
     try {
-        const { vehicleType, seatCapacity, registrationNo, routeId, vendorId, registrationDate, purchaseDate, rcNo, registrationPlace } = req.body;
-        const vehicleId = await generateVehicleId();
-        const sql = "INSERT INTO vehicle (vehicleId, vehicleType, seatCapacity, registrationNo, routeId, registrationDate, purchaseDate, vendorId, rcNo, registrationPlace) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        const {vehicleId, vehicleType, seatCapacity, registrationNo, routeId, registrationDate, purchaseDate, vendorId, rcNo, registrationPlace } = req.body;
+        const sql = "INSERT INTO vehicle (vehicleid, vehicletype, seatcapacity, registrationno, routeid, registrationdate, purchasedate, vendorid, rcno, registrationplace) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         connection.query(sql, [vehicleId, vehicleType, seatCapacity, registrationNo, routeId, registrationDate, purchaseDate, vendorId, rcNo, registrationPlace], (err, result) => {
             if (err) {
                 return res.status(500).json({ message: "Database error", error: err });
@@ -166,49 +154,9 @@ app.get('/getVehicle', (req, res) => {
     });
 });
 
-async function generateVehicleId() {
-    return new Promise((resolve, reject) => {
-        connection.query(
-            "SELECT MAX(CAST(SUBSTRING(vehicleId, 2) AS UNSIGNED)) AS maxId FROM vehicle",
-            (err, result) => {
-                if (err) reject(err);
-                const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
-                resolve(`v${nextId}`);
-            }
-        );
-    });
-}
-
-app.get("/getVehicleIds", (req, res) => {
-    const sql = "SELECT vehicleId FROM vehicle";
-    
-    connection.query(sql, (err, results) => {
-        if (err) {
-            console.error("Error fetching vehicle IDs:", err);
-            return res.status(500).json({ message: "Database error" });
-        }
-        res.status(200).json(results.map(row => row.vehicleId)); // Send only IDs
-    });
-});
-
-async function generateFcId() {
-    return new Promise((resolve, reject) => {
-        connection.query(
-            "SELECT MAX(CAST(SUBSTRING(fcId, 3) AS UNSIGNED)) AS maxId FROM fc",
-            (err, result) => {
-                if (err) return reject(err);
-                
-                const nextId = result[0].maxId ? result[0].maxId + 1 : 1;
-                const newFcId = `FC${String(nextId).padStart(3, "0")}`; // Ensures format FC001, FC002, FC003
-                console.log("Generated FC ID:", newFcId);
-                resolve(newFcId);
-            }
-        );
-    });
-}
-
 // Add a new FC record
 app.post("/addFC", async (req, res) => {
+   
     try {
         const { vehicleId, fcNo, issueDate, expiryDate, status } = req.body;
 
@@ -216,18 +164,16 @@ app.post("/addFC", async (req, res) => {
         if (!vehicleId || !fcNo || !issueDate || !expiryDate || !status) {
             return res.status(400).json({ message: "Missing required fields" });
         }
-
-        const fcId = await generateFcId();
-        
+       
         connection.query(
-            "INSERT INTO fc (fcId, vehicleId, fcNo, issueDate, expiryDate, status) VALUES (?, ?, ?, ?, ?, ?)",
-            [fcId, vehicleId, fcNo, issueDate, expiryDate, status],
+            "INSERT INTO fc (vehicleid, fcno, issuedate, expirydate, status) VALUES (?, ?, ?, ?, ?)",
+            [vehicleId, fcNo, issueDate, expiryDate, status],
             (err, result) => {
                 if (err) {
                     console.error("Database error:", err);
                     return res.status(500).json({ message: "Database error", error: err });
                 }
-                res.status(200).json({ message: "FC added successfully", fcId });
+                res.status(200).json({ message: "FC added successfully"});
             }
         );
     } catch (error) {
@@ -246,6 +192,104 @@ app.get("/getFC", (req, res) => {
         res.json(results);
     });
 });
+
+
+app.post("/addInsurance", (req, res) => {
+    try {
+        const { vehicleId, policyNo, companyName, issueDate, expiryDate, premiumAmount } = req.body;
+
+        // Validate required fields
+        if (!vehicleId || !policyNo || !companyName || !issueDate || !expiryDate || !premiumAmount) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        connection.query(
+            "INSERT INTO insurance (vehicleid, policyno, companyname, issuedate, expirydate, premiumamount) VALUES (?, ?, ?, ?, ?, ?)",
+            [vehicleId, policyNo, companyName, issueDate, expiryDate, premiumAmount],
+            (err, result) => {
+                if (err) {
+                    console.error("Database error:", err);
+                    return res.status(500).json({ message: "Database error", error: err });
+                }
+                res.status(200).json({ message: "Insurance record added successfully" });
+            }
+        );
+    } catch (error) {
+        console.error("Server error:", error);
+        res.status(500).json({ message: "Server error", error });
+    }
+});
+
+
+app.get("/getInsurance", (req, res) => {
+    connection.query("SELECT * FROM insurance", (err, results) => {
+        if (err) {
+            console.error("Error fetching insurance records:", err);
+            return res.status(500).json({ message: "Failed to fetch insurance records" });
+        }
+        res.json(results);
+    });
+});
+
+
+app.post("/addPermit", (req, res) => {
+    try {
+        const { vehicleId, permitNo, permitType, issueDate, expiryDate, status } = req.body;
+
+        // Validate required fields
+        if (!vehicleId || !permitNo || !permitType || !issueDate || !expiryDate || !status) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        connection.query(
+            "INSERT INTO permit (vehicleid, permitno, permittype, issuedate, expirydate, status) VALUES (?, ?, ?, ?, ?, ?)",
+            [vehicleId, permitNo, permitType, issueDate, expiryDate, status],
+            (err, result) => {
+                if (err) {
+                    console.log(req.body);
+                    console.error("Database error:", err);
+                    return res.status(500).json({ message: "Database error", error: err });
+                }
+                res.status(200).json({ message: "Permit record added successfully" });
+            }
+        );
+    } catch (error) {
+        console.error("Server error:", error);
+        res.status(500).json({ message: "Server error", error });
+    }
+});
+
+app.get("/getPermit", (req, res) => {
+    connection.query("SELECT * FROM permit", (err, results) => {
+        if (err) {
+            console.error("Error fetching permit records:", err);
+            return res.status(500).json({ message: "Failed to fetch permit records" });
+        }
+        res.json(results);
+    });
+});
+
+// Multer Setup for File Upload (stores image as Buffer)
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+// Route to Add Driver
+app.post("/addDriver", upload.single("photo"), (req, res) => {
+    const { staffcode, staffname, vehicleid, doorno, streetname, city, state, pincode, mobileno } = req.body;
+    const photo = req.file ? req.file.buffer : null;
+
+    const sql = "INSERT INTO driver (staffcode, staffname, vehicleid, doorno, streetname, city, state, pincode, mobileno, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    connection.query(sql, [staffcode, staffname, vehicleid, doorno, streetname, city, state, pincode, mobileno, photo], (err, result) => {
+        if (err) {
+            console.error("Error inserting driver:", err);
+            return res.status(500).json({ message: "Database error", error: err });
+        }
+        console.log("Driver added successfully");
+        res.status(201).json({ message: "Driver added successfully" });
+    });
+});
+
 
 // Start the Server
 const PORT = 5000;

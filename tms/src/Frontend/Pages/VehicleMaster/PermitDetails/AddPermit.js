@@ -1,25 +1,37 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../../styles/AddPermit.css";
 
 const AddPermit = () => {
 
-
-  const [vehicleIds, setVehicleIds] = useState([]);
   const [formData, setFormData] = useState({
-    permitId: "",
     vehicleId: "",
     permitNo: "",
+    permitType:"",
     issueDate: "",
     expiryDate: "",
     status: "",
   });
 
+  const [vehicleIds, setVehicleIds] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   useEffect(() => {
-    fetch("http://localhost:5000/getVehicleIds")
-      .then((res) => res.json())
-      .then((data) => setVehicleIds(data))
-      .catch((err) => console.error("Error fetching vehicle IDs:", err));
-  }, []);
+    const fetchVehicleIds = async () => {
+        try {
+            const response = await axios.get("http://localhost:5000/getVehicle");
+            const vehicleIds = response.data.map(vehicle => vehicle.vehicleid); // Extract only vehicleId
+            setVehicleIds(vehicleIds);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching vehicle IDs:", error);
+            setError("Failed to fetch vehicle IDs. Please try again.");
+            setLoading(false);
+        }
+    };
+    fetchVehicleIds();
+}, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -60,23 +72,16 @@ const AddPermit = () => {
         <div className="vp-form">
           <h2 className="vp-title">Permit Details Form</h2>
           <form className="vp-form-grid" onSubmit={handleSubmit}>
-            <div className="vp-form-group">
-              <label>Vehicle ID</label>
-              <select
-                name="vehicleId"
-                value={formData.vehicleId}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Vehicle</option>
-                {vehicleIds.map((id) => (
-                  <option key={id} value={id}>
-                    {id}
-                  </option>
-                ))}
-              </select>
-            </div>
-
+          <div className="vp-form-group">
+              <label>Vehicle Id</label>
+                  <select name="vehicleId" value={formData.vehicleId} onChange={handleChange} required>
+                      <option value="">Select vehicleId</option>
+                          {vehicleIds.map((route, index) => (
+                             <option key={index} value={route}>{route}</option>
+                            ))}
+                    </select>
+          </div>
+           
             <div className="vp-form-group">
               <label>Permit No</label>
               <input
@@ -87,6 +92,20 @@ const AddPermit = () => {
                 required
               />
             </div>
+            <div className="vp-form-group">
+            <label htmlFor="permitType">Permit Type</label>
+            <select
+              id="permitType"
+              name="permitType"
+              value={formData.permitType}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Permit Type</option>
+              <option value="State">State</option>
+              <option value="District">District</option>
+            </select>
+          </div>
 
             <div className="vp-form-group">
               <label>Issue Date</label>
@@ -111,15 +130,20 @@ const AddPermit = () => {
             </div>
 
             <div className="vp-form-group">
-              <label>Status</label>
-              <input
-                type="text"
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <label htmlFor="status">Status</label>
+            <select
+              id="status"
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Status</option>
+              <option value="Active">Active</option>
+              <option value="Expired">Expired</option>
+            </select>
+          </div>
+
 
             <button className="vp-submit-button" type="submit">
               Add Permit

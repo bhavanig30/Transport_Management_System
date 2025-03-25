@@ -10,14 +10,15 @@ const AddInsurance = () => {
     navigate(path);
   };
 
+  
+
   const initialFormData = {
-    policyId: "",
     vehicleId: "",
     policyNo: "",
+    companyName: "",
     issueDate: "",
     expiryDate: "",
-    provider: "",
-    status: "",
+    premiumAmount: "",
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -27,18 +28,20 @@ const AddInsurance = () => {
 
   useEffect(() => {
     const fetchVehicleIds = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/getVehicleIds");
-        setVehicleIds(response.data);
-      } catch (err) {
-        console.error("Error fetching vehicle IDs:", err);
-        setError("Failed to load vehicle IDs. Please try again.");
-      } finally {
-        setLoading(false);
-      }
+        try {
+            const response = await axios.get("http://localhost:5000/getVehicle");
+            const vehicleIds = response.data.map(vehicle => vehicle.vehicleid); // Extract only vehicleId
+            setVehicleIds(vehicleIds);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching vehicle IDs:", error);
+            setError("Failed to fetch vehicle IDs. Please try again.");
+            setLoading(false);
+        }
     };
     fetchVehicleIds();
-  }, []);
+}, []);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,28 +76,15 @@ const AddInsurance = () => {
         <form className="ins-form" onSubmit={handleSubmit}>
           <div className="ins-title">Insurance Details Form</div>
 
-          {error && <p className="error-message">{error}</p>}
-
           <div className="ins-form-group">
-            <label htmlFor="vehicleId">Vehicle ID</label>
-            <select
-              id="vehicleId"
-              name="vehicleId"
-              value={formData.vehicleId}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Vehicle</option>
-              {loading ? (
-                <option disabled>Loading vehicle IDs...</option>
-              ) : (
-                vehicleIds.map((id) => (
-                  <option key={id} value={id}>{id}</option>
-                ))
-              )}
-            </select>
+              <label>Vehicle Id</label>
+                  <select name="vehicleId" value={formData.vehicleId} onChange={handleChange} required>
+                      <option value="">Select Vehicle Id</option>
+                          {vehicleIds.map((route, index) => (
+                             <option key={index} value={route}>{route}</option>
+                            ))}
+                    </select>
           </div>
-
           <div className="ins-form-group">
             <label htmlFor="policyNo">Policy No</label>
             <input
@@ -102,6 +92,18 @@ const AddInsurance = () => {
               id="policyNo"
               name="policyNo"
               value={formData.policyNo}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="ins-form-group">
+            <label htmlFor="companyName">Company Name</label>
+            <input
+              type="text"
+              id="companyName"
+              name="companyName"
+              value={formData.companyName}
               onChange={handleChange}
               required
             />
@@ -132,30 +134,16 @@ const AddInsurance = () => {
           </div>
 
           <div className="ins-form-group">
-            <label htmlFor="provider">Insurance Provider</label>
+            <label htmlFor="premiumAmount">Premium Amount</label>
             <input
-              type="text"
-              id="provider"
-              name="provider"
-              value={formData.provider}
+              type="number"
+              id="premiumAmount"
+              name="premiumAmount"
+              value={formData.premiumAmount}
               onChange={handleChange}
+              step="1"
               required
             />
-          </div>
-
-          <div className="ins-form-group">
-            <label htmlFor="status">Status</label>
-            <select
-              id="status"
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Status</option>
-              <option value="Active">Active</option>
-              <option value="Expired">Expired</option>
-            </select>
           </div>
 
           <button type="submit" className="ins-submit-button">Add Insurance</button>
