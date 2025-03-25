@@ -84,7 +84,7 @@ const AddCost = () => {
         </div>
 
         <div className="cost-form-group">
-          <label htmlFor="cost">Cost</label>
+          <label htmlFor="cost">Fee</label>
           <input type="number" id="cost" name="cost" placeholder="Enter Cost" value={formData.cost} onChange={handleChange} required />
         </div>
 
