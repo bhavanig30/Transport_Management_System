@@ -18,11 +18,6 @@ const ViewVehicle = () => {
 
   return (
     <>
-      <div className="view-vehicle-header">
-        <h1 className="view-vehicle-header-title">National Engineering College</h1>
-        <button className="view-logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-      </div>
-
       <div className="view-vehicle-master-container">
         <div className="view-vehicle-box-wrapper">
           {/* New Heading for Vehicle Master */}

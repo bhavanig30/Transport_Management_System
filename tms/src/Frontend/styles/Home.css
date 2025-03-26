@@ -206,25 +206,3 @@ body {
   font-size: 40px;
   color: #f6f6f7;
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 200px;
-  }
-
-  .content-area {
-    padding: 10px;
-    min-height: 80vh;
-    margin-left: 200px;
-    width: calc(100% - 200px);
-  }
-
-  .dropdown-toggle {
-    font-size: 16px;
-  }
-
-  .dropdown-menu button {
-    font-size: 14px;
-  }
-}

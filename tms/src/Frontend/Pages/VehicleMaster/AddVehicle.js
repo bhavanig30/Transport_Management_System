@@ -73,10 +73,6 @@ const AddVehicle = () => {
 
     return (
         <>
-            <div className="add-vehicle-header">
-                <h1 className="add-vehicle-header-title">National Engineering College</h1>
-                <button className="add-logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-            </div>
             <div className="add-vehicle-page">
                 <div className="add-vehicle-form-container">
                     <h2 className="add-vehicle-main-title">VEHICLE MASTER</h2>

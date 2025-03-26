@@ -67,22 +67,3 @@
     background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
     transform: scale(1.02);
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .fc-header {
-        height: 10vh;
-        font-size: 18px;
-    }
-
-    .fc-form {
-        width: 98%;
-        height: 80vh;
-        padding: 16px;
-    }
-
-    .fc-title {
-        font-size: 20px;
-        padding-bottom: 5px;
-    }
-}

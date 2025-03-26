@@ -1,79 +1,19 @@
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Arial", sans-serif;
-}
-
-/* Background */
 .add-vehicle-page {
-    background: url("/public/Images/Nec.jpg") no-repeat center center fixed;
     background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    padding-top: 90px;  /* Slightly reduced height */
-}
-
-.add-vehicle-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    height: 80px;
-    background: linear-gradient(to right, #0057B8, #00C1D4);
-    border-radius: 0 0 15px 15px;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-  }
-  
-  .add-vehicle-header-title {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-weight: bold;
-    white-space: nowrap;
-  }
-  
-  .add-logout-btn {
-    background-color: #0057B8;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s;
-    font-weight: bold;
-  }
-  
-  .add-logout-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-  }
-
-.add-vehicle-page {
-    padding-top: 90px; /* Adjust according to the header height */
 }
 
 .add-vehicle-form-container {
     background: white;
-    max-width: 1200px; 
     padding: 18px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
-/* Title */
 .add-vehicle-main-title {
     color: #0047AB;
     font-size: 25px;
@@ -82,7 +22,6 @@
     text-transform: uppercase;
 }
 
-/* Title */
 .add-vehicle-title {
     color: #0047AB;
     font-size: 20px;
@@ -93,14 +32,12 @@
     border-bottom: 4px solid #0047AB;
 }
 
-/* Two-column grid layout */
 .add-vehicle-form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px; /* Reduced gap */
 }
 
-/* Form fields */
 .add-vehicle-form-group {
     display: flex;
     flex-direction: column;
@@ -117,7 +54,7 @@
 
 .add-vehicle-form-group input,
 .add-vehicle-form-group select {
-    width: 100%;
+    width: 90%;
     padding: 10px; /* Increased padding for larger text boxes */
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 6px;
@@ -136,18 +73,11 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%;
+    width: 90%;
     margin-top: 10px; /* Reduced spacing */
     height: 38px; /* Slightly reduced height */
 }
 
 .add-vehicle-submit-button:hover {
     background: linear-gradient(to right, #0057B8, #009edc);
-}
-
-/* Responsive: Stack inputs on smaller screens */
-@media (max-width: 768px) {
-    .add-vehicle-form-grid {
-        grid-template-columns: 1fr;
-    }
 }

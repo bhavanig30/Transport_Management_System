@@ -72,10 +72,6 @@ const AddFC = () => {
 
   return (
     <>
-      <div className="fc-header">
-        <h1 className="fc-header-title">National Engineering College</h1>
-        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-      </div>
       <div className="fc-form-container">
         <form className="fc-form" onSubmit={handleSubmit}>
           <div className="fc-title">FC Details Form</div>
