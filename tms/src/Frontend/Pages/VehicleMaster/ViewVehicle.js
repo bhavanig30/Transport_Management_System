@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import "../../styles/ViewVehicle.css";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const ViewVehicle = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const ViewVehicle = () => {
     <>
       <div className="view-vehicle-header">
         <h1 className="view-vehicle-header-title">National Engineering College</h1>
-        <button className="view-logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
+        
       </div>
 
       <div className="view-vehicle-master-container">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";  // Import Axios
 import "../../styles/AddVehicle.css";
 import { useNavigate } from 'react-router-dom';
+import { FaSignOutAlt } from "react-icons/fa";
 
 const AddVehicle = () => {
     const navigate = useNavigate();
@@ -75,7 +76,9 @@ const AddVehicle = () => {
         <>
             <div className="add-vehicle-header">
                 <h1 className="add-vehicle-header-title">National Engineering College</h1>
-                <button className="add-logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
+                <button className="view-logout-btn" onClick={() => handleNavigation("/")}>
+                    <FaSignOutAlt size={24} />
+                </button>
             </div>
             <div className="add-vehicle-page">
                 <div className="add-vehicle-form-container">
