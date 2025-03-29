@@ -24,6 +24,7 @@ body {
     width: 100%;
     max-width: 2400px; /* Maintained increased width */
     padding: 50px 40px;
+    margin-top: 150px; /* Increased to move the container further down */
     margin-bottom: 8%;
 }
 
@@ -36,12 +37,12 @@ body {
     width: 100%;
     max-width: 2200px; /* Maintained increased width */
     text-align: center;
-    margin-top: 100px;
 }
 
+/* Reduced Title Font Size */
 .view-route-main-title {
     color: #0047AB;
-    font-size: 38px; /* Slightly reduced for better proportion */
+    font-size: 34px; /* Reduced from 38px */
     font-weight: bold;
     margin-bottom: 15px;
     text-transform: uppercase;
@@ -49,7 +50,7 @@ body {
 
 .view-route-title {
     color: #0047AB;
-    font-size: 32px;
+    font-size: 28px; /* Reduced from 32px */
     font-weight: bold;
     margin-bottom: 25px;
     text-transform: uppercase;
@@ -58,7 +59,7 @@ body {
 }
 
 /* Filters */
-.view-filter-container {
+.view-route-filter-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,14 +68,14 @@ body {
     margin-bottom: 25px;
 }
 
-.view-filter-item {
+.view-route-filter-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 280px; /* Slightly reduced width for better alignment */
 }
 
-.view-filter-item label {
+.view-route-filter-item label {
     font-size: 18px;
     font-weight: bold;
     color: #333;
@@ -83,8 +84,8 @@ body {
 }
 
 /* Select & Input Styling */
-.view-filter-item select,
-.view-filter-item input {
+.view-route-filter-item select,
+.view-route-filter-item input {
     padding: 14px;
     width: 100%;
     border: 2px solid #0047AB;
@@ -95,15 +96,15 @@ body {
     transition: 0.3s ease-in-out;
 }
 
-.view-filter-item select:focus,
-.view-filter-item input:focus {
+.view-route-filter-item select:focus,
+.view-route-filter-item input:focus {
     border-color: #0057B8;
     outline: none;
     background: white;
 }
 
 /* Search Button */
-.view-search-button {
+.view-route-search-button {
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
     border: none;
@@ -116,7 +117,7 @@ body {
     margin-top: 30px; /* Moves button slightly downward */
 }
 
-.view-search-button:hover {
+.view-route-search-button:hover {
     background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
     transform: scale(1.04);
 }
@@ -154,12 +155,12 @@ body {
 
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
-    .view-filter-container {
+    .view-route-filter-container {
         flex-direction: column;
         gap: 20px;
     }
 
-    .view-filter-item {
+    .view-route-filter-item {
         width: 90%;
     }
 
@@ -167,7 +168,7 @@ body {
         padding: 40px;
     }
 
-    .view-search-button {
+    .view-route-search-button {
         width: 100%;
     }
 }
