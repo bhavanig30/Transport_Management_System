@@ -57,6 +57,13 @@
     background: rgba(0, 0, 0, 0.05);
 }
 
+.ins-form-group label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
 /* Submit Button */
 .ins-submit-button {
     background: linear-gradient(to right, #0057B8, #00C1D4);
@@ -83,7 +90,7 @@
     }
 
     .ins-form {
-        width: 98%;
+        width: 100%;
         height: 90vh;
         padding: 16px;
     }

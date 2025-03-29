@@ -12,7 +12,7 @@
     padding: 20px;
     width: 95%;
     max-width: 850px;
-    height: 75vh;
+    height: 80%;
     border-radius: 10px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -48,6 +48,13 @@
     border-radius: 5px;
     font-size: 16px;
     background: rgba(0, 0, 0, 0.05);
+}
+.fc-form-group label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+    font-size: 14px;
 }
 
 /* Submit Button */

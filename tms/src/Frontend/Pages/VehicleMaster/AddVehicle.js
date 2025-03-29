@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";  // Import Axios
 import "../../styles/AddVehicle.css";
 import { useNavigate } from 'react-router-dom';
+import { FaSignOutAlt } from "react-icons/fa";
 
 const AddVehicle = () => {
     const navigate = useNavigate();

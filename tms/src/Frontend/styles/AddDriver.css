@@ -2,37 +2,37 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
+    padding: 20px;
+    margin-top: 40px; /* Moves the form slightly down */
 }
 
 .driver-form {
     background: #ffffff;
-    padding: 35px;
-    width: 900px;
-    max-width: 1000px;
+    padding: 25px;
+    width: 800px;
+    max-width: 900px;
     border-radius: 12px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.2);
-    z-index: 2;
     text-align: center;
 }
 
 .driver-title {
     color: #0047AB;
-    text-align: center;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     text-transform: uppercase;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
     border-bottom: 2px solid #0047AB;
 }
 
 .driver-form-row {
     display: flex;
-    gap: 40px;
+    gap: 20px;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .driver-form-group {
@@ -48,27 +48,25 @@
     font-size: 14px;
 }
 
-.driver-form-group input, select {
-    width: 90%;
-    max-width: 500px;
-    padding: 14px; 
+.driver-form-group input, 
+.driver-form-group select {
+    width: 100%; /* Ensures all inputs take full width */
+    height: 45px; /* Fixed height for uniformity */
+    padding: 10px;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 6px;
     font-size: 14px;
     background: rgba(0, 0, 0, 0.05);
     color: #333;
     transition: all 0.3s ease-in-out;
+    box-sizing: border-box; /* Ensures consistent sizing */
 }
 
-.driver-form-group input:focus {
-    border-color: #0047AB;
-    outline: none;
-    box-shadow: 0px 0px 6px rgba(0, 71, 171, 0.8);
-}
 
 .driver-form-group input[type="file"] {
     padding: 5px;
-    width: 100%;
+    width: 48%;
+    height: 45px; /* Allow file input to adjust its height */
 }
 
 .driver-submit-button {
@@ -82,7 +80,7 @@
     cursor: pointer;
     border-radius: 6px;
     transition: all 0.3s ease-in-out;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .driver-submit-button:hover {

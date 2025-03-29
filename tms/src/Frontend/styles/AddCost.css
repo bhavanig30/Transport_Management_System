@@ -1,5 +1,5 @@
 .cost-form-container {
-  margin-top: 100px; /* Added margin to push form down */
+  margin-top: 80px; /* Adjusted margin for better spacing */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -9,17 +9,16 @@
 /* Form Card */
 .cost-form {
   background: #ffffff;
-  padding: 20px;
-  width: 95%;
-  max-width: 850px;
-  height: 75vh;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  padding: 24px;
+  width: 100%;
+  max-width: 700px; /* Reduced width for better alignment */
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.2);
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 16px; /* Added consistent gap between elements */
 }
 
 /* Form Title */
@@ -27,7 +26,7 @@
   color: #0047AB;
   font-size: 22px;
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   text-transform: uppercase;
   padding-bottom: 6px;
   border-bottom: 2px solid #0047AB;
@@ -35,19 +34,33 @@
 
 /* Form Inputs */
 .cost-form-group {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   text-align: left;
+  width: 100%;
+}
+
+.cost-form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
 }
 
 .cost-form-group input,
 .cost-form-group select,
 .cost-form-group textarea {
   width: 100%;
-  padding: 14px;
+  padding: 12px;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 6px;
+  font-size: 15px;
   background: rgba(0, 0, 0, 0.05);
+  outline: none;
+}
+
+.cost-form-group input:focus,
+.cost-form-group select:focus,
+.cost-form-group textarea:focus {
+  border-color: #0057B8;
 }
 
 /* Submit Button */
@@ -56,11 +69,11 @@
   color: white;
   border: none;
   padding: 14px;
-  width: 100%;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
 }
 
 .cost-submit-button:hover {
@@ -70,19 +83,12 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .cost-header {
-      height: 10vh;
-      font-size: 18px;
-  }
-
   .cost-form {
-      width: 98%;
-      height: 80vh;
-      padding: 16px;
+      width: 95%;
+      padding: 18px;
   }
 
   .cost-title {
       font-size: 20px;
-      padding-bottom: 5px;
   }
 }

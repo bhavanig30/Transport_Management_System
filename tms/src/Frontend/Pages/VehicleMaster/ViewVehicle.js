@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import "../../styles/ViewVehicle.css";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const ViewVehicle = () => {
   const navigate = useNavigate();
