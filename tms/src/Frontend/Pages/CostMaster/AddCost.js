@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../../styles/AddCost.css"; // Ensure correct CSS file is used
+import "../../styles/AddCost.css";
 
 const AddCost = () => {
   const [formData, setFormData] = useState({
@@ -50,7 +50,6 @@ const AddCost = () => {
 
   return (
     <div className="cost-form-container">
-      <div className="cost-header">National Engineering College</div>
 
       <form className="cost-form" onSubmit={handleSubmit}>
         <div className="cost-title">Cost Master Form</div>
@@ -84,7 +83,7 @@ const AddCost = () => {
         </div>
 
         <div className="cost-form-group">
-          <label htmlFor="cost">Cost</label>
+          <label htmlFor="cost">Fee</label>
           <input type="number" id="cost" name="cost" placeholder="Enter Cost" value={formData.cost} onChange={handleChange} required />
         </div>
 

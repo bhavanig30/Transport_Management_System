@@ -6,7 +6,6 @@ import {
 } from "react-icons/fa";
 import "../styles/Home.css";
 
-// Import Components
 import ViewVehicle from "./VehicleMaster/ViewVehicle";
 import AddVehicle from "./VehicleMaster/AddVehicle";
 import AddPermit from "./VehicleMaster/PermitDetails/AddPermit";

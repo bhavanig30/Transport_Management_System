@@ -68,10 +68,6 @@ const AddInsurance = () => {
 
   return (
     <>
-      <div className="ins-header">
-        <h1 className="ins-header-title">National Engineering College</h1>
-        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-      </div>
       <div className="ins-form-container">
         <form className="ins-form" onSubmit={handleSubmit}>
           <div className="ins-title">Insurance Details Form</div>

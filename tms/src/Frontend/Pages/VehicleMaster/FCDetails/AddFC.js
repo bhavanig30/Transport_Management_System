@@ -72,9 +72,6 @@ const AddFC = () => {
 
   return (
     <>
-      <div className="fc-header">
-        <button className="logout-btn" onClick={() => handleNavigation("/")}>Logout</button>
-      </div>
       <div className="fc-form-container">
         <form className="fc-form" onSubmit={handleSubmit}>
           <div className="fc-title">FC Details Form</div>
