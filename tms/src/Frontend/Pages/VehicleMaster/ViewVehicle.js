@@ -1,95 +1,128 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../../styles/ViewVehicle.css";
-import { FaSignOutAlt } from "react-icons/fa";
 
 const ViewVehicle = () => {
   const navigate = useNavigate();
-
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
-
   const [vehicleType, setVehicleType] = useState("");
   const [vehicleId, setVehicleId] = useState("");
   const [regNo, setRegNo] = useState("");
+  const [vehicles, setVehicles] = useState([]); // Filtered data
+  const [allVehicles, setAllVehicles] = useState([]); // All vehicles
+  const [error, setError] = useState("");
 
-  const vehicleTypes = ["A/C", "Non A/C"];
-  const vehicleIds = Array.from({ length: 10 }, (_, i) => `V00${i + 1}`);
+  useEffect(() => {
+    const fetchVehicles = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/getVehicle");
+        console.log("API Response:", response.data);
+        setVehicles(response.data);
+        setAllVehicles(response.data);
+      } catch (error) {
+        console.error("Error fetching vehicles:", error);
+        setError("Failed to fetch vehicles. Please try again.");
+      }
+    };
+    fetchVehicles();
+  }, []);
+
+  // Function to filter vehicles
+  const handleSearch = () => {
+    const filtered = allVehicles.filter((vehicle) => {
+      return (
+        (vehicleType === "" || vehicle.vehicletype?.toLowerCase() === vehicleType.toLowerCase()) &&
+        (vehicleId === "" || vehicle.vehicleid.toString() === vehicleId.trim()) &&
+        (regNo === "" || vehicle.registrationno.toLowerCase() === regNo.trim().toLowerCase())
+      );
+    });
+
+    setVehicles(filtered);
+
+    // Clear search fields
+    setVehicleType("");
+    setVehicleId("");
+    setRegNo("");
+  };
 
   return (
-    <>
-      <div className="view-vehicle-master-container">
-        <div className="view-vehicle-box-wrapper">
-          {/* New Heading for Vehicle Master */}
-          <div className="view-vehicle-main-title">VEHICLE MASTER</div>
+    <div className="view-vehicle-master-container">
+      <div className="view-vehicle-box-wrapper">
+        <div className="view-vehicle-main-title">VEHICLE MASTER</div>
+        <div className="view-vehicle-title">View</div>
 
-          {/* Existing Title */}
-          <div className="view-vehicle-title">View</div>
-
-          <div className="view-filter-container">
-            <div className="view-filter-item">
-              <label>Vehicle Type</label>
-              <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)}>
-                <option value="">All</option>
-                {vehicleTypes.map((type) => (
-                  <option key={type} value={type}>{type}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="view-filter-item">
-              <label>Vehicle ID</label>
-              <select value={vehicleId} onChange={(e) => setVehicleId(e.target.value)}>
-                <option value="">All</option>
-                {vehicleIds.map((id) => (
-                  <option key={id} value={id}>{id}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="view-filter-item">
-              <label>Reg No</label>
-              <input type="text" value={regNo} onChange={(e) => setRegNo(e.target.value)} placeholder="Enter Reg No" />
-            </div>
-
-            <button className="view-search-button">SEARCH</button>
+        <div className="view-filter-container">
+          <div className="view-filter-item">
+            <label>Vehicle Type</label>
+            <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)}>
+              <option value="">All</option>
+              <option value="A/C">A/C</option>
+              <option value="Non A/C">Non A/C</option>
+            </select>
           </div>
 
-          <table className="view-vehicle-table">
-            <thead>
-              <tr>
-                <th>SNO</th>
-                <th>Vehicle Type</th>
-                <th>Vehicle ID</th>
-                <th>Reg No</th>
-                <th>Reg Date</th>
-                <th>RC No</th>
-                <th>Type</th>
-                <th>Purchase Date</th>
-                <th>Registration Place</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Displaying 5 Empty Rows Without Data */}
-              {[...Array(1)].map((_, index) => (
-                <tr key={index}>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+          <div className="view-filter-item">
+            <label>Vehicle ID</label>
+            <select value={vehicleId} onChange={(e) => setVehicleId(e.target.value)}>
+              <option value="">All</option>
+              {allVehicles.map((vehicle) => (
+                <option key={vehicle.vehicleid} value={vehicle.vehicleid}>
+                  {vehicle.vehicleid}
+                </option>
               ))}
-            </tbody>
-          </table>
+            </select>
+          </div>
+
+          <div className="view-filter-item">
+            <label>Reg No</label>
+            <input type="text" value={regNo} onChange={(e) => setRegNo(e.target.value)} placeholder="Enter Reg No" />
+          </div>
+
+          <button className="view-search-button" onClick={handleSearch}>SEARCH</button>
         </div>
+
+        <table className="view-vehicle-table">
+          <thead>
+            <tr>
+              <th>SNO</th>
+              <th>Vehicle Type</th>
+              <th>Vehicle ID</th>
+              <th>Seat Capacity</th>
+              <th>Reg No</th>
+              <th>Route ID</th>
+              <th>Reg Date</th>
+              <th>RC No</th>
+              <th>Purchase Date</th>
+              <th>Vendor ID</th>
+              <th>Registration Place</th>
+            </tr>
+          </thead>
+          <tbody>
+            {vehicles.length > 0 ? (
+              vehicles.map((vehicle, index) => (
+                <tr key={vehicle.vehicleid}>
+                  <td>{index + 1}</td>
+                  <td>{vehicle.vehicletype}</td>
+                  <td>{vehicle.vehicleid}</td>
+                  <td>{vehicle.seatcapacity}</td>
+                  <td>{vehicle.registrationno}</td>
+                  <td>{vehicle.routeid || "N/A"}</td>
+                  <td>{vehicle.registrationdate ? new Date(vehicle.registrationdate).toLocaleDateString() : "N/A"}</td>
+                  <td>{vehicle.rcno}</td>
+                  <td>{vehicle.purchasedate ? new Date(vehicle.purchasedate).toLocaleDateString() : "N/A"}</td>
+                  <td>{vehicle.vendorid || "N/A"}</td>
+                  <td>{vehicle.registrationplace}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="11">No vehicle data available</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
-    </>
+    </div>
   );
 };
 

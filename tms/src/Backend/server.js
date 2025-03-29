@@ -144,12 +144,22 @@ app.post('/addVehicle', async (req, res) => {
 });
 
 // Get All Vehicles
+// app.get('/getVehicle', (req, res) => {
+//     connection.query("SELECT * FROM vehicle", (err, results) => {
+//         if (err) {
+//             console.error("Error fetching vehicles:", err);
+//             return res.status(500).json({ message: "Failed to fetch vehicles" });
+//         }
+//         res.json(results);
+//     });
+// });
 app.get('/getVehicle', (req, res) => {
     connection.query("SELECT * FROM vehicle", (err, results) => {
         if (err) {
             console.error("Error fetching vehicles:", err);
             return res.status(500).json({ message: "Failed to fetch vehicles" });
         }
+        console.log("API Response Data:", results); // Debugging
         res.json(results);
     });
 });
