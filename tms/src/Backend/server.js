@@ -291,6 +291,65 @@ app.post("/addDriver", upload.single("photo"), (req, res) => {
 });
 
 
+
+  
+// Fetch all unique route IDs from the stage table
+app.get('/getRoutes', (req, res) => {
+    connection.query('SELECT DISTINCT routeid FROM stage', (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error fetching routes');
+      } else {
+        res.json(results);
+      }
+    });
+  });
+  
+  // Fetch stages based on routeId
+  app.get('/getStages/:routeId', (req, res) => {
+    const { routeId } = req.params;
+    connection.query('SELECT stageid, stagename FROM stage WHERE routeid = ?', [routeId], (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error fetching stages');
+      } else {
+        res.json(results);
+      }
+    });
+  });
+  
+  // Fetch fee based on routeId and stageId
+  app.get('/getFees/:routeId/:stageId', (req, res) => {
+    const { routeId, stageId } = req.params;
+    connection.query('SELECT fee FROM stage WHERE routeid = ? AND stageid = ?', [routeId, stageId], (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error fetching fee');
+      } else if (results.length === 0) {
+        res.status(404).send('No fee found for the given route and stage');
+      } else {
+        res.json(results[0]);
+      }
+    });
+  });
+  
+  // Add traveller to Traveller table
+  app.post('/addTraveller', (req, res) => {
+    const { role, routeId, stageId } = req.body;
+    if (role === 'staff') {
+      return res.status(400).send('Staff cannot have fees');
+    }
+  
+    const query = 'INSERT INTO Traveller (role, routeId, stageId) VALUES (?, ?, ?)';
+    db.query(query, [role, routeId, stageId], (err) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      res.send('Traveller added successfully');
+    });
+  });
+  
+
 // Start the Server
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));  

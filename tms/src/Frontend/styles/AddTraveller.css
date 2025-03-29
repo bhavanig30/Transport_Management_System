@@ -1,85 +1,134 @@
-.traveller-form-container {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Form Card */
-.traveller-form {
-  background: #ffffff;
+/* .traveller-form-container {
+  max-width: 500px;
+  margin: 40px auto;
   padding: 20px;
-  width: 400px;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.traveller-form-title {
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* Form Title */
-.traveller-title {
-  color: #0047AB;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-  padding-bottom: 6px;
-  border-bottom: 2px solid #0047AB;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-/* Form Inputs */
 .traveller-form-group {
-  margin-bottom: 12px;
-  text-align: left;
+  margin-bottom: 15px;
+}
+
+.traveller-form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: bold;
 }
 
 .traveller-form-group input,
-.traveller-form-group select,
-.traveller-form-group textarea {
-  width: 90%;
-  padding: 14px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+.traveller-form-group select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px;
-  background: rgba(0, 0, 0, 0.05);
+  font-size: 14px;
 }
 
-/* Submit Button */
 .traveller-submit-button {
-  background: linear-gradient(to right, #0057B8, #00C1D4);
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
   color: white;
   border: none;
-  padding: 14px;
-  width: 100%;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
   border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.2s;
 }
 
 .traveller-submit-button:hover {
-  background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
-  transform: scale(1.02);
+  background: #0056b3;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .traveller-header {
-      height: 10vh;
-      font-size: 18px;
-  }
+/* Optional: Hide fee field when not applicable */
+/*.hidden {
+  display: none;
+}*/ 
 
-  .traveller-form {
-      width: 98%;
-      height: 80vh;
-      padding: 16px;
-  }
+/* Container */
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
 
-  .traveller-title {
-      font-size: 20px;
-      padding-bottom: 5px;
+/* Title */
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Form Fields */
+form div {
+  margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Select and Input Fields */
+select, input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Readonly Input */
+input[readonly] {
+  background: #e9ecef;
+  cursor: not-allowed;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .container {
+    max-width: 100%;
+    margin: 20px;
   }
 }
+
