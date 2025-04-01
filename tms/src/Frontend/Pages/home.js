@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { 
   FaBus, FaRoute, FaUserTie, FaUsers, FaSignOutAlt, FaMapMarkerAlt, 
   FaFileAlt, FaPlus, FaShieldAlt, FaClipboardCheck, FaCaretDown, FaCaretUp, FaDollarSign 
@@ -8,8 +8,11 @@ import "../styles/Home.css";
 
 import ViewVehicle from "./VehicleMaster/ViewVehicle";
 import AddVehicle from "./VehicleMaster/AddVehicle";
+import ViewPermit from "./VehicleMaster/PermitDetails/ViewPermit";
 import AddPermit from "./VehicleMaster/PermitDetails/AddPermit";
+import ViewInsurance from "./VehicleMaster/InsuranceDetails/ViewInsurance";
 import AddInsurance from "./VehicleMaster/InsuranceDetails/AddInsurance";
+import ViewFC from "./VehicleMaster/FCDetails/ViewFC";
 import AddFC from "./VehicleMaster/FCDetails/AddFC";
 
 import ViewStage from "./StageMaster/ViewStage";
@@ -34,6 +37,9 @@ const Home = () => {
 
   // Dropdown states
   const [showVehicleDropdown, setShowVehicleDropdown] = useState(false);
+  const [showVehiclePermitDropdown, setShowVehiclePermitDropdown] = useState(false);
+  const [showInsuranceDropdown, setShowInsuranceDropdown] = useState(false);
+  const [showFCDropdown, setShowFCDropdown] = useState(false);
   const [showStageDropdown, setShowStageDropdown] = useState(false);
   const [showRouteDropdown, setShowRouteDropdown] = useState(false);
   const [showDriverDropdown, setShowDriverDropdown] = useState(false);
@@ -69,9 +75,39 @@ const Home = () => {
               <div className="dropdown-menu">
                 <button onClick={() => setSelectedComponent(<ViewVehicle />)}><FaFileAlt /> View</button>
                 <button onClick={() => setSelectedComponent(<AddVehicle />)}><FaPlus /> Add</button>
-                <button onClick={() => setSelectedComponent(<AddPermit />)}><FaFileAlt /> Vehicle Permit</button>
-                <button onClick={() => setSelectedComponent(<AddInsurance />)}><FaShieldAlt /> Insurance Details</button>
-                <button onClick={() => setSelectedComponent(<AddFC />)}><FaClipboardCheck /> FC Details</button>
+                
+                {/* Nested Vehicle Master Dropdown */}
+                <div className="sub-dropdown">
+                  <div className="sub-dropdown-toggle" onClick={() => setShowVehiclePermitDropdown(!showVehiclePermitDropdown)}>
+                    Vehicle Permit {showVehiclePermitDropdown ? <FaCaretUp /> : <FaCaretDown />}
+                  </div>
+                  {showVehiclePermitDropdown && (
+                    <div className="sub-dropdown-menu">
+                      <button onClick={() => setSelectedComponent(<ViewPermit />)}><FaFileAlt /> View</button>
+                      <button onClick={() => setSelectedComponent(<AddPermit />)}><FaPlus /> Add</button>
+                    </div>
+                  )}
+
+                  <div className="sub-dropdown-toggle" onClick={() => setShowInsuranceDropdown(!showInsuranceDropdown)}>
+                    Insurance Details {showInsuranceDropdown ? <FaCaretUp /> : <FaCaretDown />}
+                  </div>
+                  {showInsuranceDropdown && (
+                    <div className="sub-dropdown-menu">
+                      <button onClick={() => setSelectedComponent(<ViewInsurance />)}><FaFileAlt /> View</button>
+                      <button onClick={() => setSelectedComponent(<AddInsurance />)}><FaPlus /> Add</button>
+                    </div>
+                  )}
+
+                  <div className="sub-dropdown-toggle" onClick={() => setShowFCDropdown(!showFCDropdown)}>
+                    FC Details {showFCDropdown ? <FaCaretUp /> : <FaCaretDown />}
+                  </div>
+                  {showFCDropdown && (
+                    <div className="sub-dropdown-menu">
+                      <button onClick={() => setSelectedComponent(<ViewFC />)}><FaFileAlt /> View</button>
+                      <button onClick={() => setSelectedComponent(<AddFC />)}><FaPlus /> Add</button>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>
