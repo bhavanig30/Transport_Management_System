@@ -21,106 +21,89 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 98%;
-    max-width: 1600px;
-    height: 90vh;
-    padding: 50px 40px;
-    margin-bottom: 10%;
-}
-
-/* Header */
-.view-stage-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    height: 80px;
-    background: linear-gradient(to right, #0057B8, #00C1D4);
-    border-radius: 0 0 15px 15px;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    z-index: 1000;
-}
-
-.view-stage-header-title {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-weight: bold;
-    white-space: nowrap;
+    max-width: 2400px; /* Maintained increased width */
+    padding: 50px 40px;
+    margin-top: 150px; /* Increased to move the container further down */
+    margin-bottom: 8%;
 }
 
 /* Main White Box */
 .view-stage-box-wrapper {
     background: white;
-    padding: 50px;
+    padding: 60px;
     border-radius: 15px;
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 1500px;
-    height: auto;
+    max-width: 2200px; /* Maintained increased width */
     text-align: center;
-    margin-top: 150px;
 }
 
+/* Reduced Title Font Size */
 .view-stage-main-title {
     color: #0047AB;
-    font-size: 36px;
+    font-size: 34px; /* Reduced from 38px */
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-transform: uppercase;
 }
 
 .view-stage-title {
     color: #0047AB;
-    font-size: 30px;
+    font-size: 28px; /* Reduced from 32px */
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     text-transform: uppercase;
-    padding-bottom: 15px;
-    border-bottom: 4px solid #0047AB;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #0047AB;
 }
 
 /* Filters */
 .view-stage-filter-container {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    flex-wrap: nowrap;
-    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    gap: 30px; /* Optimized gap */
+    margin-bottom: 25px;
 }
 
 .view-stage-filter-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    width: 280px; /* Slightly reduced width for better alignment */
 }
 
 .view-stage-filter-item label {
     font-size: 18px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     text-align: center;
 }
 
+/* Select & Input Styling */
 .view-stage-filter-item select,
 .view-stage-filter-item input {
     padding: 14px;
-    width: 230px;
-    height: 50px;
+    width: 100%;
     border: 2px solid #0047AB;
-    border-radius: 8px;
+    border-radius: 6px;
     text-align: center;
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 17px;
+    background: #f9f9f9;
+    transition: 0.3s ease-in-out;
 }
 
+.view-stage-filter-item select:focus,
+.view-stage-filter-item input:focus {
+    border-color: #0057B8;
+    outline: none;
+    background: white;
+}
+
+/* Search Button */
 .view-stage-search-button {
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
@@ -129,26 +112,22 @@ body {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 6px;
     transition: all 0.3s ease-in-out;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
+    margin-top: 30px; /* Moves button slightly downward */
 }
 
 .view-stage-search-button:hover {
     background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 /* Table */
-.view-route-table {
+.view-stage-table {
     width: 100%;
-    max-width: 1450px;
+    max-width: 2100px;
     border-collapse: collapse;
-    margin-top: 30px;
+    margin-top: 25px;
     font-size: 18px;
 }
 
@@ -157,16 +136,39 @@ body {
     border: 1px solid #ddd;
     padding: 18px;
     text-align: center;
-    font-size: 17px;
-    height: 90px;
 }
 
 .view-stage-table th {
     background: linear-gradient(to right, #0057B8, #00C1D4);
     color: white;
     font-weight: bold;
+    font-size: 20px;
+}
+
+.view-stage-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8; /* Subtle row color contrast */
 }
 
 .view-stage-table tbody tr:hover {
-    background-color: #f5f5f5;
+    background-color: #e6f2ff;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .view-stage-filter-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .view-stage-filter-item {
+        width: 90%;
+    }
+
+    .view-stage-box-wrapper {
+        padding: 40px;
+    }
+
+    .view-stage-search-button {
+        width: 100%;
+    }
 }
