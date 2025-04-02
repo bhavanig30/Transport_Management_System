@@ -60,16 +60,6 @@ const ViewStage = () => {
               </select>
             </div>
 
-            <div className="view-filter-item">
-              <label>Stage Name</label>
-              <input 
-                type="text" 
-                value={stageName} 
-                onChange={(e) => setStageName(e.target.value)} 
-                placeholder="Enter Stage Name" 
-              />
-            </div>
-
             <button className="view-search-button" onClick={handleSearch}>SEARCH</button>
           </div>
 

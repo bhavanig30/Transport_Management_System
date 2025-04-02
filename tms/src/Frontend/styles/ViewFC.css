@@ -1,0 +1,147 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+}
+
+/* Background */
+body {
+    background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Page Container */
+.view-fc-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 50px 40px;
+}
+
+/* Main Box */
+.view-fc-box {
+    background: white;
+    padding: 60px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1800px;
+    text-align: center;
+}
+
+/* Title */
+.view-fc-title-main {
+    color: #0047AB;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #0047AB;
+}
+
+/* Filters - Ensure Everything is in One Line */
+.view-fc-filter-container {
+    display: flex;
+    justify-content: flex-start;  /* Align items to the left */
+    align-items: center;
+    gap: 20px;  /* Adjusted the spacing */
+    margin-bottom: 30px;
+    flex-wrap: nowrap; /* Prevents wrapping */
+    width: 100%; /* Ensure full width of container */
+}
+
+/* Dropdown & Input Fields */
+.view-fc-filter-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 220px; /* Reduced width of filter items */
+}
+
+/* Inputs */
+.view-fc-filter-item input {
+    padding: 12px;
+    width: 100%;
+    border: 2px solid #0047AB;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+    background: #f9f9f9;
+    height: 45px;
+}
+
+/* Search Button */
+.view-fc-search-button {
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px; /* Match the width of input */
+}
+
+/* Issue Date Item Should Come Before Search Box */
+.view-fc-issue-date {
+    order: 1; /* Ensure Issue Date comes first */
+}
+
+/* Search Button Should Come After Issue Date */
+.view-fc-search-button-container {
+    order: 2; /* Ensure Search Button comes after Issue Date */
+}
+
+/* Ensures Full Table Styling */
+.view-fc-table {
+    width: 100%;
+    max-width: 1500px;
+    border-collapse: collapse;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.view-fc-table th,
+.view-fc-table td {
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+}
+
+.view-fc-table th {
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .view-fc-filter-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .view-fc-search-button {
+        width: 100%;
+    }
+
+    .view-fc-filter-item {
+        width: 250px; /* Adjusted for small screens */
+    }
+}

@@ -31,7 +31,6 @@
   border-bottom: 2px solid #0047AB;
 }
 
-/* Form Inputs */
 .traveller-form-group {
   margin-bottom: 18px;
   text-align: left;
@@ -66,9 +65,10 @@
   box-shadow: 0 0 5px rgba(0, 71, 171, 0.3);
 }
 
-/* Submit Button */
 .traveller-submit-button {
-  background: linear-gradient(to right, #0057B8, #00C1D4);
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
   color: white;
   border: none;
   padding: 14px;
@@ -97,3 +97,4 @@
       padding-bottom: 5px;
   }
 }
+
