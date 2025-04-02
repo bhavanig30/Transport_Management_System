@@ -27,23 +27,22 @@ const ViewVehicle = () => {
     fetchVehicles();
   }, []);
 
-  // Function to filter vehicles
-  const handleSearch = () => {
-    const filtered = allVehicles.filter((vehicle) => {
-      return (
-        (vehicleType === "" || vehicle.vehicletype?.toLowerCase() === vehicleType.toLowerCase()) &&
-        (vehicleId === "" || vehicle.vehicleid.toString() === vehicleId.trim()) &&
-        (regNo === "" || vehicle.registrationno.toLowerCase() === regNo.trim().toLowerCase())
-      );
-    });
+const handleSearch = () => {
+  const filtered = allVehicles.filter((vehicle) => {
+    return (
+      (vehicleType === "" || vehicle.vehicletype?.trim() === vehicleType.trim()) &&
+      (vehicleId === "" || vehicle.vehicleid.toString() === vehicleId.trim()) &&
+      (regNo === "" || vehicle.registrationno.toLowerCase() === regNo.trim().toLowerCase())
+    );
+  });
 
-    setVehicles(filtered);
+  setVehicles(filtered);
+  console.log("Filtered Vehicles:", filtered);
 
-    // Clear search fields
-    setVehicleType("");
-    setVehicleId("");
+  setVehicleType("");
+   setVehicleId("");
     setRegNo("");
-  };
+};
 
   return (
     <div className="view-vehicle-master-container">
@@ -57,7 +56,7 @@ const ViewVehicle = () => {
             <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)}>
               <option value="">All</option>
               <option value="A/C">A/C</option>
-              <option value="Non A/C">Non A/C</option>
+              <option value="Non-A/C">Non A/C</option>
             </select>
           </div>
 
@@ -127,3 +126,4 @@ const ViewVehicle = () => {
 };
 
 export default ViewVehicle;
+
