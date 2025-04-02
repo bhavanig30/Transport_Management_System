@@ -1,41 +1,21 @@
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Arial", sans-serif;
-}
-
-/* Background */
-body {
-    background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /* Page Container */
 .view-stage-master-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    max-width: 2400px; /* Maintained increased width */
+    width: 98%;
     padding: 50px 40px;
-    margin-top: 150px; /* Increased to move the container further down */
-    margin-bottom: 8%;
+    margin-top: 10%;
 }
+
 
 /* Main White Box */
 .view-stage-box-wrapper {
     background: white;
     padding: 60px;
     border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 2200px; /* Maintained increased width */
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
     text-align: center;
 }
 

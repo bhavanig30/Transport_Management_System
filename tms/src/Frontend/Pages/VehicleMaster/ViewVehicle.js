@@ -30,7 +30,7 @@ const ViewVehicle = () => {
 const handleSearch = () => {
   const filtered = allVehicles.filter((vehicle) => {
     return (
-      (vehicleType === "" || vehicle.vehicletype?.toLowerCase() === vehicleType.toLowerCase()) &&
+      (vehicleType === "" || vehicle.vehicletype?.trim() === vehicleType.trim()) &&
       (vehicleId === "" || vehicle.vehicleid.toString() === vehicleId.trim()) &&
       (regNo === "" || vehicle.registrationno.toLowerCase() === regNo.trim().toLowerCase())
     );
@@ -42,7 +42,6 @@ const handleSearch = () => {
   setVehicleType("");
    setVehicleId("");
     setRegNo("");
-  // Do not reset the search fields
 };
 
   return (
