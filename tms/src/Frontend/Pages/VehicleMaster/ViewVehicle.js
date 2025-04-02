@@ -28,22 +28,40 @@ const ViewVehicle = () => {
   }, []);
 
   // Function to filter vehicles
-  const handleSearch = () => {
-    const filtered = allVehicles.filter((vehicle) => {
-      return (
-        (vehicleType === "" || vehicle.vehicletype?.toLowerCase() === vehicleType.toLowerCase()) &&
-        (vehicleId === "" || vehicle.vehicleid.toString() === vehicleId.trim()) &&
-        (regNo === "" || vehicle.registrationno.toLowerCase() === regNo.trim().toLowerCase())
-      );
-    });
+  // const handleSearch = () => {
+  //   const filtered = allVehicles.filter((vehicle) => {
+  //     return (
+  //       (vehicleType === "" || vehicle.vehicletype?.toLowerCase() === vehicleType.toLowerCase()) &&
+  //       (vehicleId === "" || vehicle.vehicleid.toString() === vehicleId.trim()) &&
+  //       (regNo === "" || vehicle.registrationno.toLowerCase() === regNo.trim().toLowerCase())
+  //     );
+  //   });
 
-    setVehicles(filtered);
+  //   setVehicles(filtered);
 
-    // Clear search fields
-    setVehicleType("");
-    setVehicleId("");
+  //   // Clear search fields
+  //   setVehicleType("");
+  //   setVehicleId("");
+  //   setRegNo("");
+  // };
+// Function to filter vehicles
+const handleSearch = () => {
+  const filtered = allVehicles.filter((vehicle) => {
+    return (
+      (vehicleType === "" || vehicle.vehicletype?.toLowerCase() === vehicleType.toLowerCase()) &&
+      (vehicleId === "" || vehicle.vehicleid.toString() === vehicleId.trim()) &&
+      (regNo === "" || vehicle.registrationno.toLowerCase() === regNo.trim().toLowerCase())
+    );
+  });
+
+  setVehicles(filtered);
+  console.log("Filtered Vehicles:", filtered);
+
+  setVehicleType("");
+   setVehicleId("");
     setRegNo("");
-  };
+  // Do not reset the search fields
+};
 
   return (
     <div className="view-vehicle-master-container">
@@ -127,3 +145,4 @@ const ViewVehicle = () => {
 };
 
 export default ViewVehicle;
+
