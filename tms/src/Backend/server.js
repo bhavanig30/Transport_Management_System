@@ -192,6 +192,38 @@ app.get("/getFC", (req, res) => {
     });
 });
 
+// Update FC Details
+// Update FC Details
+app.put('/updateFC/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { vehicleid, fcno, issuedate, expirydate, status } = req.body;
+
+        console.log("Received Update Request for ID:", id);
+        console.log("Received Data:", req.body);
+
+        if (!vehicleid || !fcno || !issuedate || !expirydate || !status) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const sql = "UPDATE fc SET vehicleid = ?, fcno = ?, issuedate = ?, expirydate = ?, status = ? WHERE fcid = ?";
+        
+        connection.query(sql, [vehicleid, fcno, issuedate, expirydate, status, id], (err, result) => {
+            if (err) {
+                console.error("Database Error:", err);
+                return res.status(500).json({ message: "Database error", error: err });
+            }
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ message: "FC not found" });
+            }
+            res.status(200).json({ message: "FC details updated successfully" });
+        });
+    } catch (error) {
+        console.error("Server Error:", error);
+        res.status(500).json({ message: "Server error", error });
+    }
+});
+
 
 app.post("/addInsurance", (req, res) => {
     try {

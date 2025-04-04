@@ -1,69 +1,89 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../../styles/ViewFC.css";
 
 const ViewFC = () => {
-  const [vehicleId, setVehicleId] = useState("");
-  const [issueDate, setIssueDate] = useState("");
-  const [fcDetails, setFcDetails] = useState([]); // Filtered Data
-  const [allFcDetails, setAllFcDetails] = useState([]); // All Data
+  const navigate = useNavigate();
+  const [vehicleid, setVehicleid] = useState("");
+  const [fcno, setFcno] = useState(""); // FC No for filtering
+  const [fcDetails, setFcDetails] = useState([]);
+  const [allFcDetails, setAllFcDetails] = useState([]);
+  const [vehicleIds, setVehicleIds] = useState([]);
+  const [fcNos, setFcNos] = useState([]); // FC No values
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchFcDetails = async () => {
       try {
         const response = await axios.get("http://localhost:5000/getFC");
-        console.log("FC API Response:", response.data);
-        setFcDetails(response.data);
-        setAllFcDetails(response.data);
+
+        const formattedData = response.data.map((fc) => ({
+          ...fc,
+          vehicleid: String(fc.vehicleid).trim(),
+          fcno: String(fc.fcno).trim(),
+        }));
+
+        setFcDetails(formattedData);
+        setAllFcDetails(formattedData);
+
+        // Extract unique Vehicle IDs and FC No values
+        setVehicleIds([...new Set(formattedData.map((fc) => fc.vehicleid))]);
+        setFcNos([...new Set(formattedData.map((fc) => fc.fcno))]);
       } catch (error) {
         console.error("Error fetching FC details:", error);
         setError("Failed to fetch FC details. Please try again.");
       }
     };
+
     fetchFcDetails();
   }, []);
 
   const handleSearch = () => {
     const filtered = allFcDetails.filter((fc) => {
       return (
-        (vehicleId === "" || fc.vehicleid.toString() === vehicleId.trim()) &&
-        (issueDate === "" || fc.issuedate.includes(issueDate))
+        (vehicleid === "" || String(fc.vehicleid).trim() === vehicleid) &&
+        (fcno === "" || String(fc.fcno).trim() === fcno)
       );
     });
 
     setFcDetails(filtered);
-    console.log("Filtered FC Details:", filtered);
 
-    // Reset fields if needed
-    setVehicleId("");
-    setIssueDate("");
+    // Reset dropdowns after search
+    setVehicleid("");
+    setFcno("");
   };
 
   return (
     <div className="view-fc-container">
       <div className="view-fc-box">
-        <div className="view-fc-title-main">FC DETAILS</div>
-        <div className="view-fc-title">View</div>
+        <div className="view-fc-title-main">View FC Details</div>
 
         <div className="view-fc-filter-container">
           {/* Vehicle ID Dropdown */}
           <div className="view-fc-filter-item">
             <label>Vehicle ID</label>
-            <select value={vehicleId} onChange={(e) => setVehicleId(e.target.value)}>
+            <select value={vehicleid} onChange={(e) => setVehicleid(e.target.value)}>
               <option value="">All</option>
-              {allFcDetails.map((fc) => (
-                <option key={fc.vehicleid} value={fc.vehicleid}>
-                  {fc.vehicleid}
+              {vehicleIds.map((id, index) => (
+                <option key={index} value={id}>
+                  {id}
                 </option>
               ))}
             </select>
           </div>
 
-          {/* Issue Date Input */}
+          {/* FC No Dropdown */}
           <div className="view-fc-filter-item">
-            <label>Issue Date</label>
-            <input type="date" value={issueDate} onChange={(e) => setIssueDate(e.target.value)} />
+            <label>FC No</label>
+            <select value={fcno} onChange={(e) => setFcno(e.target.value)}>
+              <option value="">All</option>
+              {fcNos.map((no, index) => (
+                <option key={index} value={no}>
+                  {no}
+                </option>
+              ))}
+            </select>
           </div>
 
           <button className="view-fc-search-button" onClick={handleSearch}>
@@ -71,7 +91,6 @@ const ViewFC = () => {
           </button>
         </div>
 
-        {/* Table to display results */}
         <table className="view-fc-table">
           <thead>
             <tr>
@@ -108,3 +127,4 @@ const ViewFC = () => {
 };
 
 export default ViewFC;
+
