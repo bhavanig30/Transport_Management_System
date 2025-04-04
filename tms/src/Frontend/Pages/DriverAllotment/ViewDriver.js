@@ -1,99 +1,133 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../../styles/ViewDriver.css";
 
 const ViewDriver = () => {
+  const navigate = useNavigate();
   const [staffCode, setStaffCode] = useState("");
   const [staffName, setStaffName] = useState("");
+  const [drivers, setDrivers] = useState([]);
+  const [allDrivers, setAllDrivers] = useState([]);
+  const [error, setError] = useState("");
 
-  // Sample Data for Display
-  const driverData = [
-    { staffCode: "S001", staffName: "John Doe", vehicleId: "V001", city: "City A", mobile: "1234567890" },
-    { staffCode: "S002", staffName: "Jane Smith", vehicleId: "V002", city: "City B", mobile: "0987654321" },
-    { staffCode: "S003", staffName: "Mike Johnson", vehicleId: "V003", city: "City C", mobile: "1122334455" },
-  ];
+  useEffect(() => {
+    const fetchDrivers = async () => {
+        try {
+            const response = await axios.get("http://localhost:5000/getdrivers");
+            console.log("API Response:", response.data);
 
-  const [filteredData, setFilteredData] = useState(driverData);
+            setDrivers(response.data);  // Directly store drivers with images
+            setAllDrivers(response.data);
+        } catch (error) {
+            console.error("Error fetching drivers:", error);
+            setError("Failed to fetch drivers. Please try again.");
+        }
+    };
 
-  // Extract unique staff codes and names for dropdown options
-  const staffCodes = Array.from(new Set(driverData.map(driver => driver.staffCode)));
-  const staffNames = Array.from(new Set(driverData.map(driver => driver.staffName)));
+    fetchDrivers();
+}, []);
 
-  // Filter Data Based on Input
+  
+
   const handleSearch = () => {
-    const result = driverData.filter(driver =>
-      (staffCode === "" || driver.staffCode === staffCode) &&
-      (staffName === "" || driver.staffName.toLowerCase().includes(staffName.toLowerCase()))
-    );
-    setFilteredData(result);
+    const filtered = allDrivers.filter((driver) => {
+      return (
+        (staffCode === "" || driver.staffcode === staffCode) &&
+        (staffName === "" || driver.staffname.toLowerCase().includes(staffName.toLowerCase()))
+      );
+    });
+
+    setDrivers(filtered);
+    console.log("Filtered Drivers:", filtered);
+
+    setStaffCode("");
+    setStaffName("");
   };
 
   return (
-    <>
-      <div className="view-driver-container">
-        <div className="view-driver-box-wrapper">
-          <div className="view-driver-main-title">DRIVER ALLOTMENT</div>
-          <div className="view-driver-title">View</div>
+    <div className="view-driver-container">
+      <div className="view-driver-box-wrapper">
+        <div className="view-driver-main-title">DRIVER ALLOTMENT</div>
+        <div className="view-driver-title">View</div>
 
-          <div className="view-filter-container">
-            <div className="view-filter-item">
-              <label>Staff Code</label>
-              <select value={staffCode} onChange={(e) => setStaffCode(e.target.value)}>
-                <option value="">All</option>
-                {staffCodes.map((code) => (
-                  <option key={code} value={code}>
-                    {code}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="view-filter-item">
-              <label>Staff Name</label>
-              <select value={staffName} onChange={(e) => setStaffName(e.target.value)}>
-                <option value="">All</option>
-                {staffNames.map((name) => (
-                  <option key={name} value={name}>
-                    {name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <button className="view-search-button" onClick={handleSearch}>SEARCH</button>
+        <div className="view-filter-container">
+          <div className="view-filter-item">
+            <label>Staff Code</label>
+            <select value={staffCode} onChange={(e) => setStaffCode(e.target.value)}>
+              <option value="">All</option>
+              {allDrivers.map((driver) => (
+                <option key={driver.staffcode} value={driver.staffcode}>
+                  {driver.staffcode}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <table className="view-driver-table">
-            <thead>
-              <tr>
-                <th>Staff Code</th>
-                <th>Staff Name</th>
-                <th>Vehicle ID</th>
-                <th>City</th>
-                <th>Mobile No</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.length > 0 ? (
-                filteredData.map((driver, index) => (
-                  <tr key={index}>
-                    <td>{driver.staffCode}</td>
-                    <td>{driver.staffName}</td>
-                    <td>{driver.vehicleId}</td>
-                    <td>{driver.city}</td>
-                    <td>{driver.mobile}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="5">No Data Found</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+          <div className="view-filter-item">
+            <label>Staff Name</label>
+            <input
+              type="text"
+              value={staffName}
+              onChange={(e) => setStaffName(e.target.value)}
+              placeholder="Enter Staff Name"
+            />
+          </div>
+
+          <button className="view-search-button" onClick={handleSearch}>
+            SEARCH
+          </button>
         </div>
+
+        <table className="view-driver-table">
+          <thead>
+            <tr>
+              <th>Staff Code</th>
+              <th>Staff Name</th>
+              <th>Vehicle ID</th>
+              <th>Door No</th>
+              <th>Street Name</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Pincode</th>
+              <th>Mobile No</th>
+              <th>Photo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {drivers.length > 0 ? (
+              drivers.map((driver, index) => (
+                <tr key={index}>
+                  <td>{driver.staffcode}</td>
+                  <td>{driver.staffname}</td>
+                  <td>{driver.vehicleid}</td>
+                  <td>{driver.doorno}</td>
+                  <td>{driver.streetname}</td>
+                  <td>{driver.city}</td>
+                  <td>{driver.state}</td>
+                  <td>{driver.pincode}</td>
+                  <td>{driver.mobileno}</td>
+                  <td>
+  {driver.imageUrl ? (
+    <img src={driver.imageUrl} alt="Driver" width="50" height="50" />
+  ) : (
+    "No Image"
+  )}
+</td>
+
+
+
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="10">No Data Found</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
-    </>
+    </div>
   );
 };
 

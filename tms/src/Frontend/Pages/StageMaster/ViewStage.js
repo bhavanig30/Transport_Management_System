@@ -15,7 +15,7 @@ const ViewStage = () => {
   useEffect(() => {
     const fetchStages = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/getStages");
+        const response = await axios.get("http://localhost:5000/getstage");
         console.log("API Response:", response.data);
         setStages(response.data);
         setAllStages(response.data);
@@ -30,13 +30,18 @@ const ViewStage = () => {
   const handleSearch = () => {
     const filtered = allStages.filter((stage) => {
       return (
-        (city === "" || stage.city?.toLowerCase() === city.toLowerCase()) &&
+        (city === "" || stage.city?.trim() === city.trim()) &&
         (routeId === "" || stage.routeid.toString() === routeId.trim()) &&
         (stageName === "" || stage.stagename.toLowerCase().includes(stageName.toLowerCase()))
       );
     });
+
     setStages(filtered);
     console.log("Filtered Stages:", filtered);
+
+    setCity("");
+    setRouteId("");
+    setStageName("");
   };
 
   return (
@@ -51,7 +56,9 @@ const ViewStage = () => {
             <select value={city} onChange={(e) => setCity(e.target.value)}>
               <option value="">All</option>
               {allStages.map((stage) => (
-                <option key={stage.city} value={stage.city}>{stage.city}</option>
+                <option key={stage.city} value={stage.city}>
+                  {stage.city}
+                </option>
               ))}
             </select>
           </div>
@@ -61,17 +68,26 @@ const ViewStage = () => {
             <select value={routeId} onChange={(e) => setRouteId(e.target.value)}>
               <option value="">All</option>
               {allStages.map((stage) => (
-                <option key={stage.routeid} value={stage.routeid}>{stage.routeid}</option>
+                <option key={stage.routeid} value={stage.routeid}>
+                  {stage.routeid}
+                </option>
               ))}
             </select>
           </div>
 
           <div className="view-filter-item">
             <label>Stage Name</label>
-            <input type="text" value={stageName} onChange={(e) => setStageName(e.target.value)} placeholder="Enter Stage Name" />
+            <input
+              type="text"
+              value={stageName}
+              onChange={(e) => setStageName(e.target.value)}
+              placeholder="Enter Stage Name"
+            />
           </div>
 
-          <button className="view-search-button" onClick={handleSearch}>SEARCH</button>
+          <button className="view-search-button" onClick={handleSearch}>
+            SEARCH
+          </button>
         </div>
 
         <table className="view-stage-table">
@@ -89,13 +105,13 @@ const ViewStage = () => {
           <tbody>
             {stages.length > 0 ? (
               stages.map((stage, index) => (
-                <tr key={stage.sno}>
+                <tr key={stage.routeid}>
                   <td>{index + 1}</td>
                   <td>{stage.stagename}</td>
                   <td>{stage.city}</td>
                   <td>{stage.routeid}</td>
-                  <td>{stage.arrivaltime}</td>
-                  <td>{stage.departuretime}</td>
+                  <td>{stage.arrivaltime || "N/A"}</td>
+                  <td>{stage.departuretime || "N/A"}</td>
                   <td>{stage.fee}</td>
                 </tr>
               ))
@@ -112,3 +128,4 @@ const ViewStage = () => {
 };
 
 export default ViewStage;
+
