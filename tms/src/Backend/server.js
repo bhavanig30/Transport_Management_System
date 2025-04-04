@@ -150,18 +150,16 @@ app.get('/getVehicle', (req, res) => {
             console.error("Error fetching vehicles:", err);
             return res.status(500).json({ message: "Failed to fetch vehicles" });
         }
-        console.log("API Response Data:", results); // Debugging
+        console.log("API Response Data:", results);
         res.json(results);
     });
 });
 
-// Add a new FC record
+
 app.post("/addFC", async (req, res) => {
    
     try {
         const { vehicleId, fcNo, issueDate, expiryDate, status } = req.body;
-
-        // Validate required fields
         if (!vehicleId || !fcNo || !issueDate || !expiryDate || !status) {
             return res.status(400).json({ message: "Missing required fields" });
         }
