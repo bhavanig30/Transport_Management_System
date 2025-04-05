@@ -37,14 +37,14 @@ const Home = () => {
 
   // Dropdown states
   const [showVehicleDropdown, setShowVehicleDropdown] = useState(false);
-  const [showVehiclePermitDropdown, setShowVehiclePermitDropdown] = useState(false);
-  const [showInsuranceDropdown, setShowInsuranceDropdown] = useState(false);
-  const [showFCDropdown, setShowFCDropdown] = useState(false);
   const [showStageDropdown, setShowStageDropdown] = useState(false);
   const [showRouteDropdown, setShowRouteDropdown] = useState(false);
   const [showDriverDropdown, setShowDriverDropdown] = useState(false);
   const [showTravellerDropdown, setShowTravellerDropdown] = useState(false);
   const [showCostDropdown, setShowCostDropdown] = useState(false);
+  const [showVehiclePermitDropdown, setShowVehiclePermitDropdown] = useState(false);
+  const [showInsuranceDropdown, setShowInsuranceDropdown] = useState(false);
+  const [showFCDropdown, setShowFCDropdown] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
