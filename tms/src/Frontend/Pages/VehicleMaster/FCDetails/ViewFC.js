@@ -1,54 +1,57 @@
 import React, { useState, useEffect } from "react";
-import "../../../styles/ViewFC.css"; // Corrected path based on your folder structure
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../../../styles/ViewFC.css";
 
 const ViewFC = () => {
-  const [vehicleIdInput, setVehicleIdInput] = useState("");
-  const [issueDateInput, setIssueDateInput] = useState("");
-  const [filteredFcDetails, setFilteredFcDetails] = useState([]);
-
-  // Example static data (replace with API call if needed)
-  const fcDetails = [
-    {
-      vehicleId: "V12345",
-      fcNo: "FC5678",
-      issueDate: "2023-01-10",
-      expiryDate: "2024-01-10",
-      status: "Valid"
-    },
-    {
-      vehicleId: "V67890",
-      fcNo: "FC1234",
-      issueDate: "2022-05-12",
-      expiryDate: "2023-05-12",
-      status: "Expired"
-    },
-    {
-      vehicleId: "V13579",
-      fcNo: "FC2468",
-      issueDate: "2023-03-15",
-      expiryDate: "2024-03-15",
-      status: "Valid"
-    }
-  ];
+  const navigate = useNavigate();
+  const [vehicleid, setVehicleid] = useState("");
+  const [fcno, setFcno] = useState(""); // FC No for filtering
+  const [fcDetails, setFcDetails] = useState([]);
+  const [allFcDetails, setAllFcDetails] = useState([]);
+  const [vehicleIds, setVehicleIds] = useState([]);
+  const [fcNos, setFcNos] = useState([]); // FC No values
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    // Filter FC details based on the vehicle ID and issue date
-    const filteredDetails = fcDetails.filter(item => {
-      const matchesVehicleId = vehicleIdInput
-        ? item.vehicleId.includes(vehicleIdInput)
-        : true;
-      const matchesIssueDate = issueDateInput
-        ? item.issueDate.includes(issueDateInput)
-        : true;
-      return matchesVehicleId && matchesIssueDate;
-    });
-    setFilteredFcDetails(filteredDetails);
-  }, [vehicleIdInput, issueDateInput]);
+    const fetchFcDetails = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/getFC");
+
+        const formattedData = response.data.map((fc) => ({
+          ...fc,
+          vehicleid: String(fc.vehicleid).trim(),
+          fcno: String(fc.fcno).trim(),
+        }));
+
+        setFcDetails(formattedData);
+        setAllFcDetails(formattedData);
+
+        // Extract unique Vehicle IDs and FC No values
+        setVehicleIds([...new Set(formattedData.map((fc) => fc.vehicleid))]);
+        setFcNos([...new Set(formattedData.map((fc) => fc.fcno))]);
+      } catch (error) {
+        console.error("Error fetching FC details:", error);
+        setError("Failed to fetch FC details. Please try again.");
+      }
+    };
+
+    fetchFcDetails();
+  }, []);
 
   const handleSearch = () => {
-    // Triggering the useEffect hook by manually updating the input values
-    setVehicleIdInput(vehicleIdInput);
-    setIssueDateInput(issueDateInput);
+    const filtered = allFcDetails.filter((fc) => {
+      return (
+        (vehicleid === "" || String(fc.vehicleid).trim() === vehicleid) &&
+        (fcno === "" || String(fc.fcno).trim() === fcno)
+      );
+    });
+
+    setFcDetails(filtered);
+
+    // Reset dropdowns after search
+    setVehicleid("");
+    setFcno("");
   };
 
   return (
@@ -56,70 +59,72 @@ const ViewFC = () => {
       <div className="view-fc-box">
         <div className="view-fc-title-main">View FC Details</div>
 
-        {/* Filters */}
         <div className="view-fc-filter-container">
+          {/* Vehicle ID Dropdown */}
           <div className="view-fc-filter-item">
             <label>Vehicle ID</label>
-            <input
-              type="text"
-              value={vehicleIdInput}
-              onChange={(e) => setVehicleIdInput(e.target.value)}
-              placeholder="Enter Vehicle ID"
-            />
+            <select value={vehicleid} onChange={(e) => setVehicleid(e.target.value)}>
+              <option value="">All</option>
+              {vehicleIds.map((id, index) => (
+                <option key={index} value={id}>
+                  {id}
+                </option>
+              ))}
+            </select>
           </div>
 
+          {/* FC No Dropdown */}
           <div className="view-fc-filter-item">
-            <label>Issue Date</label>
-            <input
-              type="date"
-              value={issueDateInput}
-              onChange={(e) => setIssueDateInput(e.target.value)}
-              placeholder="Select Issue Date"
-            />
+            <label>FC No</label>
+            <select value={fcno} onChange={(e) => setFcno(e.target.value)}>
+              <option value="">All</option>
+              {fcNos.map((no, index) => (
+                <option key={index} value={no}>
+                  {no}
+                </option>
+              ))}
+            </select>
           </div>
+
+          <button className="view-fc-search-button" onClick={handleSearch}>
+            SEARCH
+          </button>
         </div>
 
-        <button
-          className="view-fc-search-button"
-          onClick={handleSearch}
-        >
-          SEARCH
-        </button>
-
-        {/* Display the filtered results */}
-        <div className="view-fc-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Vehicle ID</th>
-                <th>FC No</th>
-                <th>Issue Date</th>
-                <th>Expiry Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredFcDetails.length > 0 ? (
-                filteredFcDetails.map((detail, index) => (
-                  <tr key={index}>
-                    <td>{detail.vehicleId}</td>
-                    <td>{detail.fcNo}</td>
-                    <td>{detail.issueDate}</td>
-                    <td>{detail.expiryDate}</td>
-                    <td>{detail.status}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="5">No records found</td>
+        <table className="view-fc-table">
+          <thead>
+            <tr>
+              <th>FC ID</th>
+              <th>Vehicle ID</th>
+              <th>FC No</th>
+              <th>Issue Date</th>
+              <th>Expiry Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fcDetails.length > 0 ? (
+              fcDetails.map((fc, index) => (
+                <tr key={index}>
+                  <td>{fc.fcid}</td>
+                  <td>{fc.vehicleid}</td>
+                  <td>{fc.fcno}</td>
+                  <td>{fc.issuedate ? new Date(fc.issuedate).toLocaleDateString() : "N/A"}</td>
+                  <td>{fc.expirydate ? new Date(fc.expirydate).toLocaleDateString() : "N/A"}</td>
+                  <td>{fc.status}</td>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6">No records found</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
 
 export default ViewFC;
+

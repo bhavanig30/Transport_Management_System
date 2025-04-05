@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
   FaBus, FaRoute, FaUserTie, FaUsers, FaSignOutAlt, FaMapMarkerAlt, 
-  FaFileAlt, FaPlus, FaShieldAlt, FaClipboardCheck, FaCaretDown, FaCaretUp, FaDollarSign 
+  FaFileAlt, FaPlus, FaCaretDown, FaCaretUp, FaDollarSign 
 } from "react-icons/fa";
 import "../styles/Home.css";
 
@@ -35,23 +35,26 @@ const Home = () => {
   const [time, setTime] = useState(new Date());
   const [selectedComponent, setSelectedComponent] = useState(null);
 
-  // Dropdown states
-  const [showVehicleDropdown, setShowVehicleDropdown] = useState(false);
-  const [showStageDropdown, setShowStageDropdown] = useState(false);
-  const [showRouteDropdown, setShowRouteDropdown] = useState(false);
-  const [showDriverDropdown, setShowDriverDropdown] = useState(false);
-  const [showTravellerDropdown, setShowTravellerDropdown] = useState(false);
-  const [showCostDropdown, setShowCostDropdown] = useState(false);
-  const [showVehiclePermitDropdown, setShowVehiclePermitDropdown] = useState(false);
-  const [showInsuranceDropdown, setShowInsuranceDropdown] = useState(false);
-  const [showFCDropdown, setShowFCDropdown] = useState(false);
+  const [dropdowns, setDropdowns] = useState({
+    vehicle: false,
+    permit: false,
+    insurance: false,
+    fc: false,
+    stage: false,
+    route: false,
+    driver: false,
+    traveller: false,
+    cost: false
+  });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
+    const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const toggleDropdown = (key) => {
+    setDropdowns(prev => ({ ...prev, [key]: !prev[key] }));
+  };
 
   return (
     <div className="home-layout">
@@ -64,44 +67,33 @@ const Home = () => {
       </div>
 
       <div className="home-container">
-        {/* Sidebar with Scroll */}
         <div className="sidebar">
-          {/* Vehicle Master Dropdown */}
           <div className="dropdown">
-            <div className="dropdown-toggle" onClick={() => setShowVehicleDropdown(!showVehicleDropdown)}>
-              <FaBus /> Vehicle Master {showVehicleDropdown ? <FaCaretUp /> : <FaCaretDown />}
-            </div>
-            {showVehicleDropdown && (
+            <div className="dropdown-toggle" onClick={() => toggleDropdown("vehicle")}> <FaBus /> Vehicle Master {dropdowns.vehicle ? <FaCaretUp /> : <FaCaretDown />} </div>
+            {dropdowns.vehicle && (
               <div className="dropdown-menu">
                 <button onClick={() => setSelectedComponent(<ViewVehicle />)}><FaFileAlt /> View</button>
                 <button onClick={() => setSelectedComponent(<AddVehicle />)}><FaPlus /> Add</button>
-                
-                {/* Nested Vehicle Master Dropdown */}
+
                 <div className="sub-dropdown">
-                  <div className="sub-dropdown-toggle" onClick={() => setShowVehiclePermitDropdown(!showVehiclePermitDropdown)}>
-                    Vehicle Permit {showVehiclePermitDropdown ? <FaCaretUp /> : <FaCaretDown />}
-                  </div>
-                  {showVehiclePermitDropdown && (
+                  <div className="sub-dropdown-toggle" onClick={() => toggleDropdown("permit")}>Vehicle Permit {dropdowns.permit ? <FaCaretUp /> : <FaCaretDown />}</div>
+                  {dropdowns.permit && (
                     <div className="sub-dropdown-menu">
                       <button onClick={() => setSelectedComponent(<ViewPermit />)}><FaFileAlt /> View</button>
                       <button onClick={() => setSelectedComponent(<AddPermit />)}><FaPlus /> Add</button>
                     </div>
                   )}
 
-                  <div className="sub-dropdown-toggle" onClick={() => setShowInsuranceDropdown(!showInsuranceDropdown)}>
-                    Insurance Details {showInsuranceDropdown ? <FaCaretUp /> : <FaCaretDown />}
-                  </div>
-                  {showInsuranceDropdown && (
+                  <div className="sub-dropdown-toggle" onClick={() => toggleDropdown("insurance")}>Insurance Details {dropdowns.insurance ? <FaCaretUp /> : <FaCaretDown />}</div>
+                  {dropdowns.insurance && (
                     <div className="sub-dropdown-menu">
                       <button onClick={() => setSelectedComponent(<ViewInsurance />)}><FaFileAlt /> View</button>
                       <button onClick={() => setSelectedComponent(<AddInsurance />)}><FaPlus /> Add</button>
                     </div>
                   )}
 
-                  <div className="sub-dropdown-toggle" onClick={() => setShowFCDropdown(!showFCDropdown)}>
-                    FC Details {showFCDropdown ? <FaCaretUp /> : <FaCaretDown />}
-                  </div>
-                  {showFCDropdown && (
+                  <div className="sub-dropdown-toggle" onClick={() => toggleDropdown("fc")}>FC Details {dropdowns.fc ? <FaCaretUp /> : <FaCaretDown />}</div>
+                  {dropdowns.fc && (
                     <div className="sub-dropdown-menu">
                       <button onClick={() => setSelectedComponent(<ViewFC />)}><FaFileAlt /> View</button>
                       <button onClick={() => setSelectedComponent(<AddFC />)}><FaPlus /> Add</button>
@@ -112,12 +104,9 @@ const Home = () => {
             )}
           </div>
 
-          {/* Stage Dropdown */}
           <div className="dropdown">
-            <div className="dropdown-toggle" onClick={() => setShowStageDropdown(!showStageDropdown)}>
-              <FaMapMarkerAlt /> Stage {showStageDropdown ? <FaCaretUp /> : <FaCaretDown />}
-            </div>
-            {showStageDropdown && (
+            <div className="dropdown-toggle" onClick={() => toggleDropdown("stage")}><FaMapMarkerAlt /> Stage {dropdowns.stage ? <FaCaretUp /> : <FaCaretDown />}</div>
+            {dropdowns.stage && (
               <div className="dropdown-menu">
                 <button onClick={() => setSelectedComponent(<ViewStage />)}><FaFileAlt /> View</button>
                 <button onClick={() => setSelectedComponent(<AddStage />)}><FaPlus /> Add</button>
@@ -125,12 +114,9 @@ const Home = () => {
             )}
           </div>
 
-          {/* Route Dropdown */}
           <div className="dropdown">
-            <div className="dropdown-toggle" onClick={() => setShowRouteDropdown(!showRouteDropdown)}>
-              <FaRoute /> Route {showRouteDropdown ? <FaCaretUp /> : <FaCaretDown />}
-            </div>
-            {showRouteDropdown && (
+            <div className="dropdown-toggle" onClick={() => toggleDropdown("route")}><FaRoute /> Route {dropdowns.route ? <FaCaretUp /> : <FaCaretDown />}</div>
+            {dropdowns.route && (
               <div className="dropdown-menu">
                 <button onClick={() => setSelectedComponent(<ViewRoute />)}><FaFileAlt /> View</button>
                 <button onClick={() => setSelectedComponent(<AddRoute />)}><FaPlus /> Add</button>
@@ -138,12 +124,9 @@ const Home = () => {
             )}
           </div>
 
-          {/* Driver Dropdown */}
           <div className="dropdown">
-            <div className="dropdown-toggle" onClick={() => setShowDriverDropdown(!showDriverDropdown)}>
-              <FaUserTie /> Driver {showDriverDropdown ? <FaCaretUp /> : <FaCaretDown />}
-            </div>
-            {showDriverDropdown && (
+            <div className="dropdown-toggle" onClick={() => toggleDropdown("driver")}><FaUserTie /> Driver {dropdowns.driver ? <FaCaretUp /> : <FaCaretDown />}</div>
+            {dropdowns.driver && (
               <div className="dropdown-menu">
                 <button onClick={() => setSelectedComponent(<ViewDriver />)}><FaFileAlt /> View</button>
                 <button onClick={() => setSelectedComponent(<AddDriver />)}><FaPlus /> Add</button>
@@ -151,12 +134,9 @@ const Home = () => {
             )}
           </div>
 
-          {/* Traveller Dropdown */}
           <div className="dropdown">
-            <div className="dropdown-toggle" onClick={() => setShowTravellerDropdown(!showTravellerDropdown)}>
-              <FaUsers /> Traveller {showTravellerDropdown ? <FaCaretUp /> : <FaCaretDown />}
-            </div>
-            {showTravellerDropdown && (
+            <div className="dropdown-toggle" onClick={() => toggleDropdown("traveller")}><FaUsers /> Traveller {dropdowns.traveller ? <FaCaretUp /> : <FaCaretDown />}</div>
+            {dropdowns.traveller && (
               <div className="dropdown-menu">
                 <button onClick={() => setSelectedComponent(<ViewTraveller />)}><FaFileAlt /> View</button>
                 <button onClick={() => setSelectedComponent(<AddTraveller />)}><FaPlus /> Add</button>
@@ -164,12 +144,9 @@ const Home = () => {
             )}
           </div>
 
-          {/* Cost Dropdown */}
           <div className="dropdown">
-            <div className="dropdown-toggle" onClick={() => setShowCostDropdown(!showCostDropdown)}>
-              <FaDollarSign /> Cost {showCostDropdown ? <FaCaretUp /> : <FaCaretDown />}
-            </div>
-            {showCostDropdown && (
+            <div className="dropdown-toggle" onClick={() => toggleDropdown("cost")}><FaDollarSign /> Cost {dropdowns.cost ? <FaCaretUp /> : <FaCaretDown />}</div>
+            {dropdowns.cost && (
               <div className="dropdown-menu">
                 <button onClick={() => setSelectedComponent(<ViewCost />)}><FaFileAlt /> View</button>
                 <button onClick={() => setSelectedComponent(<AddCost />)}><FaPlus /> Add</button>
@@ -178,7 +155,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Content Area */}
         <div className="content-area">
           {selectedComponent ? (
             <div className="form-container">{selectedComponent}</div>

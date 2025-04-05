@@ -143,34 +143,23 @@ app.post('/addVehicle', async (req, res) => {
     }
 });
 
-// Get All Vehicles
-// app.get('/getVehicle', (req, res) => {
-//     connection.query("SELECT * FROM vehicle", (err, results) => {
-//         if (err) {
-//             console.error("Error fetching vehicles:", err);
-//             return res.status(500).json({ message: "Failed to fetch vehicles" });
-//         }
-//         res.json(results);
-//     });
-// });
+
 app.get('/getVehicle', (req, res) => {
     connection.query("SELECT * FROM vehicle", (err, results) => {
         if (err) {
             console.error("Error fetching vehicles:", err);
             return res.status(500).json({ message: "Failed to fetch vehicles" });
         }
-        console.log("API Response Data:", results); // Debugging
+        console.log("API Response Data:", results);
         res.json(results);
     });
 });
 
-// Add a new FC record
+
 app.post("/addFC", async (req, res) => {
    
     try {
         const { vehicleId, fcNo, issueDate, expiryDate, status } = req.body;
-
-        // Validate required fields
         if (!vehicleId || !fcNo || !issueDate || !expiryDate || !status) {
             return res.status(400).json({ message: "Missing required fields" });
         }
@@ -201,6 +190,38 @@ app.get("/getFC", (req, res) => {
         }
         res.json(results);
     });
+});
+
+// Update FC Details
+// Update FC Details
+app.put('/updateFC/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { vehicleid, fcno, issuedate, expirydate, status } = req.body;
+
+        console.log("Received Update Request for ID:", id);
+        console.log("Received Data:", req.body);
+
+        if (!vehicleid || !fcno || !issuedate || !expirydate || !status) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const sql = "UPDATE fc SET vehicleid = ?, fcno = ?, issuedate = ?, expirydate = ?, status = ? WHERE fcid = ?";
+        
+        connection.query(sql, [vehicleid, fcno, issuedate, expirydate, status, id], (err, result) => {
+            if (err) {
+                console.error("Database Error:", err);
+                return res.status(500).json({ message: "Database error", error: err });
+            }
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ message: "FC not found" });
+            }
+            res.status(200).json({ message: "FC details updated successfully" });
+        });
+    } catch (error) {
+        console.error("Server Error:", error);
+        res.status(500).json({ message: "Server error", error });
+    }
 });
 
 
@@ -314,6 +335,49 @@ app.get('/getRoutes', (req, res) => {
       }
     });
   });
+
+  app.get('/getRoute', (req, res) => {
+    connection.query("SELECT * FROM route", (err, results) => {
+        if (err) {
+            console.error("Error fetching routes:", err);
+            return res.status(500).json({ message: "Failed to fetch route" });
+        }
+        console.log("API Response Data:", results); // Debugging
+        res.json(results);
+    });
+});
+
+app.get('/getdrivers', (req, res) => {
+    const sql = "SELECT staffcode, staffname, vehicleid, doorno, streetname, city, state, pincode, mobileno, photo FROM driver";
+    
+    connection.query(sql, (err, results) => {
+        if (err) {
+            console.error("Error fetching drivers:", err);
+            return res.status(500).json({ message: "Failed to fetch drivers" });
+        }
+
+        // Convert photos to Base64 format
+        const driversWithImages = results.map(driver => ({
+            ...driver,
+            imageUrl: driver.photo ? `data:image/jpeg;base64,${driver.photo.toString("base64")}` : null
+        }));
+
+        res.json(driversWithImages);
+    });
+});
+
+
+
+  app.get('/getstage', (req, res) => {
+    connection.query("SELECT * FROM stage", (err, results) => {
+        if (err) {
+            console.error("Error fetching :", err);
+            return res.status(500).json({ message: "Failed to fetch stage " });
+        }
+        console.log("API Response Data:", results); // Debugging
+        res.json(results);
+    });
+});
   
   // Fetch stages based on routeId
   app.get('/getStages/:routeId', (req, res) => {
