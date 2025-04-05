@@ -22,6 +22,72 @@ app.post('/login', (req, res) => {
     }
 });
 
+// Add a New Route
+app.post('/addRoute', async (req, res) => {
+    try {
+        const { routeId, routeName, city, totalStages, totalDistance } = req.body;
+        if (!routeId || !routeName || !city || !totalStages || !totalDistance) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+        
+        connection.query("INSERT INTO Route (routeid, routename, city, totalstages, totaldistance) VALUES (?, ?, ?, ?, ?)", 
+            [routeId, routeName, city, totalStages, totalDistance], (err, result) => {
+            if (err) {
+                console.log("DB");
+                return res.status(500).json({ message: "Database error", error: err });
+            }
+            res.status(200).json({ message: "Route added successfully", routeId });
+            console.log("D");
+        });
+    } catch (error) {
+        console.log("server");
+        res.status(500).json({ message: "Server error", error });
+    }
+});
+
+// Get All Routes
+app.get('/getRoute', (req, res) => {
+    connection.query("SELECT * FROM route", (err, results) => {
+        if (err) {
+            console.error("Error fetching routes:", err);
+            return res.status(500).json({ message: "Failed to fetch routes" });
+        }
+        res.json(results);
+    });
+});
+
+// Fetch all unique route IDs from the stage table
+app.get('/getRoutes', (req, res) => {
+    connection.query('SELECT DISTINCT routeid FROM stage', (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error fetching routes');
+      } else {
+        res.json(results);
+      }
+    });
+  });
+
+app.get('/getRouteByCity', (req, res) => {
+    const { city } = req.query;
+
+    if (!city) {
+        return res.status(400).json({ message: "City is required" });
+    }
+
+    const query = "SELECT routeid FROM route WHERE city = ?";
+    
+    connection.query(query, [city], (err, results) => {
+        if (err) {
+            console.error("Error fetching routes:", err);
+            return res.status(500).json({ message: "Failed to fetch routes" });
+        }
+
+        const routeIds = results.map(route => route.routeid);
+        res.json({ routes: routeIds });
+    });
+});
+
 // Function to generate the next stageId 
 async function generateStageId() {
     return new Promise((resolve, reject) => {
@@ -67,61 +133,6 @@ app.get('/getStage', (req, res) => {
             return res.status(500).json({ message: "Failed to fetch stages" });
         }
         res.json(results);
-    });
-});
-
-
-// Add a New Route
-app.post('/addRoute', async (req, res) => {
-    try {
-        const { routeId, routeName, city, totalStages, totalDistance } = req.body;
-        if (!routeId || !routeName || !city || !totalStages || !totalDistance) {
-            return res.status(400).json({ message: "Missing required fields" });
-        }
-        
-        connection.query("INSERT INTO Route (routeid, routename, city, totalstages, totaldistance) VALUES (?, ?, ?, ?, ?)", 
-            [routeId, routeName, city, totalStages, totalDistance], (err, result) => {
-            if (err) {
-                console.log("DB");
-                return res.status(500).json({ message: "Database error", error: err });
-            }
-            res.status(200).json({ message: "Route added successfully", routeId });
-            console.log("D");
-        });
-    } catch (error) {
-        console.log("server");
-        res.status(500).json({ message: "Server error", error });
-    }
-});
-
-// Get All Routes
-app.get('/getRoute', (req, res) => {
-    connection.query("SELECT * FROM route", (err, results) => {
-        if (err) {
-            console.error("Error fetching routes:", err);
-            return res.status(500).json({ message: "Failed to fetch routes" });
-        }
-        res.json(results);
-    });
-});
-
-app.get('/getRouteByCity', (req, res) => {
-    const { city } = req.query;
-
-    if (!city) {
-        return res.status(400).json({ message: "City is required" });
-    }
-
-    const query = "SELECT routeid FROM route WHERE city = ?";
-    
-    connection.query(query, [city], (err, results) => {
-        if (err) {
-            console.error("Error fetching routes:", err);
-            return res.status(500).json({ message: "Failed to fetch routes" });
-        }
-
-        const routeIds = results.map(route => route.routeid);
-        res.json({ routes: routeIds });
     });
 });
 
@@ -192,8 +203,6 @@ app.get("/getFC", (req, res) => {
     });
 });
 
-// Update FC Details
-// Update FC Details
 app.put('/updateFC/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -322,31 +331,6 @@ app.post("/addDriver", upload.single("photo"), (req, res) => {
 });
 
 
-
-  
-// Fetch all unique route IDs from the stage table
-app.get('/getRoutes', (req, res) => {
-    connection.query('SELECT DISTINCT routeid FROM stage', (err, results) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error fetching routes');
-      } else {
-        res.json(results);
-      }
-    });
-  });
-
-  app.get('/getRoute', (req, res) => {
-    connection.query("SELECT * FROM route", (err, results) => {
-        if (err) {
-            console.error("Error fetching routes:", err);
-            return res.status(500).json({ message: "Failed to fetch route" });
-        }
-        console.log("API Response Data:", results); // Debugging
-        res.json(results);
-    });
-});
-
 app.get('/getdrivers', (req, res) => {
     const sql = "SELECT staffcode, staffname, vehicleid, doorno, streetname, city, state, pincode, mobileno, photo FROM driver";
     
@@ -366,47 +350,6 @@ app.get('/getdrivers', (req, res) => {
     });
 });
 
-
-
-  app.get('/getstage', (req, res) => {
-    connection.query("SELECT * FROM stage", (err, results) => {
-        if (err) {
-            console.error("Error fetching :", err);
-            return res.status(500).json({ message: "Failed to fetch stage " });
-        }
-        console.log("API Response Data:", results); // Debugging
-        res.json(results);
-    });
-});
-  
-  // Fetch stages based on routeId
-  app.get('/getStages/:routeId', (req, res) => {
-    const { routeId } = req.params;
-    connection.query('SELECT stageid, stagename FROM stage WHERE routeid = ?', [routeId], (err, results) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error fetching stages');
-      } else {
-        res.json(results);
-      }
-    });
-  });
-  
-  // Fetch fee based on routeId and stageId
-  app.get('/getFees/:routeId/:stageId', (req, res) => {
-    const { routeId, stageId } = req.params;
-    connection.query('SELECT fee FROM stage WHERE routeid = ? AND stageid = ?', [routeId, stageId], (err, results) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error fetching fee');
-      } else if (results.length === 0) {
-        res.status(404).send('No fee found for the given route and stage');
-      } else {
-        res.json(results[0]);
-      }
-    });
-  });
-  
   // Add traveller to Traveller table
   app.post('/addTraveller', (req, res) => {
     const { role, routeId, stageId } = req.body;
@@ -423,6 +366,23 @@ app.get('/getdrivers', (req, res) => {
     });
   });
   
+  
+  // Fetch fee based on routeId and stageId
+  app.get('/getFees/:routeId/:stageId', (req, res) => {
+    const { routeId, stageId } = req.params;
+    connection.query('SELECT fee FROM stage WHERE routeid = ? AND stageid = ?', [routeId, stageId], (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error fetching fee');
+      } else if (results.length === 0) {
+        res.status(404).send('No fee found for the given route and stage');
+      } else {
+        res.json(results[0]);
+      }
+    });
+  });
+  
+
 
 // Start the Server
 const PORT = 5000;

@@ -10,12 +10,20 @@ const ViewStage = () => {
   const [stageName, setStageName] = useState("");
   const [stages, setStages] = useState([]);
   const [allStages, setAllStages] = useState([]);
+  const [routeIds, setRouteIds] = useState([]);
   const [error, setError] = useState("");
 
+  // Predefined list of cities
+  const cities = [
+    "Kovilpatti", "Thoothukudi", "Tirunelveli", "Sattur", "Virudhunagar",
+    "Vilathikulam", "Sivakasi", "Kayathar", "Sankarankovil", "Kalugumalai"
+  ];
+
+  // Fetch all stages
   useEffect(() => {
     const fetchStages = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/getstage");
+        const response = await axios.get("http://localhost:5000/getStage");
         console.log("API Response:", response.data);
         setStages(response.data);
         setAllStages(response.data);
@@ -24,9 +32,25 @@ const ViewStage = () => {
         setError("Failed to fetch stages. Please try again.");
       }
     };
+
     fetchStages();
   }, []);
 
+  // Fetch Route IDs from the database
+  useEffect(() => {
+    const fetchRouteIds = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/getRoute"); // Adjust endpoint as needed
+        setRouteIds(response.data);
+      } catch (error) {
+        console.error("Error fetching routes:", error);
+      }
+    };
+
+    fetchRouteIds();
+  }, []);
+
+  // Handle search/filter
   const handleSearch = () => {
     const filtered = allStages.filter((stage) => {
       return (
@@ -51,30 +75,33 @@ const ViewStage = () => {
         <div className="view-stage-title">View</div>
 
         <div className="view-filter-container">
+          {/* City Dropdown */}
           <div className="view-filter-item">
             <label>City</label>
             <select value={city} onChange={(e) => setCity(e.target.value)}>
               <option value="">All</option>
-              {allStages.map((stage) => (
-                <option key={stage.city} value={stage.city}>
-                  {stage.city}
+              {cities.map((cityName) => (
+                <option key={cityName} value={cityName}>
+                  {cityName}
                 </option>
               ))}
             </select>
           </div>
 
+          {/* Route ID Dropdown */}
           <div className="view-filter-item">
             <label>Route ID</label>
             <select value={routeId} onChange={(e) => setRouteId(e.target.value)}>
               <option value="">All</option>
-              {allStages.map((stage) => (
-                <option key={stage.routeid} value={stage.routeid}>
-                  {stage.routeid}
+              {routeIds.map((route) => (
+                <option key={route.routeid} value={route.routeid}>
+                  {route.routeid}
                 </option>
               ))}
             </select>
           </div>
 
+          {/* Stage Name Input */}
           <div className="view-filter-item">
             <label>Stage Name</label>
             <input
@@ -85,11 +112,13 @@ const ViewStage = () => {
             />
           </div>
 
+          {/* Search Button */}
           <button className="view-search-button" onClick={handleSearch}>
             SEARCH
           </button>
         </div>
 
+        {/* Stage Table */}
         <table className="view-stage-table">
           <thead>
             <tr>
@@ -105,7 +134,7 @@ const ViewStage = () => {
           <tbody>
             {stages.length > 0 ? (
               stages.map((stage, index) => (
-                <tr key={stage.routeid}>
+                <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{stage.stagename}</td>
                   <td>{stage.city}</td>
@@ -128,4 +157,3 @@ const ViewStage = () => {
 };
 
 export default ViewStage;
-
