@@ -56,18 +56,6 @@ app.get('/getRoute', (req, res) => {
     });
 });
 
-// Fetch all unique route IDs from the stage table
-app.get('/getRoutes', (req, res) => {
-    connection.query('SELECT DISTINCT routeid FROM stage', (err, results) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error fetching routes');
-      } else {
-        res.json(results);
-      }
-    });
-  });
-
 app.get('/getRouteByCity', (req, res) => {
     const { city } = req.query;
 
