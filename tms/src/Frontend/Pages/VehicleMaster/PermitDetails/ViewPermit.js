@@ -1,60 +1,99 @@
-import React, { useState } from "react";
-import "../../../styles/ViewPermit.css"; // Corrected path based on your folder structure
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../../../styles/ViewPermit.css";
 
 const ViewPermit = () => {
-  // Sample Data for Display
-  const permitData = [
-    { vehicleId: "V001", permitNo: "P001", permitType: "State", issueDate: "2023-01-01", expiryDate: "2024-01-01", status: "Active" },
-    { vehicleId: "V002", permitNo: "P002", permitType: "District", issueDate: "2022-06-01", expiryDate: "2023-06-01", status: "Expired" },
-    { vehicleId: "V003", permitNo: "P003", permitType: "State", issueDate: "2023-05-15", expiryDate: "2024-05-15", status: "Active" },
-    { vehicleId: "V004", permitNo: "P004", permitType: "District", issueDate: "2021-09-20", expiryDate: "2022-09-20", status: "Expired" },
-  ];
+  const [vehicleid, setVehicleid] = useState("");
+  const [permitno, setPermitno] = useState("");
+  const [permitDetails, setPermitDetails] = useState([]);
+  const [allPermitDetails, setAllPermitDetails] = useState([]);
+  const [vehicleIds, setVehicleIds] = useState([]);
+  const [permitNos, setPermitNos] = useState([]);
+  const [error, setError] = useState("");
 
-  const [vehicleId, setVehicleId] = useState("");
-  const [filteredData, setFilteredData] = useState(permitData);
+  useEffect(() => {
+    const fetchPermitDetails = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/getPermit");
+
+        const formattedData = response.data.map((permit) => ({
+          ...permit,
+          vehicleid: String(permit.vehicleid).trim(),
+          permitno: String(permit.permitno).trim(),
+        }));
+
+        setPermitDetails(formattedData);
+        setAllPermitDetails(formattedData);
+
+        // Extract unique Vehicle IDs and Permit Nos
+        setVehicleIds([...new Set(formattedData.map((p) => p.vehicleid))]);
+        setPermitNos([...new Set(formattedData.map((p) => p.permitno))]);
+      } catch (error) {
+        console.error("Error fetching permit details:", error);
+        setError("Failed to fetch permit details. Please try again.");
+      }
+    };
+
+    fetchPermitDetails();
+  }, []);
 
   const handleSearch = () => {
-    const result = permitData.filter(item =>
-      (vehicleId === "" || item.vehicleId.toLowerCase().includes(vehicleId.toLowerCase()))
-    );
-    setFilteredData(result);
+    const filtered = allPermitDetails.filter((permit) => {
+      return (
+        (vehicleid === "" || permit.vehicleid === vehicleid) &&
+        (permitno === "" || permit.permitno === permitno)
+      );
+    });
+
+    setPermitDetails(filtered);
+
+    // **Immediately reset the filters**
+    setVehicleid("");
+    setPermitno("");
+    setPermitDetails(allPermitDetails);
   };
 
   return (
     <div className="view-permit-container">
-      <div className="view-permit-box-wrapper">
+      <div className="view-permit-box">
         <div className="view-permit-main-title">PERMIT DETAILS</div>
-        <div className="view-permit-title">View</div>
 
         <div className="view-permit-filter-container">
+          {/* Vehicle ID Dropdown */}
           <div className="view-permit-filter-item">
             <label>Vehicle ID</label>
-            <div className="view-permit-dropdown-container">
-              <input 
-                type="text" 
-                value={vehicleId} 
-                onChange={(e) => setVehicleId(e.target.value)} 
-                placeholder="Enter Vehicle ID" 
-              />
-              <select 
-                value={vehicleId} 
-                onChange={(e) => setVehicleId(e.target.value)} 
-                className="vehicle-id-dropdown"
-              >
-                <option value="">Select Vehicle ID</option>
-                {permitData.map((permit, index) => (
-                  <option key={index} value={permit.vehicleId}>{permit.vehicleId}</option>
-                ))}
-              </select>
-            </div>
+            <select value={vehicleid} onChange={(e) => setVehicleid(e.target.value)}>
+              <option value="">All</option>
+              {vehicleIds.map((id, index) => (
+                <option key={index} value={id}>
+                  {id}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <button className="view-permit-search-button" onClick={handleSearch}>SEARCH</button>
+          {/* Permit No Dropdown */}
+          <div className="view-permit-filter-item">
+            <label>Permit No</label>
+            <select value={permitno} onChange={(e) => setPermitno(e.target.value)}>
+              <option value="">All</option>
+              {permitNos.map((no, index) => (
+                <option key={index} value={no}>
+                  {no}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button className="view-permit-search-button" onClick={handleSearch}>
+            SEARCH
+          </button>
         </div>
 
         <table className="view-permit-table">
           <thead>
             <tr>
+              <th>Permit ID</th>
               <th>Vehicle ID</th>
               <th>Permit No</th>
               <th>Permit Type</th>
@@ -64,24 +103,27 @@ const ViewPermit = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredData.length > 0 ? (
-              filteredData.map((permit, index) => (
+            {permitDetails.length > 0 ? (
+              permitDetails.map((permit, index) => (
                 <tr key={index}>
-                  <td>{permit.vehicleId}</td>
-                  <td>{permit.permitNo}</td>
-                  <td>{permit.permitType}</td>
-                  <td>{permit.issueDate}</td>
-                  <td>{permit.expiryDate}</td>
+                  <td>{permit.permitid}</td>
+                  <td>{permit.vehicleid}</td>
+                  <td>{permit.permitno}</td>
+                  <td>{permit.permittype}</td>
+                  <td>{new Date(permit.issuedate).toLocaleDateString()}</td>
+                  <td>{new Date(permit.expirydate).toLocaleDateString()}</td>
                   <td>{permit.status}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="6">No Data Found</td>
+                <td colSpan="7">No records found</td>
               </tr>
             )}
           </tbody>
         </table>
+
+        {error && <p className="error-message">{error}</p>}
       </div>
     </div>
   );

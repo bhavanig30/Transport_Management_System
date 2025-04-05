@@ -16,7 +16,7 @@ const ViewVehicle = () => {
     const fetchVehicles = async () => {
       try {
         const response = await axios.get("http://localhost:5000/getVehicle");
-        console.log("API Response:", response.data);
+        
         setVehicles(response.data);
         setAllVehicles(response.data);
       } catch (error) {
