@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/ViewStage.css";
+import { exportToExcel } from "../ReportGenerator"
 
 const ViewStage = () => {
   const navigate = useNavigate();
@@ -115,6 +116,15 @@ const ViewStage = () => {
           {/* Search Button */}
           <button className="view-search-button" onClick={handleSearch}>
             SEARCH
+          </button>
+        </div>
+
+        <div style={{ textAlign: "right", margin: "10px 0" }}>
+          <button
+            className="report-button"
+            onClick={() => exportToExcel(stages, "Stages_Report")}
+          >
+            Generate Report
           </button>
         </div>
 

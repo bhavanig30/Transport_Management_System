@@ -155,22 +155,17 @@ body {
     background-color: #e6f2ff;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-    .view-cost-filter-container {
-        flex-direction: column;
-        gap: 20px;  /* Moderated gap */
-    }
-
-    .view-cost-filter-item {
-        width: 90%;
-    }
-
-    .view-cost-box-wrapper {
-        padding: 40px;  /* Moderated padding */
-    }
-
-    .view-cost-search-button {
-        width: 100%;
-    }
-}
+.report-button {
+    background-color: #2b8a3e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .report-button:hover {
+    background-color: #247232;
+  }
+  

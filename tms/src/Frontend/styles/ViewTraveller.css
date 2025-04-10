@@ -151,22 +151,17 @@ body {
     background-color: #e6f2ff;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-    .view-traveller-filter-container {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .view-traveller-filter-item {
-        width: 90%;
-    }
-
-    .view-traveller-box-wrapper {
-        padding: 40px;
-    }
-
-    .view-traveller-search-button {
-        width: 100%;
-    }
-}
+.report-button {
+    background-color: #2b8a3e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .report-button:hover {
+    background-color: #247232;
+  }
+  

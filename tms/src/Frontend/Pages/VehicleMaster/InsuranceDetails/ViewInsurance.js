@@ -1,63 +1,123 @@
-import React, { useState } from "react";
-import "../../../styles/ViewInsurance.css"; // Ensure correct path
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../../../styles/ViewInsurance.css";
+import { exportToExcel } from "../../ReportGenerator"
 
 const ViewInsurance = () => {
-  const insuranceData = [
-    { vehicleId: "V001", policyNo: "POL001", companyName: "ABC Insurance", issueDate: "2023-01-01", expiryDate: "2024-01-01", premiumAmount: "5000" },
-    { vehicleId: "V002", policyNo: "POL002", companyName: "XYZ Insurance", issueDate: "2022-06-01", expiryDate: "2023-06-01", premiumAmount: "4500" },
-    { vehicleId: "V003", policyNo: "POL003", companyName: "PQR Insurance", issueDate: "2023-05-15", expiryDate: "2024-05-15", premiumAmount: "5200" },
-    { vehicleId: "V004", policyNo: "POL004", companyName: "DEF Insurance", issueDate: "2021-09-20", expiryDate: "2022-09-20", premiumAmount: "4800" },
-  ];
+  const [vehicleid, setVehicleid] = useState("");
+  const [insuranceno, setInsuranceno] = useState(""); // Insurance No for filtering
+  const [insuranceDetails, setInsuranceDetails] = useState([]);
+  const [allInsuranceDetails, setAllInsuranceDetails] = useState([]);
+  const [vehicleIds, setVehicleIds] = useState([]);
+  const [insuranceNos, setInsuranceNos] = useState([]);
+  const [error, setError] = useState("");
 
-  const [vehicleId, setVehicleId] = useState("");
-  const [filteredData, setFilteredData] = useState(insuranceData);
+  useEffect(() => {
+    const fetchInsuranceDetails = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/getInsurance");
+
+        const formattedData = response.data.map((ins) => ({
+          ...ins,
+          vehicleid: String(ins.vehicleid).trim(),
+          insuranceno: String(ins.insuranceno).trim(),
+        }));
+
+        setInsuranceDetails(formattedData);
+        setAllInsuranceDetails(formattedData);
+
+        // Extract unique Vehicle IDs and Insurance Nos
+        setVehicleIds([...new Set(formattedData.map((ins) => ins.vehicleid))]);
+        setInsuranceNos([...new Set(formattedData.map((ins) => ins.insuranceno))]);
+      } catch (error) {
+        console.error("Error fetching insurance details:", error);
+        setError("Failed to fetch insurance details. Please try again.");
+      }
+    };
+
+    fetchInsuranceDetails();
+  }, []);
 
   const handleSearch = () => {
-    setFilteredData(insuranceData.filter(item => vehicleId === "" || item.vehicleId === vehicleId));
+    const filtered = allInsuranceDetails.filter((ins) => {
+      return (
+        (vehicleid === "" || String(ins.vehicleid).trim() === vehicleid) &&
+        (insuranceno === "" || String(ins.insuranceno).trim() === insuranceno)
+      );
+    });
+
+    setInsuranceDetails(filtered);
+
+    // Reset dropdowns after search
+    setVehicleid("");
+    setInsuranceno("");
   };
 
   return (
     <div className="view-insurance-container">
       <div className="view-insurance-box">
-        <h2 className="view-insurance-title">INSURANCE DETAILS</h2>
+        <div className="view-insurance-title-main">View Insurance Details</div>
 
-        <div className="view-insurance-filter">
-          <label>Vehicle ID</label>
-          <select value={vehicleId} onChange={(e) => setVehicleId(e.target.value)}>
-            <option value="">Select Vehicle ID</option>
-            {insuranceData.map((item, index) => (
-              <option key={index} value={item.vehicleId}>{item.vehicleId}</option>
-            ))}
-          </select>
-          <button className="view-insurance-search-button" onClick={handleSearch}>SEARCH</button>
+        <div className="view-insurance-filter-container">
+          {/* Vehicle ID Dropdown */}
+          <div className="view-insurance-filter-item">
+            <label>Vehicle ID</label>
+            <select value={vehicleid} onChange={(e) => setVehicleid(e.target.value)}>
+              <option value="">All</option>
+              {vehicleIds.map((id, index) => (
+                <option key={index} value={id}>{id}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Insurance No Dropdown */}
+          <div className="view-insurance-filter-item">
+            <label>Insurance No</label>
+            <select value={insuranceno} onChange={(e) => setInsuranceno(e.target.value)}>
+              <option value="">All</option>
+              {insuranceNos.map((no, index) => (
+                <option key={index} value={no}>{no}</option>
+              ))}
+            </select>
+          </div>
+
+          <button className="view-insurance-search-button" onClick={handleSearch}>
+            SEARCH
+          </button>
+        </div>
+
+        <div style={{ textAlign: "right", margin: "10px 0" }}>
+          <button className="report-button" onClick={() => exportToExcel(insuranceDetails, "Insurance_Report")}>
+            Generate Report
+          </button>
         </div>
 
         <table className="view-insurance-table">
           <thead>
             <tr>
+              <th>Insurance ID</th>
               <th>Vehicle ID</th>
-              <th>Policy No</th>
-              <th>Company Name</th>
-              <th>Issue Date</th>
+              <th>Insurance No</th>
+              <th>Start Date</th>
               <th>Expiry Date</th>
-              <th>Premium Amount</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {filteredData.length > 0 ? (
-              filteredData.map((item, index) => (
+            {insuranceDetails.length > 0 ? (
+              insuranceDetails.map((ins, index) => (
                 <tr key={index}>
-                  <td>{item.vehicleId}</td>
-                  <td>{item.policyNo}</td>
-                  <td>{item.companyName}</td>
-                  <td>{item.issueDate}</td>
-                  <td>{item.expiryDate}</td>
-                  <td>{item.premiumAmount}</td>
+                  <td>{ins.insuranceid}</td>
+                  <td>{ins.vehicleid}</td>
+                  <td>{ins.insuranceno}</td>
+                  <td>{ins.startdate ? new Date(ins.startdate).toLocaleDateString() : "N/A"}</td>
+                  <td>{ins.expirydate ? new Date(ins.expirydate).toLocaleDateString() : "N/A"}</td>
+                  <td>{ins.status}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="6">No Data Found</td>
+                <td colSpan="6">No records found</td>
               </tr>
             )}
           </tbody>

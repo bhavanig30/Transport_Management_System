@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../../styles/ViewPermit.css";
+import { exportToExcel } from "../../ReportGenerator"
 
 const ViewPermit = () => {
   const [vehicleId, setVehicleId] = useState("");
@@ -51,11 +52,11 @@ const ViewPermit = () => {
 
   return (
     <div className="view-permit-container">
-      <div className="view-permit-box-wrapper">
+      <div className="view-permit-box">
         <div className="view-permit-main-title">PERMIT DETAILS</div>
-        <div className="view-permit-title">View</div>
 
         <div className="view-permit-filter-container">
+          {/* Vehicle ID Dropdown */}
           <div className="view-permit-filter-item">
             <label>Vehicle ID</label>
             <div className="view-permit-dropdown-container">
@@ -93,11 +94,18 @@ const ViewPermit = () => {
           </button>
         </div>
 
+        <div style={{ textAlign: "right", margin: "10px 0" }}>
+          <button className="report-button" onClick={() => exportToExcel(filteredData, "Permit_Report")}>
+            Generate Report
+          </button>
+        </div>        
+
         {error && <div className="error-message">{error}</div>}
 
         <table className="view-permit-table">
           <thead>
             <tr>
+              <th>Permit ID</th>
               <th>Vehicle ID</th>
               <th>Permit No</th>
               <th>Permit Type</th>
@@ -125,6 +133,8 @@ const ViewPermit = () => {
             )}
           </tbody>
         </table>
+
+        {error && <p className="error-message">{error}</p>}
       </div>
     </div>
   );
