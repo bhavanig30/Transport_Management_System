@@ -8,13 +8,12 @@ const AddTraveller = () => {
     const [travellerData, setTravellerData] = useState({
         name: "",
         rollno: "",
-        designation: "",
         role: "",
-        doorNo: "",
+        doorno: "",     // ✅ corrected
         street: "",
         place: "",
         branch: "",
-        routeId: "",
+        routeid: "",    // ✅ corrected
         point: ""
     });
 
@@ -27,8 +26,7 @@ const AddTraveller = () => {
     const handleChange = (e) => {
         let { name, value } = e.target;
 
-        // Convert routeId to string to match DB varchar type
-        if (name === "routeId") {
+        if (name === "routeid") {  // ✅ corrected
             value = String(value);
             axios.get(`http://localhost:5000/getStagesByRouteId?routeid=${value}`)
                 .then(res => setStageOptions(res.data.stages))
@@ -46,6 +44,7 @@ const AddTraveller = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         axios.post("http://localhost:5000/addTraveller", travellerData)
             .then(res => {
                 alert("Traveller details submitted successfully!");
@@ -87,7 +86,7 @@ const AddTraveller = () => {
 
                 <div className="traveller-form-group">
                     <label>Door No</label>
-                    <input type="text" name="doorNo" value={travellerData.doorNo} onChange={handleChange} required />
+                    <input type="text" name="doorno" value={travellerData.doorno} onChange={handleChange} required /> {/* ✅ corrected */}
                 </div>
 
                 <div className="traveller-form-group">
@@ -114,7 +113,7 @@ const AddTraveller = () => {
 
                 <div className="traveller-form-group">
                     <label>Route ID</label>
-                    <select name="routeId" value={travellerData.routeId} onChange={handleChange} required>
+                    <select name="routeid" value={travellerData.routeid} onChange={handleChange} required> {/* ✅ corrected */}
                         <option value="">Select Route</option>
                         {routeOptions.map((route, index) => (
                             <option key={index} value={String(route.routeid)}>
