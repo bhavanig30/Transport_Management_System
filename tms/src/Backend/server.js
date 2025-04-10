@@ -87,6 +87,25 @@ app.get('/getRouteByCity', (req, res) => {
         res.json({ routes: routeIds });
     });
 });
+app.get('/getStagesByRouteId', (req, res) => {
+    const { routeid } = req.query;
+
+    if (!routeid) {
+        return res.status(400).json({ message: "Route ID is required" });
+    }
+
+    const query = "SELECT stagename FROM stage WHERE routeid = ?";
+
+    connection.query(query, [routeid], (err, results) => {
+        if (err) {
+            console.error("Error fetching stages:", err);
+            return res.status(500).json({ message: "Failed to fetch stages" });
+        }
+
+        const stages = results.map(row => row.stagename);
+        res.json({ stages });
+    });
+});
 
 // Function to generate the next stageId 
 async function generateStageId() {
@@ -352,21 +371,41 @@ app.get('/getdrivers', (req, res) => {
 
   // Add traveller to Traveller table
   app.post('/addTraveller', (req, res) => {
-    const { role, routeId, stageId } = req.body;
-    if (role === 'staff') {
-      return res.status(400).send('Staff cannot have fees');
-    }
-  
-    const query = 'INSERT INTO Traveller (role, routeId, stageId) VALUES (?, ?, ?)';
-    db.query(query, [role, routeId, stageId], (err) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      res.send('Traveller added successfully');
+    const {
+        name, rollno, role, branch,
+        doorno, street, place,
+        point, routeid
+    } = req.body;
+
+    const sql = `
+        INSERT INTO traveller 
+        (name, rollno, role, branch, doorno, street, place, point, routeid)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    connection.query(
+        sql,
+        [name, rollno, role, branch, doorno, street, place, point, routeid],
+        (err, result) => {
+            if (err) {
+                console.error("Error inserting traveller:", err);
+                return res.status(500).json({ message: "Failed to add traveller" });
+            }
+            res.json({ message: "Traveller added successfully", travellerId: result.insertId });
+        }
+    );
+});
+
+app.get("/getTraveller", (req, res) => {
+    connection.query("SELECT * traveller", (err, results) => {
+        if (err) {
+            console.error("Error fetching traveller records:", err);
+            return res.status(500).json({ message: "Failed to fetch traveller records" });
+        }
+        res.json(results);
     });
-  });
-  
-  
+});
+
   // Fetch fee based on routeId and stageId
   app.get('/getFees/:routeId/:stageId', (req, res) => {
     const { routeId, stageId } = req.params;
