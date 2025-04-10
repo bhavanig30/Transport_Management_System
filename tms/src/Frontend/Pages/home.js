@@ -28,7 +28,6 @@ import ViewTraveller from "./TravellerAllotment/ViewTraveller";
 import AddTraveller from "./TravellerAllotment/AddTraveller";
 
 import ViewCost from "./CostMaster/ViewCost";
-import AddCost from "./CostMaster/AddCost";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -172,7 +171,6 @@ const Home = () => {
             {showCostDropdown && (
               <div className="dropdown-menu">
                 <button onClick={() => setSelectedComponent(<ViewCost />)}><FaFileAlt /> View</button>
-                <button onClick={() => setSelectedComponent(<AddCost />)}><FaPlus /> Add</button>
               </div>
             )}
           </div>

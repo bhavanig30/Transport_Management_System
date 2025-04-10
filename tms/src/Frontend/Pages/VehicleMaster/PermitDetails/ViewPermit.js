@@ -1,21 +1,50 @@
-import React, { useState } from "react";
-import "../../../styles/ViewPermit.css"; // Corrected path based on your folder structure
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../../../styles/ViewPermit.css";
 
 const ViewPermit = () => {
-  // Sample Data for Display
-  const permitData = [
-    { vehicleId: "V001", permitNo: "P001", permitType: "State", issueDate: "2023-01-01", expiryDate: "2024-01-01", status: "Active" },
-    { vehicleId: "V002", permitNo: "P002", permitType: "District", issueDate: "2022-06-01", expiryDate: "2023-06-01", status: "Expired" },
-    { vehicleId: "V003", permitNo: "P003", permitType: "State", issueDate: "2023-05-15", expiryDate: "2024-05-15", status: "Active" },
-    { vehicleId: "V004", permitNo: "P004", permitType: "District", issueDate: "2021-09-20", expiryDate: "2022-09-20", status: "Expired" },
-  ];
-
   const [vehicleId, setVehicleId] = useState("");
-  const [filteredData, setFilteredData] = useState(permitData);
+  const [permitId, setPermitId] = useState("");
+  const [permitData, setPermitData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [vehicleIds, setVehicleIds] = useState([]);
+  const [permitIds, setPermitIds] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchPermitData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/getPermit");
+        setPermitData(response.data);
+        setFilteredData(response.data);
+        setPermitIds(response.data.map(p => p.permitno));
+      } catch (error) {
+        console.error("Error fetching permit data:", error);
+        setError("Failed to fetch permit data.");
+      }
+    };
+
+    const fetchVehicleIds = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/getVehicle");
+        const vehicleIds = response.data.map(vehicle => vehicle.vehicleid);
+        setVehicleIds(vehicleIds);
+      } catch (error) {
+        console.error("Error fetching vehicle IDs:", error);
+        setError("Failed to fetch vehicle IDs.");
+      }
+    };
+
+    fetchPermitData();
+    fetchVehicleIds();
+    setLoading(false);
+  }, []);
 
   const handleSearch = () => {
     const result = permitData.filter(item =>
-      (vehicleId === "" || item.vehicleId.toLowerCase().includes(vehicleId.toLowerCase()))
+      (vehicleId === "" || item.vehicleid.toLowerCase().includes(vehicleId.toLowerCase())) &&
+      (permitId === "" || item.permitno.toLowerCase().includes(permitId.toLowerCase()))
     );
     setFilteredData(result);
   };
@@ -30,27 +59,41 @@ const ViewPermit = () => {
           <div className="view-permit-filter-item">
             <label>Vehicle ID</label>
             <div className="view-permit-dropdown-container">
-              <input 
-                type="text" 
-                value={vehicleId} 
-                onChange={(e) => setVehicleId(e.target.value)} 
-                placeholder="Enter Vehicle ID" 
-              />
-              <select 
-                value={vehicleId} 
-                onChange={(e) => setVehicleId(e.target.value)} 
+              <select
+                value={vehicleId}
+                onChange={(e) => setVehicleId(e.target.value)}
                 className="vehicle-id-dropdown"
               >
                 <option value="">Select Vehicle ID</option>
-                {permitData.map((permit, index) => (
-                  <option key={index} value={permit.vehicleId}>{permit.vehicleId}</option>
+                {vehicleIds.map((id, index) => (
+                  <option key={index} value={id}>{id}</option>
                 ))}
               </select>
             </div>
           </div>
 
-          <button className="view-permit-search-button" onClick={handleSearch}>SEARCH</button>
+          <div className="view-permit-filter-item">
+            <label>Permit ID</label>
+            <div className="view-permit-dropdown-container">
+              <select
+                value={permitId}
+                onChange={(e) => setPermitId(e.target.value)}
+                className="permit-id-dropdown"
+              >
+                <option value="">Select Permit ID</option>
+                {permitIds.map((id, index) => (
+                  <option key={index} value={id}>{id}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <button className="view-permit-search-button" onClick={handleSearch}>
+            SEARCH
+          </button>
         </div>
+
+        {error && <div className="error-message">{error}</div>}
 
         <table className="view-permit-table">
           <thead>
@@ -64,21 +107,21 @@ const ViewPermit = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredData.length > 0 ? (
+            {loading ? (
+              <tr><td colSpan="6">Loading...</td></tr>
+            ) : filteredData.length > 0 ? (
               filteredData.map((permit, index) => (
                 <tr key={index}>
-                  <td>{permit.vehicleId}</td>
-                  <td>{permit.permitNo}</td>
-                  <td>{permit.permitType}</td>
-                  <td>{permit.issueDate}</td>
-                  <td>{permit.expiryDate}</td>
+                  <td>{permit.vehicleid}</td>
+                  <td>{permit.permitno}</td>
+                  <td>{permit.permittype}</td>
+                  <td>{permit.issuedate.split('T')[0]}</td>
+                  <td>{permit.expirydate.split('T')[0]}</td>
                   <td>{permit.status}</td>
                 </tr>
               ))
             ) : (
-              <tr>
-                <td colSpan="6">No Data Found</td>
-              </tr>
+              <tr><td colSpan="6">No Data Found</td></tr>
             )}
           </tbody>
         </table>
