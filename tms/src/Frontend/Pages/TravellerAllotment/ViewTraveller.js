@@ -1,39 +1,36 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../styles/ViewTraveller.css";
 import { exportToExcel } from "../ReportGenerator"
 
 const ViewTraveller = () => {
-  // Sample Data for Display
-  const travellerData = [
-    { rollNumber: "S123", name: "John Doe", designation: "Student", pickupPoint: "Point A", dropPoint: "Point B" },
-    { rollNumber: "T101", name: "Jane Smith", designation: "Staff", pickupPoint: "Point C", dropPoint: "Point D" },
-    { rollNumber: "S456", name: "Mike Johnson", designation: "Student", pickupPoint: "Point E", dropPoint: "Point F" },
-    { rollNumber: "T202", name: "Emily Davis", designation: "Staff", pickupPoint: "Point G", dropPoint: "Point H" },
-  ];
-
+  const [travellerData, setTravellerData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [rollNumber, setRollNumber] = useState("");
-  const [name, setName] = useState("");
-  const [filteredData, setFilteredData] = useState(travellerData);
+  const [routeId, setRouteId] = useState("");
 
-  const rollNumberOptions = ["S123", "T101", "S456", "T202"];
-  const nameOptions = travellerData.map((traveller) => traveller.name);
+  useEffect(() => {
+    axios.get("http://localhost:5000/getTraveller")
+      .then(res => {
+        console.log("Fetched data:", res.data);
+        setTravellerData(res.data);
+        setFilteredData(res.data);
+      })
+      .catch(err => {
+        console.error("Error fetching traveller data:", err);
+      });
+  }, []);
 
   const handleSearch = () => {
     const result = travellerData.filter(item =>
-      (rollNumber === "" || item.rollNumber.includes(rollNumber)) &&
-      (name === "" || item.name.toLowerCase().includes(name.toLowerCase()))
+      (rollNumber === "" || item.rollno === rollNumber) &&
+      (routeId === "" || item.routeid === routeId)
     );
     setFilteredData(result);
   };
 
-  const handleRollNumberChange = (e) => {
-    setRollNumber(e.target.value);
-  };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
+  const rollNumberOptions = [...new Set(travellerData.map(t => t.rollno))];
+  const routeIdOptions = [...new Set(travellerData.map(t => t.routeid))];
 
   return (
     <div className="view-traveller-container">
@@ -42,38 +39,24 @@ const ViewTraveller = () => {
         <div className="view-traveller-title">View</div>
 
         <div className="view-filter-container">
-          {/* Roll Number Input with Dropdown and Typing */}
           <div className="view-filter-item">
             <label>Roll Number</label>
-            <input
-              type="text"
-              list="rollNumberOptions"
-              value={rollNumber}
-              onChange={handleRollNumberChange}
-              placeholder="Type or Select Roll Number"
-            />
-            <datalist id="rollNumberOptions">
-              {rollNumberOptions.map((num) => (
-                <option key={num} value={num} />
+            <select value={rollNumber} onChange={(e) => setRollNumber(e.target.value)}>
+              <option value="">All</option>
+              {rollNumberOptions.map((num, index) => (
+                <option key={index} value={num}>{num}</option>
               ))}
-            </datalist>
+            </select>
           </div>
 
-          {/* Name Input with Dropdown and Typing */}
           <div className="view-filter-item">
-            <label>Name</label>
-            <input
-              type="text"
-              list="nameOptions"
-              value={name}
-              onChange={handleNameChange}
-              placeholder="Type or Select Name"
-            />
-            <datalist id="nameOptions">
-              {nameOptions.map((nameOption) => (
-                <option key={nameOption} value={nameOption} />
+            <label>Route ID</label>
+            <select value={routeId} onChange={(e) => setRouteId(e.target.value)}>
+              <option value="">All</option>
+              {routeIdOptions.map((id, index) => (
+                <option key={index} value={id}>{id}</option>
               ))}
-            </datalist>
+            </select>
           </div>
 
           <button className="view-search-button" onClick={handleSearch}>SEARCH</button>
@@ -93,25 +76,33 @@ const ViewTraveller = () => {
             <tr>
               <th>Roll Number</th>
               <th>Name</th>
-              <th>Designation</th>
+              <th>Role</th>
+              <th>Branch</th>
+              <th>Door No</th>
+              <th>Street</th>
+              <th>Place</th>
+              <th>Route ID</th>
               <th>Pickup Point</th>
-              <th>Drop Point</th>
             </tr>
           </thead>
           <tbody>
             {filteredData.length > 0 ? (
               filteredData.map((traveller, index) => (
                 <tr key={index}>
-                  <td>{traveller.rollNumber}</td>
+                  <td>{traveller.rollno}</td>
                   <td>{traveller.name}</td>
-                  <td>{traveller.designation}</td>
-                  <td>{traveller.pickupPoint}</td>
-                  <td>{traveller.dropPoint}</td>
+                  <td>{traveller.role}</td>
+                  <td>{traveller.branch}</td>
+                  <td>{traveller.doorno}</td>
+                  <td>{traveller.street}</td>
+                  <td>{traveller.place}</td>
+                  <td>{traveller.routeid}</td>
+                  <td>{traveller.point}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="5">No Data Found</td>
+                <td colSpan="9">No Data Found</td>
               </tr>
             )}
           </tbody>

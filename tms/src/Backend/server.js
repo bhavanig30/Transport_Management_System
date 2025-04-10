@@ -347,41 +347,63 @@ app.get('/getdrivers', (req, res) => {
 });
 
   // Add traveller to Traveller table
+  
   app.post('/addTraveller', (req, res) => {
-    const {
-        name, rollno, role, branch,
-        doorno, street, place,
-        point, routeid
-    } = req.body;
+    try {
+        const {
+            name, rollno, role, branch,
+            doorno, street, place,
+            point, routeid
+        } = req.body;
 
-    const sql = `
-        INSERT INTO traveller 
-        (name, rollno, role, branch, doorno, street, place, point, routeid)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-
-    connection.query(
-        sql,
-        [name, rollno, role, branch, doorno, street, place, point, routeid],
-        (err, result) => {
-            if (err) {
-                console.error("Error inserting traveller:", err);
-                return res.status(500).json({ message: "Failed to add traveller" });
-            }
-            res.json({ message: "Traveller added successfully", travellerId: result.insertId });
+        // ✅ Validate required fields
+        if (!name || !rollno || !role || !branch || !doorno || !street || !place || !point || !routeid) {
+            return res.status(400).json({ message: "Missing required fields" });
         }
-    );
+
+        const sql = `
+            INSERT INTO traveller 
+            (name, rollno, role, branch, doorno, street, place, point, routeid)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+
+        connection.query(
+            sql,
+            [name, rollno, role, branch, doorno, street, place, point, routeid],
+            (err, result) => {
+                if (err) {
+                    console.error("Database error:", err);
+                    return res.status(500).json({ message: "Database error", error: err });
+                }
+
+                res.status(200).json({ 
+                    message: "Traveller added successfully", 
+                    travellerId: result.insertId 
+                });
+            }
+        );
+    } catch (error) {
+        console.error("Server error:", error);
+        res.status(500).json({ message: "Server error", error });
+    }
 });
 
+
 app.get("/getTraveller", (req, res) => {
-    connection.query("SELECT * traveller", (err, results) => {
+    connection.query("SELECT * from traveller", (err, results) => {
         if (err) {
             console.error("Error fetching traveller records:", err);
             return res.status(500).json({ message: "Failed to fetch traveller records" });
         }
+        else {
+            console.log("Traveller data:", results); // ✅ Add this for debugging
+            res.json(results);
+          }
+          
         res.json(results);
     });
 });
+
 
   // Fetch fee based on routeId and stageId
   app.get('/getFees/:routeId/:stageId', (req, res) => {
