@@ -9,8 +9,16 @@ const ViewRoute = () => {
   const [routeId, setRouteId] = useState("");
   const [routes, setRoutes] = useState([]);
   const [allRoutes, setAllRoutes] = useState([]);
+  const [routeIds, setRouteIds] = useState([]);
   const [error, setError] = useState("");
 
+  // Predefined list of cities
+  const cities = [
+    "Kovilpatti", "Thoothukudi", "Tirunelveli", "Sattur", "Virudhunagar",
+    "Vilathikulam", "Sivakasi", "Kayathar", "Sankarankovil", "Kalugumalai"
+  ];
+
+  // Fetch all routes
   useEffect(() => {
     const fetchRoutes = async () => {
       try {
@@ -23,9 +31,25 @@ const ViewRoute = () => {
         setError("Failed to fetch routes. Please try again.");
       }
     };
+
     fetchRoutes();
   }, []);
 
+  // Fetch Route IDs from the database
+  useEffect(() => {
+    const fetchRouteIds = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/getRoute"); // Adjust endpoint as needed
+        setRouteIds(response.data);
+      } catch (error) {
+        console.error("Error fetching route IDs:", error);
+      }
+    };
+
+    fetchRouteIds();
+  }, []);
+
+  // Handle search/filter
   const handleSearch = () => {
     const filtered = allRoutes.filter((route) => {
       return (
@@ -48,23 +72,25 @@ const ViewRoute = () => {
         <div className="view-route-title">View</div>
 
         <div className="view-filter-container">
+          {/* City Dropdown */}
           <div className="view-filter-item">
             <label>City</label>
             <select value={city} onChange={(e) => setCity(e.target.value)}>
               <option value="">All</option>
-              {allRoutes.map((route) => (
-                <option key={route.city} value={route.city}>
-                  {route.city}
+              {cities.map((cityName) => (
+                <option key={cityName} value={cityName}>
+                  {cityName}
                 </option>
               ))}
             </select>
           </div>
 
+          {/* Route ID Dropdown */}
           <div className="view-filter-item">
             <label>Route ID</label>
             <select value={routeId} onChange={(e) => setRouteId(e.target.value)}>
               <option value="">All</option>
-              {allRoutes.map((route) => (
+              {routeIds.map((route) => (
                 <option key={route.routeid} value={route.routeid}>
                   {route.routeid}
                 </option>
@@ -72,11 +98,13 @@ const ViewRoute = () => {
             </select>
           </div>
 
+          {/* Search Button */}
           <button className="view-search-button" onClick={handleSearch}>
             SEARCH
           </button>
         </div>
 
+        {/* Route Table */}
         <table className="view-route-table">
           <thead>
             <tr>
@@ -90,7 +118,7 @@ const ViewRoute = () => {
           <tbody>
             {routes.length > 0 ? (
               routes.map((route, index) => (
-                <tr key={route.routeid}>
+                <tr key={index}>
                   <td>{route.routeid}</td>
                   <td>{route.routename}</td>
                   <td>{route.city}</td>
