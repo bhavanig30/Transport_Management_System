@@ -1,0 +1,89 @@
+.driver-form-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: 40px; /* Moves the form slightly down */
+}
+
+.driver-form {
+    background: #ffffff;
+    padding: 25px;
+    width: 800px;
+    max-width: 900px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.driver-title {
+    color: #0047AB;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0047AB;
+}
+
+.driver-form-row {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.driver-form-group {
+    flex: 1;
+    text-align: left;
+}
+
+.driver-form-group label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.driver-form-group input, 
+.driver-form-group select {
+    width: 100%; /* Ensures all inputs take full width */
+    height: 45px; /* Fixed height for uniformity */
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+    transition: all 0.3s ease-in-out;
+    box-sizing: border-box; /* Ensures consistent sizing */
+}
+
+
+.driver-form-group input[type="file"] {
+    padding: 5px;
+    width: 48%;
+    height: 45px; /* Allow file input to adjust its height */
+}
+
+.driver-submit-button {
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    margin-top: 8px;
+}
+
+.driver-submit-button:hover {
+    background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
+    transform: scale(1.03);
+}

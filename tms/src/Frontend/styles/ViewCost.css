@@ -1,0 +1,179 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+}
+
+/* Background */
+body {
+    background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Page Container */
+.view-cost-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 2400px;
+    padding: 60px 40px;  /* Moderated padding */
+    margin-top: 100px;
+    margin-bottom: 5%;
+}
+
+/* Main White Box */
+.view-cost-box-wrapper {
+    background: white;
+    padding: 50px;  /* Moderated padding */
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 2200px;
+    text-align: center;
+    min-height: 700px;   /* Moderated minimum height */
+    overflow: auto;
+}
+
+/* Title Font */
+.view-cost-main-title {
+    color: #0047AB;
+    font-size: 32px;   /* Moderated font size */
+    font-weight: bold;
+    margin-bottom: 20px;  /* Moderated margin */
+    text-transform: uppercase;
+}
+
+.view-cost-title {
+    color: #0047AB;
+    font-size: 28px;   /* Moderated font size */
+    font-weight: bold;
+    margin-bottom: 25px;  /* Moderated margin */
+    text-transform: uppercase;
+    padding-bottom: 15px;  /* Moderated padding */
+    border-bottom: 3px solid #0047AB;
+}
+
+/* Filters */
+.view-cost-filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;  /* Moderated gap */
+    margin-bottom: 20px;  /* Moderated margin */
+}
+
+.view-cost-filter-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;   /* Moderated width */
+}
+
+.view-cost-filter-item label {
+    font-size: 18px;  /* Moderated font size */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;  /* Moderated margin */
+    text-align: center;
+}
+
+/* Select & Input Styling */
+.view-cost-filter-item select,
+.view-cost-filter-item input {
+    padding: 14px;  /* Moderated padding */
+    width: 100%;
+    border: 2px solid #0047AB;
+    border-radius: 6px;  /* Moderated border radius */
+    text-align: center;
+    font-size: 16px;  /* Moderated font size */
+    background: #f9f9f9;
+    transition: 0.3s ease-in-out;
+}
+
+.view-cost-filter-item select:focus,
+.view-cost-filter-item input:focus {
+    border-color: #0057B8;
+    outline: none;
+    background: white;
+}
+
+.view-cost-search-button:hover{
+    background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
+    transform: scale(1.04);
+}
+
+/* Search Button */
+.view-cost-search-button {
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    color: white;
+    border: none;
+    padding: 14px 35px;  /* Moderated padding */
+    font-size: 18px;  /* Moderated font size */
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;  /* Moderated border radius */
+    transition: all 0.3s ease-in-out;
+    margin-top: 25px;  /* Moderated margin */
+}
+
+.view-cost-search-button:hover {
+    background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
+    transform: scale(1.04);
+}
+
+/* Table */
+.view-cost-table {
+    width: 100%;
+    max-width: 2200px;   /* Moderated max-width */
+    border-collapse: collapse;
+    margin-top: 30px;   /* Moderated margin */
+    font-size: 18px;    /* Moderated font size */
+}
+
+.view-cost-table th,
+.view-cost-table td {
+    border: 1px solid #ddd;
+    padding: 16px;   /* Moderated padding */
+    text-align: center;
+}
+
+.view-cost-table th {
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    color: white;
+    font-weight: bold;
+    font-size: 20px;   /* Moderated font size */
+}
+
+.view-cost-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.view-cost-table tbody tr:hover {
+    background-color: #e6f2ff;
+}
+
+.report-button {
+    background-color: #2b8a3e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .report-button:hover {
+    background-color: #247232;
+  }
+  
+.stage-class{
+    margin-top: 10px;
+}

@@ -1,0 +1,87 @@
+.add-vehicle-page {
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.add-vehicle-form-container {
+    background: white;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.add-vehicle-main-title {
+    color: #0047AB;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.add-vehicle-title {
+    color: #0047AB;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px; /* Reduced spacing */
+    text-transform: uppercase;
+    padding-bottom: 10px; /* Reduced padding */
+    border-bottom: 4px solid #0047AB;
+}
+
+.add-vehicle-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Reduced gap */
+}
+
+.add-vehicle-form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.add-vehicle-form-group label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.add-vehicle-form-group input,
+.add-vehicle-form-group select {
+    width: 100%; /* Ensures all input fields take up full column width */
+    max-width: 280px; /* Limits width for uniformity */
+    height: 45px; /* Ensures uniform height */
+    padding: 10px; /* Adjusted padding */
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    font-size: 15px; /* Slightly increased font size */
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Submit Button */
+.add-vehicle-submit-button {
+    background: linear-gradient(to right, #0057B8, #00c6ff);
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 280px; /* Matches input fields */
+    margin-top: 12px;
+    height: 45px; /* Same height as input fields */
+}
+
+.add-vehicle-submit-button:hover {
+    background: linear-gradient(to right, #0057B8, #009edc);
+}

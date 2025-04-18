@@ -1,0 +1,100 @@
+.traveller-form-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full screen height */
+}
+
+/* Form Card */
+.traveller-form {
+  background: #ffffff;
+  padding: 30px;
+  width: 450px; /* Increased width */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Form Title */
+.traveller-title {
+  color: #0047AB;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #0047AB;
+}
+
+.traveller-form-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.traveller-form-group label {
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.traveller-form-group input,
+.traveller-form-group select,
+.traveller-form-group textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease-in-out;
+}
+
+/* Hover & Focus */
+.traveller-form-group input:focus,
+.traveller-form-group select:focus,
+.traveller-form-group textarea:focus {
+  border-color: #0047AB;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 71, 171, 0.3);
+}
+
+.traveller-submit-button {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 14px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.traveller-submit-button:hover {
+  background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
+  transform: scale(1.03);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .traveller-form {
+      width: 95%;
+      padding: 20px;
+  }
+
+  .traveller-title {
+      font-size: 22px;
+      padding-bottom: 5px;
+  }
+}
+

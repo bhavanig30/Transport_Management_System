@@ -1,0 +1,107 @@
+/* Form Container */
+.vp-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 30px 15px;
+  position: relative;
+}
+
+/* Form Card */
+.vp-form {
+  background: #ffffff;
+  padding: 30px;
+  width: 100%;
+  height: 630px; /* Increased height */
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: 40px;
+  z-index: 2;
+  text-align: center;
+}
+
+/* Form Title */
+.vp-title {
+  color: #0047AB;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #0047AB;
+}
+
+/* Form Inputs */
+.vp-form-group {
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.vp-form-group label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.vp-form-group input,
+.vp-form-group select {
+  width: 100%;
+  padding: 12px; /* Increased input size */
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  font-size: 14px; /* Increased input text size */
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+  transition: all 0.3s ease-in-out;
+}
+
+.vp-form-group input:focus,
+.vp-form-group select:focus {
+  border-color: #0047AB;
+  outline: none;
+  box-shadow: 0px 0px 6px rgba(0, 71, 171, 0.8);
+}
+
+/* Submit Button */
+.vp-submit-button {
+  background: linear-gradient(to right, #0057B8, #00C1D4);
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+
+.vp-submit-button:hover {
+  background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
+  transform: scale(1.03);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .vp-form {
+      padding: 20px;
+      width: 90%;
+  }
+
+  .vp-header {
+      font-size: 20px;
+      height: 70px;
+  }
+
+  .vp-title {
+      font-size: 18px;
+      padding-bottom: 8px;
+  }
+}

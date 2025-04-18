@@ -1,0 +1,169 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+}
+
+/* Background */
+body {
+    background: url("/public/Images/Nec.jpg") no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Page Container */
+.view-route-master-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 2400px; /* Maintained increased width */
+    padding: 50px 40px;
+    margin-top: 150px; /* Increased to move the container further down */
+    margin-bottom: 8%;
+}
+
+/* Main White Box */
+.view-route-box-wrapper {
+    background: white;
+    padding: 60px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 2200px; /* Maintained increased width */
+    text-align: center;
+}
+
+/* Reduced Title Font Size */
+.view-route-main-title {
+    color: #0047AB;
+    font-size: 34px; /* Reduced from 38px */
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.view-route-title {
+    color: #0047AB;
+    font-size: 28px; /* Reduced from 32px */
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #0047AB;
+}
+
+/* Filters */
+.view-route-filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    gap: 30px; /* Optimized gap */
+    margin-bottom: 25px;
+}
+
+.view-route-filter-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 280px; /* Slightly reduced width for better alignment */
+}
+
+.view-route-filter-item label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+/* Select & Input Styling */
+.view-route-filter-item select,
+.view-route-filter-item input {
+    padding: 14px;
+    width: 100%;
+    border: 2px solid #0047AB;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 17px;
+    background: #f9f9f9;
+    transition: 0.3s ease-in-out;
+}
+
+.view-route-filter-item select:focus,
+.view-route-filter-item input:focus {
+    border-color: #0057B8;
+    outline: none;
+    background: white;
+}
+
+/* Search Button */
+.view-route-search-button {
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    color: white;
+    border: none;
+    padding: 14px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    margin-top: 30px; /* Moves button slightly downward */
+}
+
+.view-route-search-button:hover {
+    background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
+    transform: scale(1.04);
+}
+
+/* Table */
+.view-route-table {
+    width: 100%;
+    max-width: 2100px;
+    border-collapse: collapse;
+    margin-top: 25px;
+    font-size: 18px;
+}
+
+.view-route-table th,
+.view-route-table td {
+    border: 1px solid #ddd;
+    padding: 18px;
+    text-align: center;
+}
+
+.view-route-table th {
+    background: linear-gradient(to right, #0057B8, #00C1D4);
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.view-route-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8; /* Subtle row color contrast */
+}
+
+.view-route-table tbody tr:hover {
+    background-color: #e6f2ff;
+}
+
+.report-button {
+    background-color: #2b8a3e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .report-button:hover {
+    background-color: #247232;
+  }
+  
