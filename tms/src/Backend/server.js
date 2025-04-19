@@ -33,14 +33,11 @@ app.post('/addRoute', async (req, res) => {
         connection.query("INSERT INTO Route (routeid, routename, city, totalstages, totaldistance) VALUES (?, ?, ?, ?, ?)", 
             [routeId, routeName, city, totalStages, totalDistance], (err, result) => {
             if (err) {
-                console.log("DB");
                 return res.status(500).json({ message: "Database error", error: err });
             }
             res.status(200).json({ message: "Route added successfully", routeId });
-            console.log("D");
         });
     } catch (error) {
-        console.log("server");
         res.status(500).json({ message: "Server error", error });
     }
 });
@@ -55,18 +52,6 @@ app.get('/getRoute', (req, res) => {
         res.json(results);
     });
 });
-
-// Fetch all unique route IDs from the stage table
-app.get('/getRoutes', (req, res) => {
-    connection.query('SELECT DISTINCT routeid FROM stage', (err, results) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error fetching routes');
-      } else {
-        res.json(results);
-      }
-    });
-  });
 
 app.get('/getRouteByCity', (req, res) => {
     const { city } = req.query;
@@ -85,6 +70,25 @@ app.get('/getRouteByCity', (req, res) => {
 
         const routeIds = results.map(route => route.routeid);
         res.json({ routes: routeIds });
+    });
+});
+app.get('/getStagesByRouteId', (req, res) => {
+    const { routeid } = req.query;
+
+    if (!routeid) {
+        return res.status(400).json({ message: "Route ID is required" });
+    }
+
+    const query = "SELECT stagename FROM stage WHERE routeid = ?";
+
+    connection.query(query, [routeid], (err, results) => {
+        if (err) {
+            console.error("Error fetching stages:", err);
+            return res.status(500).json({ message: "Failed to fetch stages" });
+        }
+
+        const stages = results.map(row => row.stagename);
+        res.json({ stages });
     });
 });
 
@@ -106,7 +110,6 @@ async function generateStageId() {
 app.post('/addStage', async (req, res) => {
     try {
         const { stageName, city, routeId, arrivalTime, departureTime, fee } = req.body;
-        console.log(stageName + city + routeId + arrivalTime + departureTime + fee);
 
         if (!stageName || !city || !routeId || !arrivalTime || !departureTime || !fee) {
             return res.status(400).json({ message: "Missing required fields" });
@@ -138,7 +141,6 @@ app.get('/getStage', (req, res) => {
 
 // Add a New Vehicle
 app.post('/addVehicle', async (req, res) => {
-    console.log("Received Vehicle Data:", req.body); // Debug log
     
     try {
         const {vehicleId, vehicleType, seatCapacity, registrationNo, routeId, registrationDate, purchaseDate, vendorId, rcNo, registrationPlace } = req.body;
@@ -161,7 +163,6 @@ app.get('/getVehicle', (req, res) => {
             console.error("Error fetching vehicles:", err);
             return res.status(500).json({ message: "Failed to fetch vehicles" });
         }
-        console.log("API Response Data:", results);
         res.json(results);
     });
 });
@@ -207,9 +208,6 @@ app.put('/updateFC/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { vehicleid, fcno, issuedate, expirydate, status } = req.body;
-
-        console.log("Received Update Request for ID:", id);
-        console.log("Received Data:", req.body);
 
         if (!vehicleid || !fcno || !issuedate || !expirydate || !status) {
             return res.status(400).json({ message: "Missing required fields" });
@@ -286,7 +284,6 @@ app.post("/addPermit", (req, res) => {
             [vehicleId, permitNo, permitType, issueDate, expiryDate, status],
             (err, result) => {
                 if (err) {
-                    console.log(req.body);
                     console.error("Database error:", err);
                     return res.status(500).json({ message: "Database error", error: err });
                 }
@@ -325,7 +322,6 @@ app.post("/addDriver", upload.single("photo"), (req, res) => {
             console.error("Error inserting driver:", err);
             return res.status(500).json({ message: "Database error", error: err });
         }
-        console.log("Driver added successfully");
         res.status(201).json({ message: "Driver added successfully" });
     });
 });
@@ -351,22 +347,64 @@ app.get('/getdrivers', (req, res) => {
 });
 
   // Add traveller to Traveller table
+  
   app.post('/addTraveller', (req, res) => {
-    const { role, routeId, stageId } = req.body;
-    if (role === 'staff') {
-      return res.status(400).send('Staff cannot have fees');
+    try {
+        const {
+            name, rollno, role, branch,
+            doorno, street, place,
+            point, routeid
+        } = req.body;
+
+        // ✅ Validate required fields
+        if (!name || !rollno || !role || !branch || !doorno || !street || !place || !point || !routeid) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const sql = `
+            INSERT INTO traveller 
+            (name, rollno, role, branch, doorno, street, place, point, routeid)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+
+        connection.query(
+            sql,
+            [name, rollno, role, branch, doorno, street, place, point, routeid],
+            (err, result) => {
+                if (err) {
+                    console.error("Database error:", err);
+                    return res.status(500).json({ message: "Database error", error: err });
+                }
+
+                res.status(200).json({ 
+                    message: "Traveller added successfully", 
+                    travellerId: result.insertId 
+                });
+            }
+        );
+    } catch (error) {
+        console.error("Server error:", error);
+        res.status(500).json({ message: "Server error", error });
     }
-  
-    const query = 'INSERT INTO Traveller (role, routeId, stageId) VALUES (?, ?, ?)';
-    db.query(query, [role, routeId, stageId], (err) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      res.send('Traveller added successfully');
+});
+
+
+app.get("/getTraveller", (req, res) => {
+    connection.query("SELECT * from traveller", (err, results) => {
+        if (err) {
+            console.error("Error fetching traveller records:", err);
+            return res.status(500).json({ message: "Failed to fetch traveller records" });
+        }
+        else {
+            console.log("Traveller data:", results); // ✅ Add this for debugging
+            res.json(results);
+          }
+          
+        res.json(results);
     });
-  });
-  
-  
+});
+
+
   // Fetch fee based on routeId and stageId
   app.get('/getFees/:routeId/:stageId', (req, res) => {
     const { routeId, stageId } = req.params;

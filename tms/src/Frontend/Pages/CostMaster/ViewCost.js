@@ -1,29 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../styles/ViewCost.css";
+import { exportToExcel } from "../ReportGenerator"
 
 const ViewCost = () => {
-  // Sample Data for Display (Moved above useState)
-  const costData = [
-    { route: "Route A", stage: "Stage 1", fee: "100" },
-    { route: "Route B", stage: "Stage 2", fee: "200" },
-    { route: "Route C", stage: "Stage 3", fee: "150" },
-    { route: "Route D", stage: "Stage 4", fee: "250" },
-  ];
-
   const [route, setRoute] = useState("");
   const [stage, setStage] = useState("");
-  
-  const [filteredData, setFilteredData] = useState(costData);
+  const [routes, setRoutes] = useState([]);
+  const [allStages, setAllStages] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
-  const routes = ["Route A", "Route B", "Route C", "Route D"];
-  const stages = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"];
+  // Fetch route and stage data on mount
+  useEffect(() => {
+    axios.get("http://localhost:5000/getRoute")
+      .then((res) => setRoutes(res.data))
+      .catch((err) => console.error("Error loading routes", err));
 
+    axios.get("http://localhost:5000/getStage")
+      .then((res) => {
+        setAllStages(res.data);
+        setFilteredData(res.data); // Show all by default
+      })
+      .catch((err) => console.error("Error loading stages", err));
+  }, []);
+
+  // Handle filter logic
   const handleSearch = () => {
-    const result = costData.filter(item =>
-      (route === "" || item.route === route) &&
-      (stage === "" || item.stage === stage)
+    const result = allStages.filter((item) =>
+      (route === "" || item.routeid.toString() === route) &&
+      (stage === "" || item.stagename.toLowerCase().includes(stage.toLowerCase()))
     );
     setFilteredData(result);
+  };
+
+  // Get route name by ID
+  const getRouteName = (routeId) => {
+    const found = routes.find((r) => r.routeid === routeId);
+    return found ? found.routename : "N/A";
   };
 
   return (
@@ -36,46 +49,63 @@ const ViewCost = () => {
           <div className="view-cost-filter-item">
             <label>Route</label>
             <select value={route} onChange={(e) => setRoute(e.target.value)}>
-              <option value="">Select</option>
-              {routes.map((r) => (
-                <option key={r} value={r}>{r}</option>
+              <option value="">All</option>
+              {routes.map((r, index) => (
+                <option key={index} value={r.routeid}>
+                  {r.routeid} - {r.routename}
+                </option>
               ))}
             </select>
           </div>
 
           <div className="view-cost-filter-item">
             <label>Stage</label>
-            <select value={stage} onChange={(e) => setStage(e.target.value)}>
-              <option value="">Select</option>
-              {stages.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
+            <input
+              type="text"
+              value={stage}
+              onChange={(e) => setStage(e.target.value)}
+              placeholder="Enter Stage Name"
+            />
           </div>
 
-          <button className="view-cost-search-button" onClick={handleSearch}>SEARCH</button>
+          <button className="view-cost-search-button" onClick={handleSearch}>
+            SEARCH
+          </button>
+        </div>
+
+        <div style={{ textAlign: "right", margin: "10px 0" }}>
+          <button
+            className="report-button"
+            onClick={() => exportToExcel(filteredData, "Cost_Report")}
+          >
+            Generate Report
+          </button>
         </div>
 
         <table className="view-cost-table">
           <thead>
             <tr>
-              <th>Route</th>
-              <th>Stage</th>
+              <th>SNO</th>
+              <th>Route ID</th>
+              <th>Route Name</th>
+              <th>Stage Name</th>
               <th>Fee</th>
             </tr>
           </thead>
           <tbody>
             {filteredData.length > 0 ? (
-              filteredData.map((cost, index) => (
+              filteredData.map((item, index) => (
                 <tr key={index}>
-                  <td>{cost.route}</td>
-                  <td>{cost.stage}</td>
-                  <td>{cost.fee}</td>
+                  <td>{index + 1}</td>
+                  <td>{item.routeid}</td>
+                  <td>{getRouteName(item.routeid)}</td>
+                  <td>{item.stagename}</td>
+                  <td>{item.fee}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="3">No Data Found</td>
+                <td colSpan="5">No cost data available</td>
               </tr>
             )}
           </tbody>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/ViewDriver.css";
+import { exportToExcel } from "../ReportGenerator"
 
 const ViewDriver = () => {
   const navigate = useNavigate();
@@ -79,6 +80,15 @@ const ViewDriver = () => {
           </button>
         </div>
 
+        <div style={{ textAlign: "right", margin: "10px 0" }}>
+          <button
+            className="report-button"
+            onClick={() => exportToExcel(drivers, "Driver_Report")}
+          >
+            Generate Report
+          </button>
+        </div>
+
         <table className="view-driver-table">
           <thead>
             <tr>
@@ -114,9 +124,6 @@ const ViewDriver = () => {
     "No Image"
   )}
 </td>
-
-
-
                 </tr>
               ))
             ) : (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/ViewVehicle.css";
+import { exportToExcel } from "../ReportGenerator"
 
 const ViewVehicle = () => {
   const navigate = useNavigate();
@@ -78,6 +79,12 @@ const handleSearch = () => {
           </div>
 
           <button className="view-search-button" onClick={handleSearch}>SEARCH</button>
+        </div>
+
+        <div style={{ textAlign: "right", margin: "10px 0" }}>
+          <button className="report-button" onClick={() => exportToExcel(vehicles, "Vehicle_Report")}>
+            Generate Report
+          </button>
         </div>
 
         <table className="view-vehicle-table">

@@ -21,13 +21,14 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 98%;
-    max-width: 1600px;
-    height: 90vh;
-    padding: 50px 40px;
-    margin-bottom:10%;
+    width: 95%;
+    max-width: 1400px;
+    height: 85vh;
+    padding: 30px 30px;
+    margin-bottom: 8%;
 }
 
+/* Header */
 .view-vehicle-header {
     display: flex;
     align-items: center;
@@ -58,25 +59,25 @@ body {
     border: none;
     cursor: pointer;
     font-size: 24px;
-    color: #f8f4f4; /* Adjust color as needed */
+    color: #f8f4f4;
     transition: color 0.3s ease;
-  }
-  
-  .view-logout-btn:hover {
-    color: white; /* Adjust hover color */
-  }
-  
+}
+
+.view-logout-btn:hover {
+    color: white;
+}
+
 /* Main White Box */
 .view-vehicle-box-wrapper {
     background: white;
-    padding: 50px;
+    padding: 40px;
     border-radius: 15px;
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 1500px;
+    max-width: 1350px;
     height: auto;
     text-align: center;
-    margin-top: 150px;
+    margin-top: 130px;
 }
 
 .view-vehicle-main-title {
@@ -169,7 +170,7 @@ body {
 /* Table */
 .view-vehicle-table {
     width: 100%;
-    max-width: 1450px;
+    max-width: 1300px;
     border-collapse: collapse;
     margin-top: 30px;
     font-size: 18px;
@@ -185,47 +186,47 @@ body {
 }
 
 /* Column width adjustments */
-.view-vehicle-table th:nth-child(1), /* SNO */
+.view-vehicle-table th:nth-child(1),
 .view-vehicle-table td:nth-child(1) {
     width: 8%;
 }
 
-.view-vehicle-table th:nth-child(2), /* Vehicle Type */
+.view-vehicle-table th:nth-child(2),
 .view-vehicle-table td:nth-child(2) {
     width: 16%;
 }
 
-.view-vehicle-table th:nth-child(3), /* Vehicle ID */
+.view-vehicle-table th:nth-child(3),
 .view-vehicle-table td:nth-child(3) {
     width: 16%;
 }
 
-.view-vehicle-table th:nth-child(4), /* Reg No */
+.view-vehicle-table th:nth-child(4),
 .view-vehicle-table td:nth-child(4) {
     width: 16%;
 }
 
-.view-vehicle-table th:nth-child(5), /* Reg Date */
+.view-vehicle-table th:nth-child(5),
 .view-vehicle-table td:nth-child(5) {
     width: 16%;
 }
 
-.view-vehicle-table th:nth-child(6), /* RC No */
+.view-vehicle-table th:nth-child(6),
 .view-vehicle-table td:nth-child(6) {
     width: 16%;
 }
 
-.view-vehicle-table th:nth-child(7), /* Type */
+.view-vehicle-table th:nth-child(7),
 .view-vehicle-table td:nth-child(7) {
     width: 12%;
 }
 
-.view-vehicle-table th:nth-child(8), /* Purchase Date */
+.view-vehicle-table th:nth-child(8),
 .view-vehicle-table td:nth-child(8) {
     width: 16%;
 }
 
-.view-vehicle-table th:nth-child(9), /* Registration Place */
+.view-vehicle-table th:nth-child(9),
 .view-vehicle-table td:nth-child(9) {
     width: 16%;
 }
@@ -240,4 +241,19 @@ body {
 /* Table Hover Effect */
 .view-vehicle-table tbody tr:hover {
     background-color: #f5f5f5;
+}
+
+/* Report Button */
+.report-button {
+    background-color: #2b8a3e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.report-button:hover {
+    background-color: #247232;
 }
