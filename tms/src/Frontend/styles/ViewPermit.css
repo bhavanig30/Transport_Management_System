@@ -35,6 +35,8 @@ body {
     width: 100%;
     max-width: 1800px;
     text-align: center;
+    font-weight: bold;
+
 }
 
 /* Title */
@@ -119,26 +121,19 @@ body {
     font-size: 22px;
 }
 
-/* Error Message */
-.error-message {
-    color: red;
-    font-size: 18px;
-    margin-top: 15px;
-}
 
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-    .view-permit-filter-container {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
 
-    .view-permit-search-button {
-        width: 100%;
-    }
-
-    .view-permit-filter-item {
-        width: 250px;
-    }
-}
+.report-button {
+    background-color: #2b8a3e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .report-button:hover {
+    background-color: #247232;
+  }
+  

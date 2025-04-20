@@ -33,14 +33,11 @@ app.post('/addRoute', async (req, res) => {
         connection.query("INSERT INTO Route (routeid, routename, city, totalstages, totaldistance) VALUES (?, ?, ?, ?, ?)", 
             [routeId, routeName, city, totalStages, totalDistance], (err, result) => {
             if (err) {
-                console.log("DB");
                 return res.status(500).json({ message: "Database error", error: err });
             }
             res.status(200).json({ message: "Route added successfully", routeId });
-            console.log("D");
         });
     } catch (error) {
-        console.log("server");
         res.status(500).json({ message: "Server error", error });
     }
 });
@@ -113,7 +110,6 @@ async function generateStageId() {
 app.post('/addStage', async (req, res) => {
     try {
         const { stageName, city, routeId, arrivalTime, departureTime, fee } = req.body;
-        console.log(stageName + city + routeId + arrivalTime + departureTime + fee);
 
         if (!stageName || !city || !routeId || !arrivalTime || !departureTime || !fee) {
             return res.status(400).json({ message: "Missing required fields" });
@@ -145,7 +141,6 @@ app.get('/getStage', (req, res) => {
 
 // Add a New Vehicle
 app.post('/addVehicle', async (req, res) => {
-    console.log("Received Vehicle Data:", req.body); // Debug log
     
     try {
         const {vehicleId, vehicleType, seatCapacity, registrationNo, routeId, registrationDate, purchaseDate, vendorId, rcNo, registrationPlace } = req.body;
@@ -168,7 +163,6 @@ app.get('/getVehicle', (req, res) => {
             console.error("Error fetching vehicles:", err);
             return res.status(500).json({ message: "Failed to fetch vehicles" });
         }
-        console.log("API Response Data:", results);
         res.json(results);
     });
 });
@@ -214,9 +208,6 @@ app.put('/updateFC/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { vehicleid, fcno, issuedate, expirydate, status } = req.body;
-
-        console.log("Received Update Request for ID:", id);
-        console.log("Received Data:", req.body);
 
         if (!vehicleid || !fcno || !issuedate || !expirydate || !status) {
             return res.status(400).json({ message: "Missing required fields" });
@@ -293,7 +284,6 @@ app.post("/addPermit", (req, res) => {
             [vehicleId, permitNo, permitType, issueDate, expiryDate, status],
             (err, result) => {
                 if (err) {
-                    console.log(req.body);
                     console.error("Database error:", err);
                     return res.status(500).json({ message: "Database error", error: err });
                 }
@@ -369,7 +359,6 @@ app.post("/addDriver", upload.single("photo"), (req, res) => {
             console.error("Error inserting driver:", err);
             return res.status(500).json({ message: "Database error", error: err });
         }
-        console.log("Driver added successfully");
         res.status(201).json({ message: "Driver added successfully" });
     });
 });

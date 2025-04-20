@@ -28,14 +28,13 @@ import ViewTraveller from "./TravellerAllotment/ViewTraveller";
 import AddTraveller from "./TravellerAllotment/AddTraveller";
 
 import ViewCost from "./CostMaster/ViewCost";
-import AddCost from "./CostMaster/AddCost";
 
 const Home = () => {
   const navigate = useNavigate();
   const [time, setTime] = useState(new Date());
   const [selectedComponent, setSelectedComponent] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(true); 
 
-  // Dropdown states
   const [showVehicleDropdown, setShowVehicleDropdown] = useState(false);
   const [showVehiclePermitDropdown, setShowVehiclePermitDropdown] = useState(false);
   const [showInsuranceDropdown, setShowInsuranceDropdown] = useState(false);
@@ -53,12 +52,31 @@ const Home = () => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const handlePopState = () => {
+      if (isLoggedIn) {
+        navigate("/home", { replace: true });  
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isLoggedIn, navigate]);
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);  
+    navigate("/", { replace: true });  
+  };
+
   return (
     <div className="home-layout">
       <div className="home-header">
         <h1 className="home-header-title">National Engineering College</h1>
         <div className="live-clock">{time.toLocaleTimeString()}</div>
-        <button className="logout-btn" onClick={() => navigate("/")}> 
+        <button className="logout-btn" onClick={handleLogout}> 
           <FaSignOutAlt className="logout-icon" />
         </button>
       </div>
@@ -172,7 +190,6 @@ const Home = () => {
             {showCostDropdown && (
               <div className="dropdown-menu">
                 <button onClick={() => setSelectedComponent(<ViewCost />)}><FaFileAlt /> View</button>
-                <button onClick={() => setSelectedComponent(<AddCost />)}><FaPlus /> Add</button>
               </div>
             )}
           </div>

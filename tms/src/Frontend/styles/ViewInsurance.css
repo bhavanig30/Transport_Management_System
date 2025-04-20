@@ -35,10 +35,12 @@ body {
     width: 100%;
     max-width: 1800px;
     text-align: center;
+    font-weight: bold;
+
 }
 
 /* Title */
-.view-insurance-title {
+.view-insurance-title-main {
     color: #0047AB;
     font-size: 32px;
     font-weight: bold;
@@ -48,8 +50,8 @@ body {
     border-bottom: 3px solid #0047AB;
 }
 
-/* Filters Container */
-.view-insurance-filter {
+/* Filters - Ensure Everything is in One Line */
+.view-insurance-filter-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -68,7 +70,8 @@ body {
 }
 
 /* Inputs */
-.view-insurance-filter select {
+.view-insurance-filter-item input,
+.view-insurance-filter-item select {
     padding: 12px;
     width: 100%;
     border: 2px solid #0047AB;
@@ -94,9 +97,21 @@ body {
     align-items: center;
     justify-content: center;
     min-width: 150px;
+    margin-top: 20px;
 }
 
-/* Table Styling */
+/* Issue Date Item Should Come Before Search Box */
+.view-insurance-issue-date {
+    order: 1;
+}
+
+/* Search Button Should Come After Issue Date */
+.view-insurance-search-button-container {
+    order: 2;
+    margin-top: 10px;
+}
+
+/* Ensures Full Table Styling */
 .view-insurance-table {
     width: 100%;
     max-width: 1500px;
@@ -119,26 +134,17 @@ body {
     font-size: 22px;
 }
 
-/* Error Message */
-.error-message {
-    color: red;
-    font-size: 18px;
-    margin-top: 15px;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-    .view-insurance-filter {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-
-    .view-insurance-search-button {
-        width: 100%;
-    }
-
-    .view-insurance-filter-item {
-        width: 250px;
-    }
-}
+.report-button {
+    background-color: #2b8a3e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .report-button:hover {
+    background-color: #247232;
+  }
+  

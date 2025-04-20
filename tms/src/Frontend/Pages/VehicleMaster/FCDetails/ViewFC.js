@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../../styles/ViewFC.css";
+import { exportToExcel } from "../../ReportGenerator"
 
 const ViewFC = () => {
   const navigate = useNavigate();
@@ -88,6 +89,12 @@ const ViewFC = () => {
 
           <button className="view-fc-search-button" onClick={handleSearch}>
             SEARCH
+          </button>
+        </div>
+
+        <div style={{ textAlign: "right", margin: "10px 0" }}>
+          <button className="report-button" onClick={() => exportToExcel(fcDetails, "FC_Report")}>
+            Generate Report
           </button>
         </div>
 

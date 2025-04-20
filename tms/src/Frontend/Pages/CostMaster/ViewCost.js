@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/ViewCost.css";
+import { exportToExcel } from "../ReportGenerator"
 
 const ViewCost = () => {
   const [route, setRoute] = useState("");
@@ -69,6 +70,15 @@ const ViewCost = () => {
 
           <button className="view-cost-search-button" onClick={handleSearch}>
             SEARCH
+          </button>
+        </div>
+
+        <div style={{ textAlign: "right", margin: "10px 0" }}>
+          <button
+            className="report-button"
+            onClick={() => exportToExcel(filteredData, "Cost_Report")}
+          >
+            Generate Report
           </button>
         </div>
 

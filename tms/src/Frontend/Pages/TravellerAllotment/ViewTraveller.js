@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/ViewTraveller.css";
+import { exportToExcel } from "../ReportGenerator"
 
 const ViewTraveller = () => {
   const [travellerData, setTravellerData] = useState([]);
@@ -59,6 +60,15 @@ const ViewTraveller = () => {
           </div>
 
           <button className="view-search-button" onClick={handleSearch}>SEARCH</button>
+        </div>
+
+        <div style={{ textAlign: "right", margin: "10px 0" }}>
+          <button
+            className="report-button"
+            onClick={() => exportToExcel(filteredData, "Traveller_Report")}
+          >
+            Generate Report
+          </button>
         </div>
 
         <table className="view-traveller-table">

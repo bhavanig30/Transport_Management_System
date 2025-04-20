@@ -1,17 +1,16 @@
 .traveller-form-container {
-  margin-top: 50px;
+  margin-top: 30px; 
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Full screen height */
+  min-height: 80vh; 
 }
 
-/* Form Card */
 .traveller-form {
   background: #ffffff;
-  padding: 30px;
-  width: 450px; /* Increased width */
-  border-radius: 12px;
+  padding: 20px; 
+  width: 350px;   
+  border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(0, 0, 0, 0.2);
   text-align: center;
@@ -23,24 +22,24 @@
 /* Form Title */
 .traveller-title {
   color: #0047AB;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   text-transform: uppercase;
-  padding-bottom: 8px;
+  padding-bottom: 6px;
   border-bottom: 2px solid #0047AB;
 }
 
 .traveller-form-group {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   text-align: left;
 }
 
 .traveller-form-group label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   color: #333;
 }
 
@@ -48,10 +47,10 @@
 .traveller-form-group select,
 .traveller-form-group textarea {
   width: 100%;
-  padding: 14px;
+  padding: 12px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 15px;
   background: rgba(0, 0, 0, 0.05);
   transition: 0.3s ease-in-out;
 }
@@ -65,14 +64,13 @@
   box-shadow: 0 0 5px rgba(0, 71, 171, 0.3);
 }
 
+/* Submit Button with new gradient */
 .traveller-submit-button {
   width: 100%;
-  padding: 10px;
-  background: #007bff;
+  padding: 12px;
+  background: linear-gradient(to right, #0057B8, #00C1D4); 
   color: white;
   border: none;
-  padding: 14px;
-  width: 100%;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
@@ -81,20 +79,19 @@
 }
 
 .traveller-submit-button:hover {
-  background: linear-gradient(135deg, #2A6BCC, #5A8DEE);
   transform: scale(1.03);
+  background: linear-gradient(to right, #0057B8, #00C1D4); 
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .traveller-form {
-      width: 95%;
-      padding: 20px;
+      width: 90%;
+      padding: 18px;
   }
 
   .traveller-title {
-      font-size: 22px;
-      padding-bottom: 5px;
+      font-size: 20px;
+      padding-bottom: 4px;
   }
 }
-

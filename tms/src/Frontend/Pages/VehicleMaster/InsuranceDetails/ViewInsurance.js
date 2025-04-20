@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../../styles/ViewInsurance.css";
+import { exportToExcel } from "../../ReportGenerator"
 
 const ViewInsurance = () => {
   const [vehicleid, setVehicleid] = useState("");
@@ -82,6 +83,12 @@ const ViewInsurance = () => {
 
           <button className="view-insurance-search-button" onClick={handleSearch}>
             SEARCH
+          </button>
+        </div>
+
+        <div style={{ textAlign: "right", margin: "10px 0" }}>
+          <button className="report-button" onClick={() => exportToExcel(insuranceDetails, "Insurance_Report")}>
+            Generate Report
           </button>
         </div>
 
