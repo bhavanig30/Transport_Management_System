@@ -315,7 +315,44 @@ app.get("/getPermit", (req, res) => {
         res.json(results);
     });
 });
-
+// Update Permit Endpoint
+app.post("/updatePermit", (req, res) => {
+    try {
+      const { id, vehicleId, permitNo, permitType, issueDate, expiryDate, status } = req.body;
+  
+      if (!id || !vehicleId || !permitNo || !permitType || !issueDate || !expiryDate || !status) {
+        return res.status(400).json({ message: "Missing required fields" });
+      }
+  
+      connection.query(
+        "UPDATE permit SET vehicleid=?, permitno=?, permittype=?, issuedate=?, expirydate=?, status=? WHERE id=?",
+        [vehicleId, permitNo, permitType, issueDate, expiryDate, status, id],
+        (err, result) => {
+          if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ message: "Database error", error: err });
+          }
+          res.status(200).json({ message: "Permit updated successfully" });
+        }
+      );
+    } catch (error) {
+      console.error("Server error:", error);
+      res.status(500).json({ message: "Server error", error });
+    }
+  });
+  
+  // Delete Permit Endpoint
+  app.delete("/deletePermit/:id", (req, res) => {
+    const id = req.params.id;
+    connection.query("DELETE FROM permit WHERE id = ?", [id], (err, result) => {
+      if (err) {
+        console.error("Delete error:", err);
+        return res.status(500).json({ message: "Database error", error: err });
+      }
+      res.status(200).json({ message: "Permit deleted successfully" });
+    });
+  });
+  
 // Multer Setup for File Upload (stores image as Buffer)
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
