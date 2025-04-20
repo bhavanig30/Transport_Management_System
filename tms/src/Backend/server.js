@@ -3,11 +3,15 @@ const cors = require("cors");
 const multer = require("multer");
 const bodyParser = require("body-parser");
 const connection = require("./db");
+require("dotenv").config();
+const nodemailer = require("nodemailer");
+const cron = require("node-cron");
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+app.use(bodyParser.urlencoded({ extended: true }));
 // Hardcoded Admin Credentials
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "12345";
@@ -457,8 +461,134 @@ app.get("/getTraveller", (req, res) => {
     });
   });
   
+// // FC Expiry Reminder (1 Day Before Expiry)
+// const transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: process.env.EMAIL_USER,
+//         pass: process.env.EMAIL_PASS,
+//     },
+// });
 
+// // Cron job - runs daily at 9 AM
+// cron.schedule('* * * * *', () => {
+//     const today = new Date();
+//     const tomorrow = new Date(today);
+//     tomorrow.setDate(today.getDate() + 1);
 
+//     const formattedTomorrow = tomorrow.toISOString().split('T')[0];
+
+//     const query = `
+//         SELECT vehicleid, fcno, expirydate 
+//         FROM fc 
+//         WHERE status = 'Active' AND expirydate = ?
+//     `;
+
+//     connection.query(query, [formattedTomorrow], (err, results) => {
+//         if (err) {
+//             console.error("Error fetching FC expiry data:", err);
+//             return;
+//         }
+
+//         if (results.length === 0) {
+//             console.log("No FC expiring tomorrow.");
+//             return;
+//         }
+
+//         results.forEach((fc) => {
+//             const mailOptions = {
+//                 from: process.env.EMAIL_USER,
+//                 to: "2212080@nec.edu.in", // You can make this dynamic later
+//                 subject: "⚠️ FC Expiry Reminder - 1 Day Left",
+//                 html: `
+//                     <h3>FC Expiry Reminder</h3>
+//                     <p><strong>Vehicle ID:</strong> ${fc.vehicleid}</p>
+//                     <p><strong>FC Number:</strong> ${fc.fcno}</p>
+//                     <p><strong>Expiry Date:</strong> ${fc.expirydate}</p>
+//                     <p>Your Fitness Certificate will expire <b>tomorrow</b>. Please renew it soon.</p>
+//                 `
+//             };
+
+//             transporter.sendMail(mailOptions, (error, info) => {
+//                 if (error) {
+//                     console.error("Mail send error:", error);
+//                 } else {
+//                     console.log(`Reminder sent for Vehicle ID ${fc.vehicleid}`);
+//                 }
+//             });
+//         });
+//     });
+// });
+
+// FC Expiry Reminder (1 Day Before Expiry)
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+});
+console.log("Email setup:", {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS ? "****" : "Not Provided"
+});
+// Cron job - runs daily at 9 AM
+cron.schedule('0 9 * * *', () => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const formattedTomorrow = tomorrow.toISOString().split('T')[0]; // Format date as 'yyyy-mm-dd'
+
+    console.log("Checking FC expiry for date:", formattedTomorrow);  // Debugging statement to check formatted date
+
+    // SQL query to fetch FCs expiring tomorrow
+    const query = `
+        SELECT vehicleid, fcno, expirydate 
+        FROM fc 
+        WHERE status = 'Active' AND DATE(expirydate) = ?
+    `;
+
+    // Run the query with the formatted date
+    connection.query(query, [formattedTomorrow], (err, results) => {
+        if (err) {
+            console.error("Error fetching FC expiry data:", err);  // Debugging: Log the error if there's one
+            return;
+        }
+
+        // Check if any records are returned
+        if (results.length === 0) {
+            console.log("No FC expiring tomorrow.");
+            return;
+        }
+
+        console.log("Found the following FCs expiring tomorrow:", results);  // Debugging: Log the result to see what was fetched
+
+        // Send an email reminder for each vehicle expiring tomorrow
+        results.forEach((fc) => {
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: "2212080@nec.edu.in", // Make this dynamic if needed
+                subject: "⚠️ FC Expiry Reminder - 1 Day Left",
+                html: `
+                    <h3>FC Expiry Reminder</h3>
+                    <p><strong>Vehicle ID:</strong> ${fc.vehicleid}</p>
+                    <p><strong>FC Number:</strong> ${fc.fcno}</p>
+                    <p><strong>Expiry Date:</strong> ${fc.expirydate}</p>
+                    <p>Your Fitness Certificate will expire <b>tomorrow</b>. Please renew it soon.</p>
+                `,
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error("Mail send error:", error);  // Debugging: Log the mail send error if any
+                } else {
+                    console.log(`Reminder sent for Vehicle ID ${fc.vehicleid}`);  // Debugging: Log when email is successfully sent
+                }
+            });
+        });
+    });
+});
 // Start the Server
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));  
